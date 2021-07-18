@@ -2,6 +2,7 @@ package com.ph.typemath
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.os.Bundle
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
@@ -12,6 +13,8 @@ class MathTypeService : AccessibilityService() {
     private val tag = "MathTypeService"
     private val converter = StringConverter()
     private var previouslyValid = false
+    private var lastValidString = ""
+    private var justEdit = false
 
     override fun onInterrupt() {
         Log.e(tag, "onInterrupt: something went wrong")
@@ -30,19 +33,25 @@ class MathTypeService : AccessibilityService() {
                 if (EditText::class.java.isAssignableFrom(className)) {
                     val nodeInfo: AccessibilityNodeInfo? = event.source
                     nodeInfo?.refresh()
-                    val nodeText = nodeInfo?.text
-                    val nodeString = nodeText.toString()
+                    val nodeString = nodeInfo?.text.toString()
                     Log.i(tag, nodeString)
                     if (converter.isValidFormat(nodeString,'.','.')){
+                        justEdit = true
                         previouslyValid = true
-                        val converted = converter.evalMath(converter.getValidString(
-                            nodeString, '.', '.'
-                        ))
-                        Log.i(tag, converted)
-                    }else{
-                        if(nodeString.last() == ' '){
-                            TODO()
-                        }
+                        lastValidString = nodeString
+                    } else if(previouslyValid && nodeString.last() == ' '){
+                        val converted = converter.evalString(
+                            lastValidString, '.', '.')
+                        val bundle = Bundle()
+                        bundle.putString(
+                            AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
+                            converted
+                        )
+                        nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
+                        justEdit = true
+                        previouslyValid = false
+                    } else {
+                        justEdit = false
                         previouslyValid = false
                     }
                 }

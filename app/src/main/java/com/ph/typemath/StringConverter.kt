@@ -33,16 +33,38 @@ class StringConverter {
     }
 
     // Get the valid string in between initChar and endChar
-    fun getValidString(str: String, initChar: Char, endChar: Char): String {
-        val n = if (initChar == endChar) 2 else 1
-        val id = indexOfFromBack(initChar, str, n)
-        return if (id < 0) ""
-        else str.substring(id+1,str.length-1)
+//    fun getValidString(str: String, initChar: Char, endChar: Char): String {
+//        val n = if (initChar == endChar) 2 else 1
+//        val id = indexOfFromBack(initChar, str, n)
+//        return if (id < 0) ""
+//        else str.substring(id+1,str.length-1)
+//    }
+
+    private fun addSpaceToOperator(str: String): String {
+        return when (str) {
+            "+" -> " + "
+            "-" -> " - "
+            "=" -> " = "
+            else -> str
+        }
     }
 
     // Evaluate math expression string, convert it into unicode
-    fun evalMath(str: String): String {
-        val keys : List<String> = str.split(' ').map{ replaceSuperscript(it) }
+    private fun evalMath(str: String): String {
+        val keys : List<String> = str.split(' ')
+            .map{ replaceSuperscript(it) }
+            .map{ addSpaceToOperator(it) }
         return keys.joinToString("")
+    }
+
+    fun evalString(str: String, initChar: Char, endChar: Char): String {
+        val n = if (initChar == endChar) 2 else 1
+        val id = indexOfFromBack(initChar, str, n)
+        return if (id < 0) str
+        else {
+            val validString = str.substring(id+1,str.length-1)
+            val headString  = str.substring(0,id)
+            headString + evalMath(validString)
+        }
     }
 }
