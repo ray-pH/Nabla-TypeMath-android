@@ -4,4 +4,9 @@
     <string name="accessibility_service_label">TypeMath Service</string>
     <string name="accessibility_service_description">Service of TypeMath</string>
     <string name="typemath">TypeMath</string>
+    <string name="setting">Setting</string>
+    <string name="initial_char">Initial Char</string>
+    <string name="last_string">Last String</string>
+    <string name="save">save</string>
+    <string name="end_string">end string</string>
 </resources>
