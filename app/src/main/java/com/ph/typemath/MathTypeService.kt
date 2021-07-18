@@ -9,8 +9,9 @@ import android.widget.EditText
 
 
 class MathTypeService : AccessibilityService() {
-    private val nodeInfo: AccessibilityNodeInfo? = null
     private val tag = "MathTypeService"
+    private val converter = StringConverter()
+    private var previouslyValid = false
 
     override fun onInterrupt() {
         Log.e(tag, "onInterrupt: something went wrong")
@@ -30,14 +31,25 @@ class MathTypeService : AccessibilityService() {
                     val nodeInfo: AccessibilityNodeInfo? = event.source
                     nodeInfo?.refresh()
                     val nodeText = nodeInfo?.text
-                    Log.i(tag, nodeText.toString())
+                    val nodeString = nodeText.toString()
+                    Log.i(tag, nodeString)
+                    if (converter.isValidFormat(nodeString,'.','.')){
+                        previouslyValid = true
+                        val converted = converter.evalMath(converter.getValidString(
+                            nodeString, '.', '.'
+                        ))
+                        Log.i(tag, converted)
+                    }else{
+                        if(nodeString.last() == ' '){
+                            TODO()
+                        }
+                        previouslyValid = false
+                    }
                 }
             } catch (e: ClassNotFoundException) {
                 e.printStackTrace()
             }
         }
-
-
     }
 
     override fun onServiceConnected() {
@@ -51,6 +63,6 @@ class MathTypeService : AccessibilityService() {
         }
 
         this.serviceInfo = info
-        Log.i(tag, "onServiceConnected: ")
+        Log.i(tag, "onServiceConnected")
     }
 }
