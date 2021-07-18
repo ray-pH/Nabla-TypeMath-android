@@ -3,4 +3,5 @@
     <string name="allow_permission">Allow Permission</string>
     <string name="accessibility_service_label">TypeMath Service</string>
     <string name="accessibility_service_description">Service of TypeMath</string>
+    <string name="typemath">TypeMath</string>
 </resources>
