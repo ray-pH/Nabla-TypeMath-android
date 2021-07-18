@@ -1,6 +1,8 @@
 package com.ph.typemath
 
 class StringConverter {
+    private val sym = SymbolMaps()
+
     // Return the index of n-th c in str
     // If c does not exist in str, return -1
     private fun indexOfFromBack(c: Char, str: String, n: Int): Int {
@@ -11,12 +13,20 @@ class StringConverter {
 
     // Replace series of character after '^' with unicode superscripts
     private fun replaceSuperscript(str: String): String{
-        val superscriptsMap : HashMap<Char, Char> = hashMapOf('m' to 'ᵐ', 'n' to 'ⁿ')
-
         if (!str.contains('^')) return str
         val keys = str.split('^')
         val unicodeSuper = keys.last().map {
-            if (superscriptsMap.containsKey(it)) superscriptsMap[it] else it
+            if (sym.superscriptMap.containsKey(it)) sym.superscriptMap[it] else it
+        }
+        return (keys.dropLast(1) + unicodeSuper).joinToString("")
+    }
+
+    // Replace series of character after '_' with unicode subscript
+    private fun replaceSubscript(str: String): String{
+        if (!str.contains('_')) return str
+        val keys = str.split('_')
+        val unicodeSuper = keys.last().map {
+            if (sym.subscriptMap.containsKey(it)) sym.subscriptMap[it] else it
         }
         return (keys.dropLast(1) + unicodeSuper).joinToString("")
     }
@@ -32,19 +42,12 @@ class StringConverter {
         return true
     }
 
-    // Get the valid string in between initChar and endChar
-//    fun getValidString(str: String, initChar: Char, endChar: Char): String {
-//        val n = if (initChar == endChar) 2 else 1
-//        val id = indexOfFromBack(initChar, str, n)
-//        return if (id < 0) ""
-//        else str.substring(id+1,str.length-1)
-//    }
-
     private fun addSpaceToOperator(str: String): String {
         return when (str) {
             "+" -> " + "
             "-" -> " - "
             "=" -> " = "
+            ""  -> " "
             else -> str
         }
     }
@@ -53,6 +56,7 @@ class StringConverter {
     private fun evalMath(str: String): String {
         val keys : List<String> = str.split(' ')
             .map{ replaceSuperscript(it) }
+            .map{ replaceSubscript(it)   }
             .map{ addSpaceToOperator(it) }
         return keys.joinToString("")
     }

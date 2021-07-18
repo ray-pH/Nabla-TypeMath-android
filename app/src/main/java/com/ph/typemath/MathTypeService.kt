@@ -12,8 +12,9 @@ import android.widget.EditText
 class MathTypeService : AccessibilityService() {
     private val tag = "MathTypeService"
     private val converter = StringConverter()
+    private var lastValidString    = ""
+    private var beforeChangeString = ""
     private var previouslyValid = false
-    private var lastValidString = ""
     private var justEdit = false
 
     override fun onInterrupt() {
@@ -21,25 +22,30 @@ class MathTypeService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        Log.i(tag, "onAccessibilityEvent: ")
-        val applicationInfo = packageManager.getApplicationInfo(event?.packageName.toString(),0)
-        val applicationLabel = packageManager.getApplicationLabel(applicationInfo)
-        Log.i(tag, "app name: $applicationLabel")
-
-        Log.i(tag, "event type: ${event?.eventType}")
+//        Log.i(tag, "onAccessibilityEvent: ")
+//        val applicationInfo = packageManager.getApplicationInfo(event?.packageName.toString(),0)
+//        val applicationLabel = packageManager.getApplicationLabel(applicationInfo)
+//        Log.i(tag, "app name: $applicationLabel")
+//
+//        Log.i(tag, "event type: ${event?.eventType}")
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){
             try {
                 val className = Class.forName(event.className.toString())
                 if (EditText::class.java.isAssignableFrom(className)) {
+                    // EditText is detected
                     val nodeInfo: AccessibilityNodeInfo? = event.source
                     nodeInfo?.refresh()
                     val nodeString = nodeInfo?.text.toString()
                     Log.i(tag, nodeString)
                     if (converter.isValidFormat(nodeString,'.','.')){
-                        justEdit = true
+                        // String typed is valid
+                        justEdit = false
                         previouslyValid = true
                         lastValidString = nodeString
+
                     } else if(previouslyValid && nodeString.last() == ' '){
+                        // Press space after valid string
+                        beforeChangeString = nodeString
                         val converted = converter.evalString(
                             lastValidString, '.', '.')
                         val bundle = Bundle()
@@ -50,6 +56,7 @@ class MathTypeService : AccessibilityService() {
                         nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
                         justEdit = true
                         previouslyValid = false
+
                     } else {
                         justEdit = false
                         previouslyValid = false
@@ -66,7 +73,6 @@ class MathTypeService : AccessibilityService() {
         val info = AccessibilityServiceInfo()
         info.apply {
             eventTypes = AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED
-//            eventTypes = AccessibilityEvent.TYPE_VIEW_CLICKED or AccessibilityEvent.TYPE_VIEW_FOCUSED or AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED
             feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
             notificationTimeout = 100
         }
