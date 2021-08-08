@@ -2,6 +2,7 @@ package com.ph.typemath
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
@@ -12,10 +13,12 @@ import android.widget.EditText
 class MathTypeService : AccessibilityService() {
     private val tag = "MathTypeService"
     private val converter = StringConverter()
-    private var lastValidString    = ""
+    // private var lastValidString    = ""
     private var beforeChangeString = ""
-    private var previouslyValid = false
+    // private var previouslyValid = false
     private var justEdit = false
+
+    private val prefsName = "TypeMathPrefsFile"
 
     override fun onInterrupt() {
         Log.e(tag, "onInterrupt: something went wrong")
@@ -37,29 +40,36 @@ class MathTypeService : AccessibilityService() {
                     nodeInfo?.refresh()
                     val nodeString = nodeInfo?.text.toString()
                     Log.i(tag, nodeString)
-                    if (converter.isValidFormat(nodeString,".",".")){
-                        // String typed is valid
-                        justEdit = false
-                        previouslyValid = true
-                        lastValidString = nodeString
+                    if(nodeString.last() == ' '){
+                        // Press space
 
-                    } else if(previouslyValid && nodeString.last() == ' '){
-                        // Press space after valid string
+                        // get values from sharedPreferences
+                        val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
+                        val initStr : String? = sh.getString("initString", ".")
+                        val endStr : String? = sh.getString("endString", ".")
+
                         beforeChangeString = nodeString
-                        val converted = converter.evalString(
-                            lastValidString, ".", ".")
-                        val bundle = Bundle()
-                        bundle.putString(
-                            AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
-                            converted
-                        )
-                        nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
-                        justEdit = true
-                        previouslyValid = false
+                        if(initStr != null && endStr != null){
+                            //do conversion only if initStr and endStr is not null
 
+                            val str = nodeString.substring(0, nodeString.length-1)
+                            if(converter.isValidFormat(str, initStr, endStr)){
+                                //if string is valid
+
+                                //Log.i(tag, "initStr: \"$initStr\" ; endStr: \"$endStr\"")
+                                val converted = converter.evalString(
+                                    str, initStr, endStr)
+                                val bundle = Bundle()
+                                bundle.putString(
+                                    AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
+                                    converted
+                                )
+                                nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
+                                justEdit = true
+                            }
+                        }
                     } else {
                         justEdit = false
-                        previouslyValid = false
                     }
                 }
             } catch (e: ClassNotFoundException) {
