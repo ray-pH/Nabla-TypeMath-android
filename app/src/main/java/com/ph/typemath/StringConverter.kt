@@ -2,6 +2,15 @@ package com.ph.typemath
 
 class StringConverter {
     private val sym = SymbolMaps()
+    private val symLatex = SymbolLatexMaps()
+    private val simpleMap : HashMap<String, String> = (
+            (sym.symbolGreekMap
+            + sym.symbolSetAndLogicMap
+            + sym.symbolDomainMap
+            + sym.symbolEqualityMap
+            + sym.symbolCalculusMap
+            + sym.symbolMiscMap) as HashMap<String, String>)
+
 
     // Return the index of n-th checkStr in str
     // If n-th checkStr does not exist in str, return -1
@@ -43,6 +52,14 @@ class StringConverter {
         return (keys.dropLast(1) + unicodeSuper).joinToString("")
     }
 
+    //Replace Symbols
+    private fun replaceSymbols(str: String, map: HashMap<String, String>) : String{
+        if (map.containsKey(str)) {
+            return map[str] ?: str
+        }
+        return str
+    }
+
     // Return whether str is in valid format or not
     // Valid format for str is ".....<initChar>.....<endChar>"
     fun isValidFormat(str: String, initStr: String, endStr: String): Boolean {
@@ -70,10 +87,29 @@ class StringConverter {
 
     // Evaluate math expression string, convert it into unicode
     private fun evalMath(str: String): String {
-        val keys : List<String> = str.split(' ')
-            .map{ replaceSuperscript(it) }
-            .map{ replaceSubscript(it)   }
-            .map{ addSpaceToOperator(it) }
+        val useAdditionalLatex = false
+        val useDiacritics = true
+        val useLatexOnly = false
+
+        var keys : List<String> = if(!useLatexOnly) {
+            str.split(' ')
+                .asSequence()
+                .map { replaceSuperscript(it) }
+                .map { replaceSubscript(it) }
+                .map { addSpaceToOperator(it) }
+                .map { replaceSymbols(it, simpleMap)}
+                .toList()
+        }else{
+            str.split(' ')
+            //TODO : ADD Latex Mode
+        }
+
+        if(useDiacritics){
+            keys = keys.map{ replaceSymbols(it, symLatex.latexDiacriticMath)}
+        }
+        if(useAdditionalLatex){
+            keys = keys.map{ replaceSymbols(it, symLatex.latexMath)}
+        }
         return keys.joinToString("")
     }
 
