@@ -13,9 +13,8 @@ import android.widget.EditText
 class MathTypeService : AccessibilityService() {
     private val tag = "MathTypeService"
     private val converter = StringConverter()
-    // private var lastValidString    = ""
+    private var afterChangeStringLen = -1
     private var beforeChangeString = ""
-    // private var previouslyValid = false
     private var justEdit = false
 
     private val prefsName = "TypeMathPrefsFile"
@@ -39,8 +38,19 @@ class MathTypeService : AccessibilityService() {
                     val nodeInfo: AccessibilityNodeInfo? = event.source
                     nodeInfo?.refresh()
                     val nodeString = nodeInfo?.text.toString()
-                    Log.i(tag, nodeString)
-                    if(nodeString.last() == ' '){
+                    // Log.i(tag, nodeString)
+                    if(justEdit && nodeString.length == afterChangeStringLen - 1){
+                        // User delete last char right after edit
+
+                        val bundle = Bundle()
+                        bundle.putString(
+                            AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
+                            beforeChangeString
+                        )
+                        nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
+                        justEdit = false
+                    }
+                    else if(nodeString.last() == ' '){
                         // Press space
 
                         // get values from sharedPreferences
@@ -48,7 +58,6 @@ class MathTypeService : AccessibilityService() {
                         val initStr : String? = sh.getString("initString", ".")
                         val endStr : String? = sh.getString("endString", ".")
 
-                        beforeChangeString = nodeString
                         if(initStr != null && endStr != null){
                             //do conversion only if initStr and endStr is not null
 
@@ -65,6 +74,8 @@ class MathTypeService : AccessibilityService() {
                                     converted
                                 )
                                 nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
+                                afterChangeStringLen = converted.length
+                                beforeChangeString = nodeString
                                 justEdit = true
                             }
                         }
