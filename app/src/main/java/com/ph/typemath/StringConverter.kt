@@ -32,32 +32,29 @@ class StringConverter {
         return -1
     }
 
+    // Replace series of character after c using map
+    private fun replaceScript(str: String, c: Char, map: HashMap<Char,Char>): String{
+        if (!str.contains(c)) return str
+        val keys = str.split(c)
+        val unicode = keys.last().map {
+            if (map.containsKey(it)) map[it] else it
+        }
+        return (keys.dropLast(1) + unicode).joinToString("")
+    }
+
     // Replace series of character after '^' with unicode superscripts
     private fun replaceSuperscript(str: String): String{
-        if (!str.contains('^')) return str
-        val keys = str.split('^')
-        val unicodeSuper = keys.last().map {
-            if (sym.superscriptMap.containsKey(it)) sym.superscriptMap[it] else it
-        }
-        return (keys.dropLast(1) + unicodeSuper).joinToString("")
+        return replaceScript(str, '^', sym.superscriptMap)
     }
 
     // Replace series of character after '_' with unicode subscript
     private fun replaceSubscript(str: String): String{
-        if (!str.contains('_')) return str
-        val keys = str.split('_')
-        val unicodeSuper = keys.last().map {
-            if (sym.subscriptMap.containsKey(it)) sym.subscriptMap[it] else it
-        }
-        return (keys.dropLast(1) + unicodeSuper).joinToString("")
+        return replaceScript(str, '_', sym.subscriptMap)
     }
 
     //Replace Symbols
     private fun replaceSymbols(str: String, map: HashMap<String, String>) : String{
-        if (map.containsKey(str)) {
-            return map[str] ?: str
-        }
-        return str
+        return if (map.containsKey(str)) (map[str] ?: str) else str
     }
 
     // Return whether str is in valid format or not
@@ -101,7 +98,6 @@ class StringConverter {
                 .asSequence()
                 .map { replaceSuperscript(it) }
                 .map { replaceSubscript(it) }
-                .map { addSpaceToOperator(it) }
                 .map { replaceSymbols(it, simpleMap)}
                 .toList()
         }else{
@@ -109,12 +105,9 @@ class StringConverter {
             //TODO : ADD Latex Mode
         }
 
-        if(useDiacritics){
-            keys = keys.map{ replaceSymbols(it, symLatex.latexDiacriticMath)}
-        }
-        if(useAdditionalSym){
-            keys = keys.map{ replaceSymbols(it, symLatex.latexMath)}
-        }
+        if(!keepSpace)       keys = keys.map{ addSpaceToOperator(it) }
+        if(useDiacritics)    keys = keys.map{ replaceSymbols(it, symLatex.latexDiacriticMath)}
+        if(useAdditionalSym) keys = keys.map{ replaceSymbols(it, symLatex.latexMath)}
 
         return keys.joinToString((if (keepSpace) " " else ""))
     }
