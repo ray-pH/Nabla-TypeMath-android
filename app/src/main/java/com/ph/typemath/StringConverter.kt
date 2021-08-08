@@ -122,9 +122,9 @@ class StringConverter {
         val id = indexOfFromBack(initStr, str, n)
         return if (id < 0) str
         else {
+            val headString  = str.substring(0, id)
             val validString = str.substring(id + initStr.length,
                                             str.length - endStr.length)
-            val headString  = str.substring(0,id)
             headString + evalMath(validString, useAdditionalSym,
                                   useDiacritics, useLatexOnly, keepSpace)
         }
