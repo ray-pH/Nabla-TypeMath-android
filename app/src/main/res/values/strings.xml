@@ -9,4 +9,5 @@
     <string name="last_string">Last String</string>
     <string name="save">save</string>
     <string name="end_string">end string</string>
+    <string name="initial_string">Initial String</string>
 </resources>

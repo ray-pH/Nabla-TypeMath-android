@@ -37,7 +37,7 @@ class MathTypeService : AccessibilityService() {
                     nodeInfo?.refresh()
                     val nodeString = nodeInfo?.text.toString()
                     Log.i(tag, nodeString)
-                    if (converter.isValidFormat(nodeString,'.','.')){
+                    if (converter.isValidFormat(nodeString,".",".")){
                         // String typed is valid
                         justEdit = false
                         previouslyValid = true
@@ -47,7 +47,7 @@ class MathTypeService : AccessibilityService() {
                         // Press space after valid string
                         beforeChangeString = nodeString
                         val converted = converter.evalString(
-                            lastValidString, '.', '.')
+                            lastValidString, ".", ".")
                         val bundle = Bundle()
                         bundle.putString(
                             AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,

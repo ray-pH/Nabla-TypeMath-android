@@ -19,14 +19,14 @@
         >
 
         <TextView
-            android:id="@+id/textViewInitialChar"
+            android:id="@+id/textViewInitialString"
             android:layout_width="match_parent"
-            android:labelFor="@+id/editTextInitialChar"
+            android:labelFor="@+id/editTextInitialString"
             android:layout_height="wrap_content"
-            android:text="@string/initial_char" />
+            android:text="@string/initial_string" />
 
         <EditText
-            android:id="@+id/editTextInitialChar"
+            android:id="@+id/editTextInitialString"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"

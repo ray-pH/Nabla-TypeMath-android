@@ -3,11 +3,23 @@ package com.ph.typemath
 class StringConverter {
     private val sym = SymbolMaps()
 
-    // Return the index of n-th c in str
-    // If c does not exist in str, return -1
-    private fun indexOfFromBack(c: Char, str: String, n: Int): Int {
+    // Return the index of n-th checkStr in str
+    // If n-th checkStr does not exist in str, return -1
+    private fun indexOfFromBack(checkStr: String, str: String, n: Int): Int{
         var count = 0
-        for (i in str.length-1 downTo 0) if (str[i] == c) if (++count >= n) return i
+        for(i in str.length-1 downTo 0){
+            if(str[i] == checkStr[0]){
+                var found = true
+                for(j in checkStr.indices){
+                    if(str[i+j] != checkStr[j]){
+                        found = false
+                        break
+                    }
+                }
+                if(found) count++
+                if(count == n) return i
+            }
+        }
         return -1
     }
 
@@ -33,12 +45,16 @@ class StringConverter {
 
     // Return whether str is in valid format or not
     // Valid format for str is ".....<initChar>.....<endChar>"
-    fun isValidFormat(str: String, initChar: Char, endChar: Char): Boolean {
-        // check if last char typed is endChar
-        if (str.last() != endChar) return false
-        // check if initChar exist
-        val n = if (initChar == endChar) 2 else 1
-        if (indexOfFromBack(initChar, str, n) == -1) return false
+    fun isValidFormat(str: String, initStr: String, endStr: String): Boolean {
+        // check if last part of string is endStr
+        for(i in endStr.indices){
+            val j = str.length - endStr.length + i
+            if(str[j] != endStr[i]) return false
+        }
+
+        // check if initStr exist
+        val n = 1 + endStr.count{ initStr.contains(it) }
+        if(indexOfFromBack(initStr, str, n) == -1) return false
         return true
     }
 
@@ -61,12 +77,13 @@ class StringConverter {
         return keys.joinToString("")
     }
 
-    fun evalString(str: String, initChar: Char, endChar: Char): String {
-        val n = if (initChar == endChar) 2 else 1
-        val id = indexOfFromBack(initChar, str, n)
+    fun evalString(str: String, initStr: String, endStr: String): String {
+        val n = 1 + endStr.count{ initStr.contains(it) }
+        val id = indexOfFromBack(initStr, str, n)
         return if (id < 0) str
         else {
-            val validString = str.substring(id+1,str.length-1)
+            val validString = str.substring(id + initStr.length,
+                                            str.length - endStr.length)
             val headString  = str.substring(0,id)
             headString + evalMath(validString)
         }
