@@ -86,10 +86,15 @@ class StringConverter {
     }
 
     // Evaluate math expression string, convert it into unicode
-    private fun evalMath(str: String): String {
-        val useAdditionalLatex = false
-        val useDiacritics = true
-        val useLatexOnly = false
+    private fun evalMath(str: String,
+                         useAdditionalSym : Boolean,
+                         useDiacritics    : Boolean,
+                         useLatexOnly     : Boolean,
+                         keepSpace        : Boolean
+    ): String {
+        // val useAdditionalSym = false
+        // val useDiacritics    = true
+        // val useLatexOnly     = false
 
         var keys : List<String> = if(!useLatexOnly) {
             str.split(' ')
@@ -107,13 +112,19 @@ class StringConverter {
         if(useDiacritics){
             keys = keys.map{ replaceSymbols(it, symLatex.latexDiacriticMath)}
         }
-        if(useAdditionalLatex){
+        if(useAdditionalSym){
             keys = keys.map{ replaceSymbols(it, symLatex.latexMath)}
         }
-        return keys.joinToString("")
+
+        return keys.joinToString((if (keepSpace) " " else ""))
     }
 
-    fun evalString(str: String, initStr: String, endStr: String): String {
+    fun evalString(str: String, initStr: String, endStr: String,
+                   useAdditionalSym : Boolean,
+                   useDiacritics    : Boolean,
+                   useLatexOnly     : Boolean,
+                   keepSpace        : Boolean
+    ): String {
         val n = 1 + endStr.count{ initStr.contains(it) }
         val id = indexOfFromBack(initStr, str, n)
         return if (id < 0) str
@@ -121,7 +132,8 @@ class StringConverter {
             val validString = str.substring(id + initStr.length,
                                             str.length - endStr.length)
             val headString  = str.substring(0,id)
-            headString + evalMath(validString)
+            headString + evalMath(validString, useAdditionalSym,
+                                  useDiacritics, useLatexOnly, keepSpace)
         }
     }
 }

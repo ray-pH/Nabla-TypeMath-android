@@ -66,8 +66,15 @@ class MathTypeService : AccessibilityService() {
                                 //if string is valid
 
                                 //Log.i(tag, "initStr: \"$initStr\" ; endStr: \"$endStr\"")
+                                val useAdditionalSym = false
+                                val useDiacritics    = true
+                                val useLatexOnly     = false
+                                val keepSpace        = false
                                 val converted = converter.evalString(
-                                    str, initStr, endStr)
+                                    str, initStr, endStr,
+                                    useAdditionalSym, useDiacritics,
+                                    useLatexOnly, keepSpace
+                                )
                                 val bundle = Bundle()
                                 bundle.putString(
                                     AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
