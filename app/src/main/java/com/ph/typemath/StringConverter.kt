@@ -40,6 +40,28 @@ class StringConverter {
         return (keys.dropLast(1) + unicode).joinToString("")
     }
 
+    // Replace series of character after c using map, with LaTex rule (using curly braces)
+    private fun replaceScriptLatex(str: String, c: Char, scriptMap: HashMap<Char,Char>): String{
+        if (!str.contains(c)) return str
+        val keys = str.split(c)
+
+        val unicodes = keys.drop(1).map{
+            if(it[0] == '{'){
+                val rightBraceId = it.indexOf('}')
+                if(rightBraceId == -1) "^$it"
+                else{
+                    val toScriptStr = it.substring(1, rightBraceId)
+                    val replacedStr = toScriptStr.map{ x -> scriptMap[x] ?: x }
+                    it.replaceRange(0, rightBraceId+1
+                        , replacedStr.joinToString(""))
+                }
+            }else{
+                it.replaceRange(0,1, scriptMap[it[0]].toString())
+            }
+        }
+        return (listOf(keys[0]) + unicodes).joinToString("")
+    }
+
     // Replace series of character after '^' with unicode superscripts
     private fun replaceSuperscript(str: String): String{
         return replaceScript(str, '^', sym.superscriptMap)
@@ -48,6 +70,16 @@ class StringConverter {
     // Replace series of character after '_' with unicode subscript
     private fun replaceSubscript(str: String): String{
         return replaceScript(str, '_', sym.subscriptMap)
+    }
+
+    // Replace series of character after '^' with unicode subscript, using LaTeX rule
+    private fun replaceSuperscriptLatex(str: String): String{
+        return replaceScriptLatex(str, '^', sym.superscriptMap)
+    }
+
+    // Replace series of character after '_' with unicode subscript, using LaTeX rule
+    private fun replaceSubscriptLatex(str: String): String{
+        return replaceScriptLatex(str, '_', sym.subscriptMap)
     }
 
     // Return whether str is in valid format or not
@@ -82,21 +114,24 @@ class StringConverter {
                          useLatexOnly     : Boolean,
                          keepSpace        : Boolean
     ): String {
-        var keys : List<String> = if(!useLatexOnly) {
-            str.split(' ')
+        var keys : List<String>
+        if(!useLatexOnly) {
+            keys = str.split(' ')
                 .asSequence()
                 .map { replaceSuperscript(it) }
                 .map { replaceSubscript(it) }
                 .map { simpleMap[it] ?: it }
                 .toList()
+            if(!keepSpace)       keys = keys.map{ addSpaceToOperator(it) }
+            if(useDiacritics)    keys = keys.map{ symLatex.latexDiacriticMath[it] ?: it }
+            if(useAdditionalSym) keys = keys.map{ symLatex.latexMath[it]          ?: it }
         }else{
-            str.split(' ')
-            //TODO : ADD Latex Mode
+            keys = str.split(' ')
+                .asSequence()
+                .map { replaceSuperscriptLatex(it) }
+                .map { replaceSubscriptLatex(it) }
+                .toList()
         }
-
-        if(!keepSpace)       keys = keys.map{ addSpaceToOperator(it) }
-        if(useDiacritics)    keys = keys.map{ symLatex.latexDiacriticMath[it] ?: it }
-        if(useAdditionalSym) keys = keys.map{ symLatex.latexMath[it]          ?: it }
 
         return keys.joinToString((if (keepSpace) " " else ""))
     }
