@@ -82,6 +82,13 @@ class StringConverter {
         return replaceScriptLatex(str, '_', sym.subscriptMap)
     }
 
+    // Replace word that started with '\\', LaTeX style
+    private fun replaceStringLatex(str: String): String{
+        return str.replace(
+            """\\[a-zA-Z]+""".toRegex()
+        ) { it -> (symLatex.latexMath[it.value.drop(1)] ?: it).toString() }
+    }
+
     // Return whether str is in valid format or not
     // Valid format for str is ".....<initChar>.....<endChar>"
     fun isValidFormat(str: String, initStr: String, endStr: String): Boolean {
@@ -111,11 +118,11 @@ class StringConverter {
     private fun evalMath(str: String,
                          useAdditionalSym : Boolean,
                          useDiacritics    : Boolean,
-                         useLatexOnly     : Boolean,
+                         latexMode        : Boolean,
                          keepSpace        : Boolean
     ): String {
         var keys : List<String>
-        if(!useLatexOnly) {
+        if(!latexMode) {
             keys = str.split(' ')
                 .asSequence()
                 .map { replaceSuperscript(it) }
@@ -126,20 +133,22 @@ class StringConverter {
             if(useDiacritics)    keys = keys.map{ symLatex.latexDiacriticMath[it] ?: it }
             if(useAdditionalSym) keys = keys.map{ symLatex.latexMath[it]          ?: it }
         }else{
+            //TODO : LaTeX Diacritic Support
             keys = str.split(' ')
                 .asSequence()
                 .map { replaceSuperscriptLatex(it) }
                 .map { replaceSubscriptLatex(it) }
+                .map { replaceStringLatex(it) }
                 .toList()
         }
 
-        return keys.joinToString((if (keepSpace) " " else ""))
+        return keys.joinToString((if (keepSpace || latexMode) " " else ""))
     }
 
     fun evalString(str: String, initStr: String, endStr: String,
                    useAdditionalSym : Boolean,
                    useDiacritics    : Boolean,
-                   useLatexOnly     : Boolean,
+                   latexMode        : Boolean,
                    keepSpace        : Boolean
     ): String {
         val n = 1 + endStr.count{ initStr.contains(it) }
@@ -150,7 +159,7 @@ class StringConverter {
             val validString = str.substring(id + initStr.length,
                                             str.length - endStr.length)
             headString + evalMath(validString, useAdditionalSym,
-                                  useDiacritics, useLatexOnly, keepSpace)
+                                  useDiacritics, latexMode, keepSpace)
         }
     }
 }

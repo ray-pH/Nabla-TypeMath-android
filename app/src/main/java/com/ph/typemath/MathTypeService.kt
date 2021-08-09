@@ -68,12 +68,12 @@ class MathTypeService : AccessibilityService() {
                                 //Log.i(tag, "initStr: \"$initStr\" ; endStr: \"$endStr\"")
                                 val useAdditionalSym = false
                                 val useDiacritics    = true
-                                val useLatexOnly     = false
+                                val latexMode        = true
                                 val keepSpace        = false
                                 val converted = converter.evalString(
                                     str, initStr, endStr,
                                     useAdditionalSym, useDiacritics,
-                                    useLatexOnly, keepSpace
+                                    latexMode, keepSpace
                                 )
                                 val bundle = Bundle()
                                 bundle.putString(
