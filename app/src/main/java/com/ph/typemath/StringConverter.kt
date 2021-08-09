@@ -33,12 +33,10 @@ class StringConverter {
     }
 
     // Replace series of character after c using map
-    private fun replaceScript(str: String, c: Char, map: HashMap<Char,Char>): String{
+    private fun replaceScript(str: String, c: Char, scriptMap: HashMap<Char,Char>): String{
         if (!str.contains(c)) return str
         val keys = str.split(c)
-        val unicode = keys.last().map {
-            if (map.containsKey(it)) map[it] else it
-        }
+        val unicode = keys.last().map { scriptMap[it] ?: it }
         return (keys.dropLast(1) + unicode).joinToString("")
     }
 
@@ -50,11 +48,6 @@ class StringConverter {
     // Replace series of character after '_' with unicode subscript
     private fun replaceSubscript(str: String): String{
         return replaceScript(str, '_', sym.subscriptMap)
-    }
-
-    //Replace Symbols
-    private fun replaceSymbols(str: String, map: HashMap<String, String>) : String{
-        return if (map.containsKey(str)) (map[str] ?: str) else str
     }
 
     // Return whether str is in valid format or not
@@ -89,16 +82,12 @@ class StringConverter {
                          useLatexOnly     : Boolean,
                          keepSpace        : Boolean
     ): String {
-        // val useAdditionalSym = false
-        // val useDiacritics    = true
-        // val useLatexOnly     = false
-
         var keys : List<String> = if(!useLatexOnly) {
             str.split(' ')
                 .asSequence()
                 .map { replaceSuperscript(it) }
                 .map { replaceSubscript(it) }
-                .map { replaceSymbols(it, simpleMap)}
+                .map { simpleMap[it] ?: it }
                 .toList()
         }else{
             str.split(' ')
@@ -106,8 +95,8 @@ class StringConverter {
         }
 
         if(!keepSpace)       keys = keys.map{ addSpaceToOperator(it) }
-        if(useDiacritics)    keys = keys.map{ replaceSymbols(it, symLatex.latexDiacriticMath)}
-        if(useAdditionalSym) keys = keys.map{ replaceSymbols(it, symLatex.latexMath)}
+        if(useDiacritics)    keys = keys.map{ symLatex.latexDiacriticMath[it] ?: it }
+        if(useAdditionalSym) keys = keys.map{ symLatex.latexMath[it]          ?: it }
 
         return keys.joinToString((if (keepSpace) " " else ""))
     }
