@@ -15,6 +15,7 @@ class MathTypeService : AccessibilityService() {
     private val converter = StringConverter()
     private var afterChangeStringLen = -1
     private var beforeChangeString = ""
+    private var prevStringLen = -99
     //private var afterChangeString  = ""
     //private var afterChangeCursor  = -1
     private var justEdit = false
@@ -26,7 +27,6 @@ class MathTypeService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        // TODO : only edit if user is typing and not deleting
         // TODO : only undo if user is deleting the last char of edited string
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){
             try {
@@ -43,7 +43,7 @@ class MathTypeService : AccessibilityService() {
                             if (tryCursorPos != -1) tryCursorPos else nodeString.length) ?: 0
                     val headStr      = nodeString.substring(0, cursorPos)
                     val tailStr      = nodeString.substring(cursorPos)
-                    Log.i(tag, "headStr: \"$headStr\" ; tailStr: \"$tailStr\"")
+                    // Log.i(tag, "headStr: \"$headStr\" ; tailStr: \"$tailStr\"")
 
                     if(justEdit && nodeString.length == afterChangeStringLen - 1){
                         // User delete last char right after edit
@@ -55,7 +55,11 @@ class MathTypeService : AccessibilityService() {
                         nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
                         justEdit = false
                     }
-                    else if(headStr.isNotEmpty() && headStr.last() == ' '){
+                    else if(
+                        headStr.isNotEmpty()  &&
+                        headStr.last() == ' ' &&
+                        nodeString.length == prevStringLen + 1
+                    ){
                         // Press space
 
                         // get values from sharedPreferences
@@ -109,6 +113,7 @@ class MathTypeService : AccessibilityService() {
                     } else {
                         justEdit = false
                     }
+                    prevStringLen = nodeString.length
                 }
             } catch (e: ClassNotFoundException) {
                 e.printStackTrace()
