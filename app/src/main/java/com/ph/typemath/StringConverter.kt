@@ -86,7 +86,7 @@ class StringConverter {
     private fun replaceStringLatex(str: String): String{
         return str.replace(
             """\\[a-zA-Z]+""".toRegex()
-        ) { it -> (symLatex.latexMath[it.value.drop(1)] ?: it).toString() }
+        ) { (symLatex.latexMath[it.value.drop(1)] ?: it).toString() }
     }
 
     // Return whether str is in valid format or not
