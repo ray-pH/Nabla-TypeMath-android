@@ -15,40 +15,91 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        >
+        app:layout_constraintVertical_bias="0.32999998">
 
         <TextView
-            android:id="@+id/textViewInitialString"
+            android:id="@+id/initialString_TextView"
             android:layout_width="match_parent"
-            android:labelFor="@+id/editTextInitialString"
             android:layout_height="wrap_content"
-            android:text="@string/initial_string" />
+            android:labelFor="@+id/initialString_EditText"
+            android:text="@string/initial_string"
+            android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
-            android:id="@+id/editTextInitialString"
+            android:id="@+id/initialString_EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="."
             android:ems="10"
             android:inputType="textPersonName"
-            android:text=""
-            android:autofillHints="." />
+            android:text="" />
 
         <TextView
-            android:id="@+id/textViewLastString"
-            android:labelFor="@+id/editTextEndString"
+            android:id="@+id/lastString_TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/end_string" />
+            android:labelFor="@+id/endString_EditText"
+            android:text="@string/end_string"
+            android:textColor="?android:attr/textColorPrimary" />
 
         <EditText
-            android:id="@+id/editTextEndString"
+            android:id="@+id/endString_EditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints=".-"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text=""
-            android:autofillHints=".-"/>
+            android:text="" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="24dp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/latexMode_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/latex_mode" />
+
+        <TextView
+            android:id="@+id/latexMode_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/latex_mode_desc" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/useAdditionalSymbol_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/use_additional_symbol" />
+
+            <TextView
+                android:id="@+id/useAdditionalSymbol_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/use_additional_symbol_desc" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/keepSpace_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/keep_space" />
+
+            <TextView
+                android:id="@+id/keepSpace_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/keep_space_desc" />
+        </LinearLayout>
 
     </LinearLayout>
 

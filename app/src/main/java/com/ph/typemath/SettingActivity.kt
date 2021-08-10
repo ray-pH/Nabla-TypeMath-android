@@ -15,8 +15,8 @@ class SettingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        initStringEdit = findViewById(R.id.editTextInitialString)
-        endStringEdit = findViewById(R.id.editTextEndString)
+        initStringEdit = findViewById(R.id.initialString_EditText)
+        endStringEdit = findViewById(R.id.endString_EditText)
 
         val saveSettingButton = findViewById<Button>(R.id.buttonSaveSetting)
         saveSettingButton.setOnClickListener {

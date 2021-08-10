@@ -8,6 +8,12 @@
     <string name="initial_char">Initial Char</string>
     <string name="last_string">Last String</string>
     <string name="save">save</string>
-    <string name="end_string">end string</string>
+    <string name="end_string">End String</string>
     <string name="initial_string">Initial String</string>
+    <string name="latex_mode">Latex Mode</string>
+    <string name="use_additional_symbol">Use Additional Symbol</string>
+    <string name="keep_space">Keep Space</string>
+    <string name="latex_mode_desc">When Using LaTeX mode, …</string>
+    <string name="use_additional_symbol_desc">Use Addi</string>
+    <string name="keep_space_desc">TextView</string>
 </resources>
