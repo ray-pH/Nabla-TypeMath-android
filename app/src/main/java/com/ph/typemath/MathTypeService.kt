@@ -15,6 +15,8 @@ class MathTypeService : AccessibilityService() {
     private val converter = StringConverter()
     private var afterChangeStringLen = -1
     private var beforeChangeString = ""
+    //private var afterChangeString  = ""
+    //private var afterChangeCursor  = -1
     private var justEdit = false
 
     private val prefsName = "TypeMathPrefsFile"
@@ -24,12 +26,7 @@ class MathTypeService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-//        Log.i(tag, "onAccessibilityEvent: ")
-//        val applicationInfo = packageManager.getApplicationInfo(event?.packageName.toString(),0)
-//        val applicationLabel = packageManager.getApplicationLabel(applicationInfo)
-//        Log.i(tag, "app name: $applicationLabel")
-//
-//        Log.i(tag, "event type: ${event?.eventType}")
+//      TODO : only edit if user is typing and not deleting
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){
             try {
                 val className = Class.forName(event.className.toString())
@@ -38,10 +35,17 @@ class MathTypeService : AccessibilityService() {
                     val nodeInfo: AccessibilityNodeInfo? = event.source
                     nodeInfo?.refresh()
                     val nodeString = nodeInfo?.text.toString()
-                    // Log.i(tag, nodeString)
+
+                    // Split string by cursor
+                    val tryCursorPos = nodeInfo?.textSelectionEnd
+                    val cursorPos    = (
+                            if (tryCursorPos != -1) tryCursorPos else nodeString.length) ?: 0
+                    val headStr      = nodeString.substring(0, cursorPos)
+                    val tailStr      = nodeString.substring(cursorPos)
+                    Log.i(tag, "headStr: \"$headStr\" ; tailStr: \"$tailStr\"")
+
                     if(justEdit && nodeString.length == afterChangeStringLen - 1){
                         // User delete last char right after edit
-
                         val bundle = Bundle()
                         bundle.putString(
                             AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
@@ -50,7 +54,7 @@ class MathTypeService : AccessibilityService() {
                         nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
                         justEdit = false
                     }
-                    else if(nodeString.last() == ' '){
+                    else if(headStr.isNotEmpty() && headStr.last() == ' '){
                         // Press space
 
                         // get values from sharedPreferences
@@ -65,22 +69,37 @@ class MathTypeService : AccessibilityService() {
                         if(initStr != null && endStr != null){
                             //do conversion only if initStr and endStr is not null
 
-                            val str = nodeString.substring(0, nodeString.length-1)
-                            if(converter.isValidFormat(str, initStr, endStr)){
+                            val toConvertStr = headStr.substring(0, headStr.length-1)
+                            if(converter.isValidFormat(toConvertStr, initStr, endStr)){
                                 //if string is valid
 
-                                //Log.i(tag, "initStr: \"$initStr\" ; endStr: \"$endStr\"")
+//                                Log.i(tag, "initStr: \"$initStr\" ; endStr: \"$endStr\"")
                                 val converted = converter.evalString(
-                                    str, initStr, endStr,
+                                    toConvertStr, initStr, endStr,
                                     useAdditionalSym, useDiacritics,
                                     latexMode, keepSpace
                                 )
-                                val bundle = Bundle()
-                                bundle.putString(
+                                val newCursorPos = cursorPos - 1 +
+                                        (converted.length - toConvertStr.length)
+
+                                val strBundle = Bundle()
+                                strBundle.putString(
                                     AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
-                                    converted
+                                    converted + tailStr
                                 )
-                                nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
+                                nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, strBundle)
+
+                                val cursorBundle = Bundle()
+                                cursorBundle.putInt(
+                                    AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, newCursorPos
+                                )
+                                cursorBundle.putInt(
+                                    AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, newCursorPos
+                                )
+                                nodeInfo?.performAction(
+                                    AccessibilityNodeInfo.ACTION_SET_SELECTION, cursorBundle
+                                )
+
                                 afterChangeStringLen = converted.length
                                 beforeChangeString = nodeString
                                 justEdit = true
