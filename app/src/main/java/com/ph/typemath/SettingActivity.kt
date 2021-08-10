@@ -4,38 +4,70 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.CompoundButton
 import android.widget.EditText
+import androidx.appcompat.widget.SwitchCompat
 
 class SettingActivity : AppCompatActivity() {
     private val prefsName = "TypeMathPrefsFile"
-    private lateinit var initStringEdit : EditText
-    private lateinit var endStringEdit : EditText
+    private lateinit var initStringEdit  : EditText
+    private lateinit var endStringEdit   : EditText
+    private lateinit var latexModeSwitch : SwitchCompat
+    private lateinit var useSymbolSwitch : SwitchCompat
+    private lateinit var keepSpaceSwitch : SwitchCompat
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        initStringEdit = findViewById(R.id.initialString_EditText)
-        endStringEdit = findViewById(R.id.endString_EditText)
+        initStringEdit  = findViewById(R.id.initialString_EditText)
+        endStringEdit   = findViewById(R.id.endString_EditText)
+        latexModeSwitch = findViewById(R.id.latexMode_switch)
+        useSymbolSwitch = findViewById(R.id.useAdditionalSymbol_switch)
+        keepSpaceSwitch = findViewById(R.id.keepSpace_switch)
+
+        val sh: SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
+        val editor = sh.edit()
 
         val saveSettingButton = findViewById<Button>(R.id.buttonSaveSetting)
         saveSettingButton.setOnClickListener {
-            val sh: SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
-            val editor = sh.edit()
             editor.putString("initString", initStringEdit.text.toString())
             editor.putString("endString", endStringEdit.text.toString())
             editor.apply()
         }
+
+        latexModeSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
+            editor.putBoolean("latexMode", isChecked)
+            editor.apply()
+        }
+        useSymbolSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
+            editor.putBoolean("useAdditionalSymbols", isChecked)
+            editor.apply()
+        }
+        keepSpaceSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
+            editor.putBoolean("keepSpace", isChecked)
+            editor.apply()
+        }
+
     }
 
     override fun onResume(){
         super.onResume()
         val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
-        val initStr : String? = sh.getString("initString", ".")
-        val endStr : String? = sh.getString("endString", ".")
+        val initStr          : String? = sh.getString("initString", ".")
+        val endStr           : String? = sh.getString("endString", ".")
+        val latexMode        : Boolean = sh.getBoolean("latexMode", false)
+        val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
+        val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
+
 
         initStringEdit.setText(initStr)
         endStringEdit.setText(endStr)
+        latexModeSwitch.isChecked = latexMode
+        useSymbolSwitch.isChecked = useAdditionalSym
+        keepSpaceSwitch.isChecked = keepSpace
+
     }
 
 

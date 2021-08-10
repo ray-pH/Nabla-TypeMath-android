@@ -55,8 +55,12 @@ class MathTypeService : AccessibilityService() {
 
                         // get values from sharedPreferences
                         val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
-                        val initStr : String? = sh.getString("initString", ".")
-                        val endStr : String? = sh.getString("endString", ".")
+                        val initStr          : String? = sh.getString("initString", ".")
+                        val endStr           : String? = sh.getString("endString", ".")
+                        val latexMode        : Boolean = sh.getBoolean("latexMode", false)
+                        val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
+                        val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
+                        val useDiacritics = false
 
                         if(initStr != null && endStr != null){
                             //do conversion only if initStr and endStr is not null
@@ -66,10 +70,6 @@ class MathTypeService : AccessibilityService() {
                                 //if string is valid
 
                                 //Log.i(tag, "initStr: \"$initStr\" ; endStr: \"$endStr\"")
-                                val useAdditionalSym = false
-                                val useDiacritics    = true
-                                val latexMode        = true
-                                val keepSpace        = false
                                 val converted = converter.evalString(
                                     str, initStr, endStr,
                                     useAdditionalSym, useDiacritics,
