@@ -78,7 +78,6 @@ class MathTypeService : AccessibilityService() {
                             if(converter.isValidFormat(toConvertStr, initStr, endStr)){
                                 //if string is valid
 
-//                                Log.i(tag, "initStr: \"$initStr\" ; endStr: \"$endStr\"")
                                 val converted = converter.evalString(
                                     toConvertStr, initStr, endStr,
                                     useAdditionalSym, useDiacritics,
