@@ -26,7 +26,8 @@ class MathTypeService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-//      TODO : only edit if user is typing and not deleting
+        // TODO : only edit if user is typing and not deleting
+        // TODO : only undo if user is deleting the last char of edited string
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){
             try {
                 val className = Class.forName(event.className.toString())
