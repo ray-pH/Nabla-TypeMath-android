@@ -13,7 +13,20 @@
     <string name="latex_mode">Latex Mode</string>
     <string name="use_additional_symbol">Use Additional Symbol</string>
     <string name="keep_space">Keep Space</string>
-    <string name="latex_mode_desc">When Using LaTeX mode, …</string>
-    <string name="use_additional_symbol_desc">Use Addi</string>
-    <string name="keep_space_desc">TextView</string>
+
+    <string name="latex_mode_desc">
+        When Using LaTeX mode, all setting<br/>
+        below will ignored<br/><br/>
+        &#160;Symbol names must be prefixed with<br/>
+        backslash (\alpha\in \mathbb{R})<br/><br/>
+        &#160;For superscript and subscript, use<br/>
+        curly brackets (a^{n+1})
+    </string>
+    <string name="use_additional_symbol_desc">Use additional symbols</string>
+    <string name="keep_space_desc">
+        Converted text will keep its space<br/>
+        "A subset B" will become<br/>
+        on &#160;: A ⊂ B<br/>
+        off : A⊂B
+    </string>
 </resources>
