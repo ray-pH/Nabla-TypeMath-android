@@ -15,17 +15,19 @@
     <string name="keep_space">Keep Space</string>
 
     <string name="latex_mode_desc">
-        When Using LaTeX mode, all setting below will ignored<br/><br/>
-        &#160;Symbol names must be prefixed with backslash<br/>
-        (\alpha\in \mathbb{R})<br/><br/>
-        &#160;For superscript and subscript, use curly brackets<br/>
+        When Using LaTeX mode, all setting below will ignored\n\n
+        Symbol names must be prefixed with backslash\n
+        (\\alpha\\in \\mathbb{R})\n\n
+        For superscript and subscript, use curly brackets\n
         (a^{n+1})
     </string>
-    <string name="use_additional_symbol_desc">Use additional symbols</string>
+    <string name="use_additional_symbol_desc">
+        Use additional symbols
+    </string>
     <string name="keep_space_desc">
-        Converted text will keep its space<br/>
-        "A subset B" will become<br/>
-        on &#160;: A ⊂ B<br/>
+        Converted text will keep its space\n
+        "A subset B" will become\n
+        on &#160;: A ⊂ B\n
         off : A⊂B
     </string>
 </resources>
