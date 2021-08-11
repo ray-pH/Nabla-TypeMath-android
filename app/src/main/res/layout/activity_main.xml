@@ -13,13 +13,13 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/typemath"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        app:layout_constraintBottom_toTopOf="@+id/allowPermission"
+        app:layout_constraintBottom_toTopOf="@+id/allowPermissionButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/allowPermission"
+        android:id="@+id/allowPermissionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/allow_permission"
@@ -29,15 +29,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/gotoSetting"
+        android:id="@+id/symbolsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/symbols"
+        app:layout_constraintEnd_toEndOf="@+id/allowPermissionButton"
+        app:layout_constraintStart_toStartOf="@+id/allowPermissionButton"
+        app:layout_constraintTop_toBottomOf="@+id/allowPermissionButton" />
+
+    <Button
+        android:id="@+id/gotoSettingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/setting"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/allowPermissionButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/allowPermission"
-        app:layout_constraintVertical_bias="0.068" />
+        app:layout_constraintStart_toStartOf="@+id/allowPermissionButton"
+        app:layout_constraintTop_toBottomOf="@+id/symbolsButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

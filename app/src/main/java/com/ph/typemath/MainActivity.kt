@@ -12,13 +12,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val allowPermission = findViewById<Button>(R.id.allowPermission)
+        val allowPermission = findViewById<Button>(R.id.allowPermissionButton)
         allowPermission.setOnClickListener {
             val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
             startActivity(intent)
         }
 
-        val gotoSettingButton = findViewById<Button>(R.id.gotoSetting)
+        val gotoSettingButton = findViewById<Button>(R.id.gotoSettingButton)
         gotoSettingButton.setOnClickListener {
             val intent = Intent(this, SettingActivity::class.java)
             startActivity(intent)
