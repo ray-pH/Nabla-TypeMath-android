@@ -7,7 +7,7 @@
     <string name="setting">Setting</string>
     <string name="initial_char">Initial Char</string>
     <string name="last_string">Last String</string>
-    <string name="save">save</string>
+    <string name="save">Save String</string>
     <string name="end_string">End String</string>
     <string name="initial_string">Initial String</string>
     <string name="latex_mode">Latex Mode</string>
@@ -15,12 +15,11 @@
     <string name="keep_space">Keep Space</string>
 
     <string name="latex_mode_desc">
-        When Using LaTeX mode, all setting<br/>
-        below will ignored<br/><br/>
-        &#160;Symbol names must be prefixed with<br/>
-        backslash (\alpha\in \mathbb{R})<br/><br/>
-        &#160;For superscript and subscript, use<br/>
-        curly brackets (a^{n+1})
+        When Using LaTeX mode, all setting below will ignored<br/><br/>
+        &#160;Symbol names must be prefixed with backslash<br/>
+        (\alpha\in \mathbb{R})<br/><br/>
+        &#160;For superscript and subscript, use curly brackets<br/>
+        (a^{n+1})
     </string>
     <string name="use_additional_symbol_desc">Use additional symbols</string>
     <string name="keep_space_desc">

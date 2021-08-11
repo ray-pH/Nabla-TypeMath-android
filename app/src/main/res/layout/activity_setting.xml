@@ -6,110 +6,113 @@
     android:layout_height="match_parent"
     tools:context=".SettingActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32999998">
-
-        <TextView
-            android:id="@+id/initialString_TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/initialString_EditText"
-            android:text="@string/initial_string"
-            android:textColor="?android:attr/textColorPrimary" />
-
-        <EditText
-            android:id="@+id/initialString_EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="."
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/lastString_TextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:labelFor="@+id/endString_EditText"
-            android:text="@string/end_string"
-            android:textColor="?android:attr/textColorPrimary" />
-
-        <EditText
-            android:id="@+id/endString_EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:autofillHints="."
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="24dp" />
-
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/latexMode_switch"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/latex_mode" />
-
-        <TextView
-            android:id="@+id/latexMode_label"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/latex_mode_desc" />
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="48dp">
+
+            <TextView
+                android:id="@+id/initialString_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/initialString_EditText"
+                android:text="@string/initial_string"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/initialString_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="."
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <TextView
+                android:id="@+id/lastString_TextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/endString_EditText"
+                android:text="@string/end_string"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <EditText
+                android:id="@+id/endString_EditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="."
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <Button
+                android:id="@+id/buttonSaveSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="24dp" />
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/useAdditionalSymbol_switch"
+                android:id="@+id/latexMode_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/use_additional_symbol" />
+                android:text="@string/latex_mode" />
 
             <TextView
-                android:id="@+id/useAdditionalSymbol_label"
+                android:id="@+id/latexMode_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/use_additional_symbol_desc" />
+                android:text="@string/latex_mode_desc" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/keepSpace_switch"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/keep_space" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/keepSpace_label"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/keep_space_desc" />
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/useAdditionalSymbol_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_additional_symbol" />
+
+                <TextView
+                    android:id="@+id/useAdditionalSymbol_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_additional_symbol_desc" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/keepSpace_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/keep_space" />
+
+                <TextView
+                    android:id="@+id/keepSpace_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/keep_space_desc" />
+
+            </LinearLayout>
+
         </LinearLayout>
+    </ScrollView>
 
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/buttonSaveSetting"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
