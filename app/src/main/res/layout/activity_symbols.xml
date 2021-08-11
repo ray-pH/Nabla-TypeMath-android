@@ -61,7 +61,7 @@
 
                     <LinearLayout
                         android:id="@+id/greekSymbol_view"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
@@ -74,36 +74,35 @@
                             android:layout_width="wrap_content"
                             android:layout_height="8dp" />
 
-                        <LinearLayout
+                        <TableLayout
+                            android:id="@+id/greekSymbol_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical">
+                            android:layout_height="match_parent">
 
-                            <TextView
-                                android:id="@+id/textView2"
+                            <TableRow
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="TextView" />
+                                android:layout_height="match_parent"
+                                tools:ignore="UselessParent">
 
-                            <TextView
-                                android:id="@+id/textView4"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="TextView" />
+                                <TextView
+                                    android:id="@+id/greekSymbol_command_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="24dp"
+                                    android:text="@string/command"
+                                    android:textStyle="bold" />
 
-                            <TextView
-                                android:id="@+id/textView3"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="TextView" />
-                        </LinearLayout>
-
+                                <TextView
+                                    android:id="@+id/greekSymbol_symbol_label"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/symbol"
+                                    android:textStyle="bold" />
+                            </TableRow>
+                        </TableLayout>
                     </LinearLayout>
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
