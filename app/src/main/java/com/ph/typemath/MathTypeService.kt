@@ -22,6 +22,19 @@ class MathTypeService : AccessibilityService() {
 
     private val prefsName = "TypeMathPrefsFile"
 
+    private fun textViewNodePutString(node: AccessibilityNodeInfo?, str: String){
+        val strBundle = Bundle()
+        strBundle.putString(AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE, str)
+        node?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, strBundle)
+    }
+
+    private fun textViewNodePutCursor(node: AccessibilityNodeInfo?, pos: Int){
+        val cursorBundle = Bundle()
+        cursorBundle.putInt(AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, pos)
+        cursorBundle.putInt(AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, pos)
+        node?.performAction(AccessibilityNodeInfo.ACTION_SET_SELECTION, cursorBundle)
+    }
+
     override fun onInterrupt() {
         Log.e(tag, "onInterrupt: something went wrong")
     }
@@ -73,38 +86,20 @@ class MathTypeService : AccessibilityService() {
 
                         if(initStr != null && endStr != null){
                             //do conversion only if initStr and endStr is not null
-
                             val toConvertStr = headStr.substring(0, headStr.length-1)
                             if(converter.isValidFormat(toConvertStr, initStr, endStr)){
                                 //if string is valid
-
                                 val converted = converter.evalString(
                                     toConvertStr, initStr, endStr,
-                                    useAdditionalSym, useDiacritics,
-                                    latexMode, keepSpace
+                                    useAdditionalSym, useDiacritics, latexMode, keepSpace
                                 )
                                 val newCursorPos = cursorPos - 1 +
                                         (converted.length - toConvertStr.length)
 
-                                val strBundle = Bundle()
-                                strBundle.putString(
-                                    AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
-                                    converted + tailStr
-                                )
-                                nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, strBundle)
+                                textViewNodePutString(nodeInfo, (converted+tailStr))
+                                textViewNodePutCursor(nodeInfo, newCursorPos)
 
-                                val cursorBundle = Bundle()
-                                cursorBundle.putInt(
-                                    AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_START_INT, newCursorPos
-                                )
-                                cursorBundle.putInt(
-                                    AccessibilityNodeInfo.ACTION_ARGUMENT_SELECTION_END_INT, newCursorPos
-                                )
-                                nodeInfo?.performAction(
-                                    AccessibilityNodeInfo.ACTION_SET_SELECTION, cursorBundle
-                                )
-
-                                afterChangeStringLen = converted.length
+                                afterChangeStringLen = converted.length + tailStr.length
                                 beforeChangeString = nodeString
                                 justEdit = true
                             }
