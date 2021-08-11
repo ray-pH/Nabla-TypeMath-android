@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.SwitchCompat
 
 class SettingActivity : AppCompatActivity() {
@@ -27,14 +28,17 @@ class SettingActivity : AppCompatActivity() {
         useSymbolSwitch = findViewById(R.id.useAdditionalSymbol_switch)
         keepSpaceSwitch = findViewById(R.id.keepSpace_switch)
 
+        val stringSaveToast = Toast.makeText(applicationContext,
+            "String Saved", Toast.LENGTH_SHORT)
         val sh: SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
         val editor = sh.edit()
 
-        val saveSettingButton = findViewById<Button>(R.id.buttonSaveSetting)
-        saveSettingButton.setOnClickListener {
+        val saveStringButton = findViewById<Button>(R.id.buttonSaveString)
+        saveStringButton.setOnClickListener {
             editor.putString("initString", initStringEdit.text.toString())
-            editor.putString("endString", endStringEdit.text.toString())
+            editor.putString("endString" , endStringEdit.text.toString())
             editor.apply()
+            stringSaveToast.show()
         }
 
         latexModeSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
