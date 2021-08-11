@@ -83,14 +83,15 @@ class StringConverter {
     }
 
     // Replace word that started with '\\', LaTeX style
+    private val replaceStringLatexRegex = """\\[a-zA-Z]+""".toRegex()
     private fun replaceStringLatex(str: String): String{
         return str.replace(
-            """\\[a-zA-Z]+""".toRegex()
+            replaceStringLatexRegex
         ) { (symLatex.latexMath[it.value.drop(1)] ?: it).toString() }
     }
 
     // Return whether str is in valid format or not
-    // Valid format for str is ".....<initChar>.....<endChar>"
+    // Valid format for str is ".....<initChar>.....<endChar>(cursor)..."
     fun isValidFormat(str: String, initStr: String, endStr: String): Boolean {
         // check if last part of string is endStr
         for(i in endStr.indices){
