@@ -13,11 +13,11 @@ import android.widget.EditText
 class MathTypeService : AccessibilityService() {
     private val tag = "MathTypeService"
     private val converter = StringConverter()
-    private var afterChangeStringLen = -1
-    private var beforeChangeString = ""
     private var prevStringLen = -99
-    //private var afterChangeString  = ""
-    //private var afterChangeCursor  = -1
+    private var beforeChangeString    = ""
+    private var afterChangeStringLen  = -1
+    private var beforeChangeCursorPos = -1
+    private var afterChangeCursorPos  = -1
     private var justEdit = false
 
     private val prefsName = "TypeMathPrefsFile"
@@ -40,7 +40,6 @@ class MathTypeService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        // TODO : only undo if user is deleting the last char of edited string
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){
             try {
                 val className = Class.forName(event.className.toString())
@@ -58,9 +57,14 @@ class MathTypeService : AccessibilityService() {
                     val tailStr      = nodeString.substring(cursorPos)
                     // Log.i(tag, "headStr: \"$headStr\" ; tailStr: \"$tailStr\"")
 
-                    if(justEdit && nodeString.length == afterChangeStringLen - 1){
+                    if(
+                        justEdit          &&
+                        cursorPos         == afterChangeCursorPos - 1 &&
+                        nodeString.length == afterChangeStringLen - 1
+                    ){
                         // User delete last char right after edit
                         textViewNodePutString(nodeInfo, beforeChangeString)
+                        textViewNodePutCursor(nodeInfo, beforeChangeCursorPos)
                         justEdit = false
                     }
                     else if(
@@ -94,8 +98,10 @@ class MathTypeService : AccessibilityService() {
                                 textViewNodePutString(nodeInfo, (converted+tailStr))
                                 textViewNodePutCursor(nodeInfo, newCursorPos)
 
-                                afterChangeStringLen = converted.length + tailStr.length
-                                beforeChangeString = nodeString
+                                afterChangeStringLen  = converted.length + tailStr.length
+                                afterChangeCursorPos  = newCursorPos
+                                beforeChangeCursorPos = cursorPos
+                                beforeChangeString    = nodeString
                                 justEdit = true
                             }
                         }
