@@ -17,9 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingActivity"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        <activity
+            android:name=".SymbolsActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".SettingActivity"
+            android:parentActivityName=".MainActivity"/>
 
         <service
             android:name=".MathTypeService"

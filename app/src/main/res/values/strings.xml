@@ -31,4 +31,6 @@
         off : A⊂B
     </string>
     <string name="symbols">Symbols</string>
+    <string name="greek_symbols">Greek Symbols</string>
+    <string name="expand_greek_symbols_card">expand greek symbols card</string>
 </resources>
