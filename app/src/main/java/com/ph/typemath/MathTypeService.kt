@@ -60,12 +60,7 @@ class MathTypeService : AccessibilityService() {
 
                     if(justEdit && nodeString.length == afterChangeStringLen - 1){
                         // User delete last char right after edit
-                        val bundle = Bundle()
-                        bundle.putString(
-                            AccessibilityNodeInfo.ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE,
-                            beforeChangeString
-                        )
-                        nodeInfo?.performAction(AccessibilityNodeInfo.ACTION_SET_TEXT, bundle)
+                        textViewNodePutString(nodeInfo, beforeChangeString)
                         justEdit = false
                     }
                     else if(
