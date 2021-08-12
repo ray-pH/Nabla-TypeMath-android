@@ -1,4 +1,4 @@
-package com.ph.typemath
+package com.ph.nabla_typemath
 
 class SymbolLatexMaps {
     val latexMath : HashMap<String, String> = linkedMapOf(

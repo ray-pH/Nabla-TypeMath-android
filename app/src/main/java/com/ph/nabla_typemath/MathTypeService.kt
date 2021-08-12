@@ -1,4 +1,4 @@
-package com.ph.typemath
+package com.ph.nabla_typemath
 
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
@@ -11,7 +11,7 @@ import android.widget.EditText
 
 
 class MathTypeService : AccessibilityService() {
-    private val tag = "MathTypeService"
+    private val tag = "NablaMathTypeService"
     private val converter = StringConverter()
     private var prevStringLen = -99
     private var beforeChangeString    = ""

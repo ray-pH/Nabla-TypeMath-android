@@ -1,4 +1,4 @@
-package com.ph.typemath
+package com.ph.nabla_typemath
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

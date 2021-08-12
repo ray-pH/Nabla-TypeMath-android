@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ph.typemath">
+    package="com.ph.nabla_typemath">
 
     <application
         android:allowBackup="true"
@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TypeMath">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.ph.nabla_typemath.MainActivity"
+            android:label="@string/nabla_activity_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,14 +19,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SymbolsActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name="com.ph.nabla_typemath.SymbolsActivity"
+            android:label="@string/symbols_activity_name"
+            android:parentActivityName="com.ph.nabla_typemath.MainActivity"/>
         <activity
-            android:name=".SettingActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:name="com.ph.nabla_typemath.SettingActivity"
+            android:label="@string/setting_activity_name"
+            android:parentActivityName="com.ph.nabla_typemath.MainActivity"/>
 
         <service
-            android:name=".MathTypeService"
+            android:name="com.ph.nabla_typemath.MathTypeService"
             android:label="@string/accessibility_service_label"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
