@@ -11,20 +11,10 @@ import androidx.transition.TransitionManager
 
 class SymbolsActivity : AppCompatActivity() {
     private val sym = SymbolMaps()
-
-    private fun setImageButtonClickExpander(button: ImageButton?, cardView: CardView?, view: LinearLayout?){
-        button?.setOnClickListener {
-            if(cardView != null){
-                TransitionManager.beginDelayedTransition(cardView, AutoTransition())
-                val isVisible = view?.visibility == View.VISIBLE
-                view?.visibility = if (isVisible) View.GONE else View.VISIBLE
-                button.setImageResource(
-                    if (isVisible) R.drawable.ic_baseline_expand_more_24
-                    else           R.drawable.ic_baseline_expand_less_24
-                )
-            }
-        }
+    private enum class SymbolsName {
+        GREEK,
     }
+    private val createdBoolean : BooleanArray = BooleanArray(SymbolsName.values().size) { false }
 
     private val tableRowLayoutParam : TableRow.LayoutParams = TableRow.LayoutParams(
         TableRow.LayoutParams.MATCH_PARENT,
@@ -49,6 +39,26 @@ class SymbolsActivity : AppCompatActivity() {
             )
         )
     }
+    private fun setImageButtonClickExpander(
+        button: ImageButton?, cardView: CardView?, view: LinearLayout?,
+        symName: SymbolsName, symTable: TableLayout, symMap: LinkedHashMap<String,String>
+    ){
+        button?.setOnClickListener {
+            if(cardView != null){
+                if(!createdBoolean[symName.ordinal]){
+                    symMap.forEach { (key, value) -> tableLayoutAddNewRow(symTable, key, value) }
+                    createdBoolean[symName.ordinal] = true
+                }
+                TransitionManager.beginDelayedTransition(cardView, AutoTransition())
+                val isVisible = view?.visibility == View.VISIBLE
+                view?.visibility = if (isVisible) View.GONE else View.VISIBLE
+                button.setImageResource(
+                    if (isVisible) R.drawable.ic_baseline_expand_more_24
+                    else           R.drawable.ic_baseline_expand_less_24
+                )
+            }
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,11 +68,11 @@ class SymbolsActivity : AppCompatActivity() {
         val cardView          : CardView?     = findViewById(R.id.base_cardView)
         val greekSymbolButton : ImageButton?  = findViewById(R.id.greekSymbol_button)
         val greekSymbolView   : LinearLayout? = findViewById(R.id.greekSymbol_view)
-        val greekSymbolTable : TableLayout = findViewById(R.id.greekSymbol_table)
+        val greekSymbolTable  : TableLayout = findViewById(R.id.greekSymbol_table)
 
-        setImageButtonClickExpander(greekSymbolButton, cardView, greekSymbolView)
-        sym.symbolGreekMap.forEach { (key, value) ->
-            tableLayoutAddNewRow(greekSymbolTable, key, value)
-        }
+        setImageButtonClickExpander(
+            greekSymbolButton, cardView, greekSymbolView,
+            SymbolsName.GREEK, greekSymbolTable, sym.symbolGreekMap
+        )
     }
 }
