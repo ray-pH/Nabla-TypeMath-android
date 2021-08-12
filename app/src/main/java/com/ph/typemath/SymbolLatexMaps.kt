@@ -1,7 +1,7 @@
 package com.ph.typemath
 
 class SymbolLatexMaps {
-    val latexMath : HashMap<String, String> = hashMapOf(
+    val latexMath : HashMap<String, String> = linkedMapOf(
         "textfractionsolidus" to "⁄",
         "leftrightsquigarrow" to "↭",
         "textpertenthousand" to "‱",
@@ -692,7 +692,7 @@ class SymbolLatexMaps {
         "'c" to "ћ",
         "'g" to "ѓ",
     )
-    val latexDiacriticMath : HashMap<String, String> = hashMapOf(
+    val latexDiacriticMath : HashMap<String, String> = linkedMapOf(
         "doubleunderline" to "	̳",
         "strikethrough" to "	̵",
         "underline" to "	̲",

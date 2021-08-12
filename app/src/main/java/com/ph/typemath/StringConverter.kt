@@ -3,13 +3,13 @@ package com.ph.typemath
 class StringConverter {
     private val sym = SymbolMaps()
     private val symLatex = SymbolLatexMaps()
-    private val simpleMap : HashMap<String, String> = (
+    private val simpleMap : LinkedHashMap<String, String> = (
             (sym.symbolGreekMap
             + sym.symbolSetAndLogicMap
             + sym.symbolDomainMap
             + sym.symbolEqualityMap
             + sym.symbolCalculusMap
-            + sym.symbolMiscMap) as HashMap<String, String>)
+            + sym.symbolMiscMap) as LinkedHashMap<String, String>)
 
 
     // Return the index of n-th checkStr in str
@@ -33,7 +33,7 @@ class StringConverter {
     }
 
     // Replace series of character after c using map
-    private fun replaceScript(str: String, c: Char, scriptMap: HashMap<Char,Char>): String{
+    private fun replaceScript(str: String, c: Char, scriptMap: LinkedHashMap<Char,Char>): String{
         if (!str.contains(c)) return str
         val keys = str.split(c)
         val unicode = keys.last().map { scriptMap[it] ?: it }
@@ -41,7 +41,7 @@ class StringConverter {
     }
 
     // Replace series of character after c using map, with LaTex rule (using curly braces)
-    private fun replaceScriptLatex(str: String, c: Char, scriptMap: HashMap<Char,Char>): String{
+    private fun replaceScriptLatex(str: String, c: Char, scriptMap: LinkedHashMap<Char,Char>): String{
         if (!str.contains(c)) return str
         val keys = str.split(c)
 

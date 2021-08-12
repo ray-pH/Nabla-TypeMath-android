@@ -2,7 +2,7 @@ package com.ph.typemath
 
 class SymbolMaps {
 
-    val subscriptMap : HashMap<Char, Char> = hashMapOf(
+    val subscriptMap : LinkedHashMap<Char, Char> = linkedMapOf(
         '0' to '₀',
         '1' to '₁',
         '2' to '₂',
@@ -40,7 +40,7 @@ class SymbolMaps {
         'x' to 'ₓ',
         'y' to 'ᵧ',
     )
-    val superscriptMap : HashMap<Char, Char> = hashMapOf(
+    val superscriptMap : LinkedHashMap<Char, Char> = linkedMapOf(
         '0' to '⁰',
         '1' to '¹',
         '2' to '²',
@@ -111,7 +111,7 @@ class SymbolMaps {
         'Y' to 'ʸ',
         'Z' to 'ᶻ'
     )
-    val symbolGreekMap : HashMap<String, String> = hashMapOf(
+    val symbolGreekMap : LinkedHashMap<String, String> = linkedMapOf(
         "alpha" to "α",
         "beta" to "β",
         "gamma" to "γ",
@@ -151,7 +151,7 @@ class SymbolMaps {
         "Psi" to "Ψ",
         "Omega" to "Ω",
     )
-    val symbolSetAndLogicMap : HashMap<String, String> = hashMapOf(
+    val symbolSetAndLogicMap : LinkedHashMap<String, String> = linkedMapOf(
         "emptyset" to "∅",
         "mid" to "∣",
         "vert" to "|",
@@ -178,7 +178,7 @@ class SymbolMaps {
         "exists" to "∃",
         "nexists" to "∄",
     )
-    val symbolDomainMap : HashMap<String, String> = hashMapOf(
+    val symbolDomainMap : LinkedHashMap<String, String> = linkedMapOf(
         "CC" to "ℂ",
         "HH" to "ℍ",
         "NN" to "ℕ",
@@ -190,7 +190,7 @@ class SymbolMaps {
         "PiPi" to "ℿ",
         "GammaGamma" to "ℾ",
     )
-    val symbolEqualityMap : HashMap<String, String> = hashMapOf(
+    val symbolEqualityMap : LinkedHashMap<String, String> = linkedMapOf(
         "neq" to "≠",
         "=/=" to "≠",
         "equiv" to "≡",
@@ -206,7 +206,7 @@ class SymbolMaps {
         "simeq" to "≃",
         "cong" to "≅",
     )
-    val symbolCalculusMap : HashMap<String, String> = hashMapOf(
+    val symbolCalculusMap : LinkedHashMap<String, String> = linkedMapOf(
         "partial" to "∂",
         "dd" to "∂",
         "int" to "∫",
@@ -216,7 +216,7 @@ class SymbolMaps {
         "nabla" to "∇",
         "square" to "□",
     )
-    val symbolMiscMap : HashMap<String, String> = hashMapOf(
+    val symbolMiscMap : LinkedHashMap<String, String> = linkedMapOf(
         "degree" to "°",
         "->" to "→",
         "<-" to "←",
