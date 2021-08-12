@@ -21,16 +21,16 @@
             android:padding="16dp">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/base_cardView"
+                android:id="@+id/greekSymbol_cardView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/base_cardView"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_margin="16dp">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/greekSymbol_label"
@@ -43,28 +43,28 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintVertical_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <ImageButton
                         android:id="@+id/greekSymbol_button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="@+id/greekSymbol_label"
+                        android:contentDescription="@string/expand_greek_symbols_card"
                         app:layout_constraintBottom_toBottomOf="@+id/greekSymbol_label"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/greekSymbol_label"
                         app:layout_constraintHorizontal_bias="1"
-                        app:srcCompat="@drawable/ic_baseline_expand_more_24"
-                        android:contentDescription="@string/expand_greek_symbols_card" />
+                        app:layout_constraintStart_toEndOf="@+id/greekSymbol_label"
+                        app:layout_constraintTop_toTopOf="@+id/greekSymbol_label"
+                        app:srcCompat="@drawable/ic_baseline_expand_more_24" />
 
                     <LinearLayout
                         android:id="@+id/greekSymbol_view"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -103,6 +103,11 @@
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12dp" />
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

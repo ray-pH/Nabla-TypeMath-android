@@ -8,7 +8,6 @@ import androidx.cardview.widget.CardView
 import androidx.transition.AutoTransition
 import androidx.transition.TransitionManager
 
-
 class SymbolsActivity : AppCompatActivity() {
     private val sym = SymbolMaps()
     private enum class SymbolsName {
@@ -20,7 +19,7 @@ class SymbolsActivity : AppCompatActivity() {
         TableRow.LayoutParams.MATCH_PARENT,
         TableRow.LayoutParams.WRAP_CONTENT
     )
-    private fun tableLayoutAddNewRow(table: TableLayout, str1: String, str2: String){
+    private fun tableLayoutAddNewRow(table: TableLayout?, str1: String, str2: String){
         val textView1  = TextView(this)
         val textView2  = TextView(this)
         textView1.text = str1
@@ -32,7 +31,7 @@ class SymbolsActivity : AppCompatActivity() {
         row.layoutParams = tableRowLayoutParam
         row.addView(textView1)
         row.addView(textView2)
-        table.addView(row,
+        table?.addView(row,
             TableLayout.LayoutParams(
                 TableLayout.LayoutParams.MATCH_PARENT,
                 TableLayout.LayoutParams.WRAP_CONTENT
@@ -40,8 +39,8 @@ class SymbolsActivity : AppCompatActivity() {
         )
     }
     private fun setImageButtonClickExpander(
-        button: ImageButton?, cardView: CardView?, view: LinearLayout?,
-        symName: SymbolsName, symTable: TableLayout, symMap: LinkedHashMap<String,String>
+        button: ImageButton?, cardView: CardView?, view: LinearLayout?, symTable: TableLayout?,
+        symName: SymbolsName, symMap: LinkedHashMap<String,String>
     ){
         button?.setOnClickListener {
             if(cardView != null){
@@ -61,18 +60,35 @@ class SymbolsActivity : AppCompatActivity() {
     }
 
 
+    private fun setExpanderByName(name: String, symName: SymbolsName, symMap: LinkedHashMap<String, String>){
+        val cardView: CardView? = findViewById(
+            this.resources.getIdentifier("${name}_cardView", "id", this.packageName)
+        )
+        val button: ImageButton? = findViewById(
+            this.resources.getIdentifier("${name}_button", "id", this.packageName)
+        )
+        val view: LinearLayout? = findViewById(
+            this.resources.getIdentifier("${name}_view", "id", this.packageName)
+        )
+        val tableLayout : TableLayout? = findViewById(
+            this.resources.getIdentifier("${name}_table", "id", this.packageName)
+        )
+        setImageButtonClickExpander(button, cardView, view, tableLayout, symName, symMap)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_symbols)
 
-        val cardView          : CardView?     = findViewById(R.id.base_cardView)
-        val greekSymbolButton : ImageButton?  = findViewById(R.id.greekSymbol_button)
-        val greekSymbolView   : LinearLayout? = findViewById(R.id.greekSymbol_view)
-        val greekSymbolTable  : TableLayout = findViewById(R.id.greekSymbol_table)
-
-        setImageButtonClickExpander(
-            greekSymbolButton, cardView, greekSymbolView,
-            SymbolsName.GREEK, greekSymbolTable, sym.symbolGreekMap
-        )
+        setExpanderByName("greekSymbol", SymbolsName.GREEK, sym.symbolGreekMap)
+//        val greekSymbolCardView : CardView?     = findViewById(R.id.greekSymbol_cardView)
+//        val greekSymbolButton   : ImageButton?  = findViewById(R.id.greekSymbol_button)
+//        val greekSymbolView     : LinearLayout? = findViewById(R.id.greekSymbol_view)
+//        val greekSymbolTable    : TableLayout?  = findViewById(R.id.greekSymbol_table)
+//
+//        setImageButtonClickExpander(
+//            greekSymbolButton, greekSymbolCardView, greekSymbolView,
+//            SymbolsName.GREEK, greekSymbolTable, sym.symbolGreekMap
+//        )
     }
 }
