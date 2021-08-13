@@ -13,6 +13,8 @@
         android:fontFamily="sans-serif-medium"
         android:text="@string/title_text"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/allowPermissionButton"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -26,17 +28,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/symbolsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/symbols"
-        app:layout_constraintEnd_toEndOf="@+id/allowPermissionButton"
-        app:layout_constraintStart_toStartOf="@+id/allowPermissionButton"
-        app:layout_constraintTop_toBottomOf="@+id/allowPermissionButton" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36" />
 
     <Button
         android:id="@+id/gotoSettingButton"
@@ -48,7 +41,27 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="@+id/allowPermissionButton"
-        app:layout_constraintTop_toBottomOf="@+id/symbolsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/allowPermissionButton" />
+
+    <Button
+        android:id="@+id/helpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/help"
+        app:layout_constraintEnd_toEndOf="@+id/allowPermissionButton"
+        app:layout_constraintStart_toStartOf="@+id/allowPermissionButton"
+        app:layout_constraintTop_toBottomOf="@+id/gotoSettingButton" />
+
+    <Button
+        android:id="@+id/symbolsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/symbols"
+        app:layout_constraintEnd_toEndOf="@+id/allowPermissionButton"
+        app:layout_constraintStart_toStartOf="@+id/allowPermissionButton"
+        app:layout_constraintTop_toBottomOf="@+id/helpButton" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

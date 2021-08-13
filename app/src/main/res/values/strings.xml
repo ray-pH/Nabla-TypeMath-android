@@ -47,4 +47,5 @@
     <string name="misc_symbols">Misc</string>
     <string name="basic_symbols">Basic Symbols</string>
     <string name="additional_symbols">Additional (LatexMode)</string>
+    <string name="help">help</string>
 </resources>
