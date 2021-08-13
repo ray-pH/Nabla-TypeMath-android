@@ -3,10 +3,8 @@ package com.ph.nabla_typemath
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.CompoundButton
-import android.widget.EditText
-import android.widget.Toast
+import android.view.View
+import android.widget.*
 import androidx.appcompat.widget.SwitchCompat
 
 class SettingActivity : AppCompatActivity() {
@@ -16,17 +14,18 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var latexModeSwitch : SwitchCompat
     private lateinit var useSymbolSwitch : SwitchCompat
     private lateinit var keepSpaceSwitch : SwitchCompat
-
+    private lateinit var otherSettingLinear : LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
 
-        initStringEdit  = findViewById(R.id.initialString_EditText)
-        endStringEdit   = findViewById(R.id.endString_EditText)
-        latexModeSwitch = findViewById(R.id.latexMode_switch)
-        useSymbolSwitch = findViewById(R.id.useAdditionalSymbol_switch)
-        keepSpaceSwitch = findViewById(R.id.keepSpace_switch)
+        initStringEdit     = findViewById(R.id.initialString_EditText)
+        endStringEdit      = findViewById(R.id.endString_EditText)
+        latexModeSwitch    = findViewById(R.id.latexMode_switch)
+        useSymbolSwitch    = findViewById(R.id.useAdditionalSymbol_switch)
+        keepSpaceSwitch    = findViewById(R.id.keepSpace_switch)
+        otherSettingLinear = findViewById(R.id.other_setting_linear)
 
         val stringSaveToast = Toast.makeText(applicationContext,
             "String Saved", Toast.LENGTH_SHORT)
@@ -44,6 +43,7 @@ class SettingActivity : AppCompatActivity() {
         latexModeSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
             editor.putBoolean("latexMode", isChecked)
             editor.apply()
+            otherSettingLinear.visibility = if(isChecked) View.GONE else View.VISIBLE
         }
         useSymbolSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
             editor.putBoolean("useAdditionalSymbols", isChecked)
@@ -72,6 +72,7 @@ class SettingActivity : AppCompatActivity() {
         useSymbolSwitch.isChecked = useAdditionalSym
         keepSpaceSwitch.isChecked = keepSpace
 
+        otherSettingLinear.visibility = if (latexMode) View.GONE else View.VISIBLE
     }
 
 

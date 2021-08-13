@@ -78,6 +78,8 @@
                 android:text="@string/latex_mode_desc" />
 
             <LinearLayout
+                android:id="@+id/other_setting_linear"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
