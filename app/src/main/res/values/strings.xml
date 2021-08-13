@@ -3,6 +3,9 @@
     <string name="allow_permission">Allow Permission</string>
     <string name="accessibility_service_label">Nabla TypeMath Service</string>
     <string name="accessibility_service_description">Service of Nabla TypeMath</string>
+    <string name="nabla_activity_name">Nabla</string>
+    <string name="symbols_activity_name">Symbols</string>
+    <string name="setting_activity_name">Setting</string>
     <string name="typemath">TypeMath</string>
     <string name="setting">Setting</string>
     <string name="initial_char">Initial Char</string>
@@ -31,12 +34,17 @@
         off : A⊂B
     </string>
     <string name="symbols">Symbols</string>
-    <string name="greek_symbols">Greek Symbols</string>
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
     <string name="command">Command</string>
     <string name="symbol">Symbol</string>
-    <string name="nabla_activity_name">Nabla</string>
-    <string name="symbols_activity_name">Symbols</string>
-    <string name="setting_activity_name">Setting</string>
     <string name="title_text">∇ NABLA</string>
+
+    <string name="greek_symbols">Greek Symbols</string>
+    <string name="setAndLogic_symbols">Set and Logic</string>
+    <string name="domains_symbols">Domains</string>
+    <string name="equality_symbols">Equality</string>
+    <string name="calculus_symbols">Calculus</string>
+    <string name="misc_symbols">Misc</string>
+    <string name="basic_symbols">Basic Symbols</string>
+    <string name="additional_symbols">Additional (LatexMode)</string>
 </resources>

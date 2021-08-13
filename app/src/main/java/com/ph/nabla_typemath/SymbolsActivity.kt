@@ -12,6 +12,11 @@ class SymbolsActivity : AppCompatActivity() {
     private val sym = SymbolMaps()
     private enum class SymbolsName {
         GREEK,
+        SET_AND_LOGIC,
+        DOMAIN,
+        EQUALITY,
+        CALCULUS,
+        MISC,
     }
     private val createdBoolean : BooleanArray = BooleanArray(SymbolsName.values().size) { false }
 
@@ -81,14 +86,10 @@ class SymbolsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_symbols)
 
         setExpanderByName("greekSymbol", SymbolsName.GREEK, sym.symbolGreekMap)
-//        val greekSymbolCardView : CardView?     = findViewById(R.id.greekSymbol_cardView)
-//        val greekSymbolButton   : ImageButton?  = findViewById(R.id.greekSymbol_button)
-//        val greekSymbolView     : LinearLayout? = findViewById(R.id.greekSymbol_view)
-//        val greekSymbolTable    : TableLayout?  = findViewById(R.id.greekSymbol_table)
-//
-//        setImageButtonClickExpander(
-//            greekSymbolButton, greekSymbolCardView, greekSymbolView,
-//            SymbolsName.GREEK, greekSymbolTable, sym.symbolGreekMap
-//        )
+        setExpanderByName("setAndLogic", SymbolsName.SET_AND_LOGIC, sym.symbolSetAndLogicMap)
+        setExpanderByName("domains", SymbolsName.DOMAIN, sym.symbolDomainMap)
+        setExpanderByName("equality", SymbolsName.EQUALITY, sym.symbolEqualityMap)
+        setExpanderByName("calculus", SymbolsName.CALCULUS, sym.symbolCalculusMap)
+        setExpanderByName("misc", SymbolsName.MISC, sym.symbolMiscMap)
     }
 }
