@@ -116,6 +116,7 @@ class StringConverter {
     }
 
     // TODO: Implement Fraction
+    // TODO: LaTeX Diacritic Support
     // Evaluate math expression string, convert it into unicode
     private fun evalMath(str: String,
                          useAdditionalSym : Boolean,
@@ -123,28 +124,30 @@ class StringConverter {
                          latexMode        : Boolean,
                          keepSpace        : Boolean
     ): String {
-        var keys : List<String>
-        if(!latexMode) {
-            keys = str.split(' ')
-                .asSequence()
-                .map { replaceSuperscript(it) }
-                .map { replaceSubscript(it) }
-                .map { simpleMap[it] ?: it }
-                .toList()
-            if(!keepSpace)       keys = keys.map{ addSpaceToOperator(it) }
-            if(useDiacritics)    keys = keys.map{ symLatex.latexDiacriticMath[it] ?: it }
-            if(useAdditionalSym) keys = keys.map{ symLatex.latexMath[it]          ?: it }
+        var evaluatedString = ""
+        val keys : List<String> = str.split(' ')
+        if(!latexMode){
+            val separator = if (keepSpace) " " else ""
+            for(i in keys.indices) {
+                var res = keys[i]
+                    .let { replaceSuperscript(it) }
+                    .let { replaceSubscript(it) }
+                    .let { simpleMap[it] ?: it }
+                if(!keepSpace)       res = addSpaceToOperator(res)
+                if(useDiacritics)    res = symLatex.latexDiacriticMath[res] ?: res
+                if(useAdditionalSym) res = symLatex.latexMath[res]          ?: res
+                evaluatedString += (res + separator)
+            }
         }else{
-            //TODO : LaTeX Diacritic Support
-            keys = str.split(' ')
-                .asSequence()
-                .map { replaceSuperscriptLatex(it) }
-                .map { replaceSubscriptLatex(it) }
-                .map { replaceStringLatex(it) }
-                .toList()
+            for(i in keys.indices) {
+                val res = keys[i]
+                    .let { replaceSuperscriptLatex(it) }
+                    .let { replaceSubscriptLatex(it) }
+                    .let { replaceStringLatex(it) }
+                evaluatedString += "$res "
+            }
         }
-
-        return keys.joinToString((if (keepSpace || latexMode) " " else ""))
+        return evaluatedString
     }
 
     fun evalString(str: String, initStr: String, endStr: String,
