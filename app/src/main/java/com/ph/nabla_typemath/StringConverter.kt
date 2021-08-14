@@ -115,6 +115,7 @@ class StringConverter {
         }
     }
 
+    // TODO: Implement Fraction
     // Evaluate math expression string, convert it into unicode
     private fun evalMath(str: String,
                          useAdditionalSym : Boolean,

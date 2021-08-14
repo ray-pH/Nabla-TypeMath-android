@@ -234,6 +234,13 @@ class SymbolMaps {
         "oslash" to "⊘",
         "hbar" to "ℏ",
         "mho" to "℧",
+        "endash" to "–",
+        "--" to "–",
+        "emdash" to "—",
+        "---" to "—",
+        "dots" to "…",
+        "cdots" to "⋯",
+        "vdots" to "⋮",
     )
 
 }

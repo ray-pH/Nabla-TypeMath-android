@@ -449,6 +449,7 @@ class SymbolLatexMaps {
         ".{Z}" to "Ż",
         "geqq" to "≧",
         "cdot" to "⋅",
+        "cdots" to "…",
         "`{U}" to "Ù",
         "v{L}" to "Ľ",
         "c{s}" to "ş",
