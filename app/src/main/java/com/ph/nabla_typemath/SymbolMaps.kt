@@ -242,5 +242,26 @@ class SymbolMaps {
         "cdots" to "⋯",
         "vdots" to "⋮",
     )
+    val vulgarFractionMap : HashMap<String, String> = linkedMapOf(
+        "1/" to "⅟",
+        "1/2" to "½",
+        "1/3" to "⅓",
+        "1/4" to "¼",
+        "1/5" to "⅕",
+        "1/6" to "⅙",
+        "1/7" to "⅐",
+        "1/8" to "⅛",
+        "1/9" to "⅑",
+        "1/10" to "⅒",
+        "2/3" to "⅔",
+        "2/5" to "⅖",
+        "3/4" to "¾",
+        "3/5" to "⅗",
+        "3/8" to "⅜",
+        "4/5" to "⅘",
+        "5/6" to "⅚",
+        "5/8" to "⅝",
+        "7/8" to "⅞",
+    )
 
 }

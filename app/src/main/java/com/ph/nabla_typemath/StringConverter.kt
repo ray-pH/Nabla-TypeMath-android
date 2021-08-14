@@ -115,9 +115,18 @@ class StringConverter {
         }
     }
 
-    // TODO: Implement Fraction
+    private val fractionSlash: String = "⁄"
+    private fun evalFraction(str: String): String {
+        return sym.vulgarFractionMap[str] ?: str.let {
+            val (num, den) = it.split('/')
+            replaceSuperscript(num) + fractionSlash + replaceSubscript(den)
+        }
+    }
+
     // TODO: LaTeX Diacritic Support
+    // TODO: LaTeX Fraction Support
     // Evaluate math expression string, convert it into unicode
+    private val fractionCommand = "frac"
     private fun evalMath(str: String,
                          useAdditionalSym : Boolean,
                          useDiacritics    : Boolean,
@@ -128,19 +137,23 @@ class StringConverter {
         val keys : List<String> = str.split(' ')
         if(!latexMode){
             val separator = if (keepSpace) " " else ""
-            for(i in keys.indices) {
-                val res = keys[i]
-                    .let { replaceSuperscript(it) }
-                    .let { replaceSubscript(it) }
-                    .let { simpleMap[it] ?: it }
-                    .let { if(!keepSpace)       addSpaceToOperator(it)            else it}
-                    .let { if(useDiacritics)    symLatex.latexDiacritic[it] ?: it else it}
-                    .let { if(useAdditionalSym) symLatex.latexMath[it]      ?: it else it}
+            var isFrac = false
+            for(key in keys) {
+                if( key == fractionCommand ) { isFrac = true; continue }
+                val res =
+                    if(isFrac){ isFrac = false; evalFraction(key) }
+                    else key
+                        .let { replaceSuperscript(it) }
+                        .let { replaceSubscript(it) }
+                        .let { simpleMap[it] ?: it }
+                        .let { if(!keepSpace)       addSpaceToOperator(it)            else it}
+                        .let { if(useDiacritics)    symLatex.latexDiacritic[it] ?: it else it}
+                        .let { if(useAdditionalSym) symLatex.latexMath[it]      ?: it else it}
                 evaluatedString += (res + separator)
             }
         }else{
-            for(i in keys.indices) {
-                val res = keys[i]
+            for(key in keys) {
+                val res = key
                     .let { replaceSuperscriptLatex(it) }
                     .let { replaceSubscriptLatex(it) }
                     .let { replaceStringLatex(it) }
