@@ -12,7 +12,8 @@ class SymbolsActivity : AppCompatActivity() {
     private val sym = SymbolMaps()
     private val symLatex = SymbolLatexMaps()
     private val symDiacritics : LinkedHashMap<String,String> =
-        symLatex.latexDiacritic.mapValues { "o$it" } as LinkedHashMap<String, String>
+        symLatex.latexDiacritic.mapValues { (_,value) -> "o$value" }
+                as LinkedHashMap<String, String>
     private enum class SymbolsName {
         GREEK,
         SET_AND_LOGIC,
