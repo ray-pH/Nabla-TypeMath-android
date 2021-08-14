@@ -46,6 +46,7 @@
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
     <string name="command">Command</string>
     <string name="symbol">Symbol</string>
+    <string name="additional_symbols">Additional (LatexMode)</string>
 
     <string name="greek_symbols">Greek Symbols</string>
     <string name="setAndLogic_symbols">Set and Logic</string>
@@ -54,5 +55,6 @@
     <string name="calculus_symbols">Calculus</string>
     <string name="misc_symbols">Misc</string>
     <string name="basic_symbols">Basic Symbols</string>
-    <string name="additional_symbols">Additional (LatexMode)</string>
+    <string name="additionalSymbol_symbols">Additional Symbols</string>
+    <string name="diacritics_symbols">Diacritics</string>
 </resources>

@@ -10,6 +10,9 @@ import androidx.transition.TransitionManager
 
 class SymbolsActivity : AppCompatActivity() {
     private val sym = SymbolMaps()
+    private val symLatex = SymbolLatexMaps()
+    private val symDiacritics : LinkedHashMap<String,String> =
+        symLatex.latexDiacritic.mapValues { "o$it" } as LinkedHashMap<String, String>
     private enum class SymbolsName {
         GREEK,
         SET_AND_LOGIC,
@@ -17,6 +20,8 @@ class SymbolsActivity : AppCompatActivity() {
         EQUALITY,
         CALCULUS,
         MISC,
+        DIACRITICS,
+        ADDITIONAL,
     }
     private val createdBoolean : BooleanArray = BooleanArray(SymbolsName.values().size) { false }
 
@@ -43,6 +48,8 @@ class SymbolsActivity : AppCompatActivity() {
             )
         )
     }
+
+    // Set Click Expand behaviour to an ImageButton
     private fun setImageButtonClickExpander(
         button: ImageButton?, cardView: CardView?, view: LinearLayout?, symTable: TableLayout?,
         symName: SymbolsName, symMap: LinkedHashMap<String,String>
@@ -64,7 +71,7 @@ class SymbolsActivity : AppCompatActivity() {
         }
     }
 
-
+    // Set expand behaviour, given a name
     private fun setExpanderByName(name: String, symName: SymbolsName, symMap: LinkedHashMap<String, String>){
         val cardView: CardView? = findViewById(
             this.resources.getIdentifier("${name}_cardView", "id", this.packageName)
@@ -91,5 +98,7 @@ class SymbolsActivity : AppCompatActivity() {
         setExpanderByName("equality", SymbolsName.EQUALITY, sym.symbolEqualityMap)
         setExpanderByName("calculus", SymbolsName.CALCULUS, sym.symbolCalculusMap)
         setExpanderByName("misc", SymbolsName.MISC, sym.symbolMiscMap)
+        setExpanderByName("diacritics", SymbolsName.DIACRITICS, symDiacritics)
+        setExpanderByName("additionalSymbol", SymbolsName.ADDITIONAL, symLatex.latexMath)
     }
 }
