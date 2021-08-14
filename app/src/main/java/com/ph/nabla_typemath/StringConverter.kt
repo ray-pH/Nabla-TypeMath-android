@@ -62,6 +62,69 @@ class StringConverter {
         return (listOf(keys[0]) + unicodes).joinToString("")
     }
 
+    enum class SearchMode {
+        SLASH,
+        LEFT,
+        RIGHT,
+    }
+    private fun replaceDiacriticLatex(str: String): String{
+        var res = ""
+        var keyBuffer   = ""
+        var paramBuffer = ""
+        var searchMode = SearchMode.SLASH
+        for(i in str.indices){
+            val c = str[i]
+            when (searchMode) {
+                SearchMode.SLASH -> {
+                    if (c == '\\') { searchMode = SearchMode.LEFT }
+                    else res += c
+                }
+                SearchMode.LEFT  -> {
+                    when (c) {
+                        '{'  -> { searchMode = SearchMode.RIGHT }
+                        '\\' -> {
+                            res += keyBuffer
+                            keyBuffer = ""
+                        }
+                        else -> keyBuffer += c
+                    }
+                }
+                SearchMode.RIGHT -> {
+                    when (c) {
+                        '}'  -> {
+                            searchMode = SearchMode.SLASH
+                            res += if(symLatex.latexDiacritic.containsKey(keyBuffer))
+                                (paramBuffer + symLatex.latexDiacritic[keyBuffer])
+                            else
+                                "\\$keyBuffer{${paramBuffer}}"
+                            keyBuffer = ""
+                            paramBuffer = ""
+                        }
+                        '\\' -> {
+                            res += ("$keyBuffer{$paramBuffer")
+                            keyBuffer = ""
+                            paramBuffer = ""
+                            searchMode = SearchMode.LEFT
+                        }
+                        else -> paramBuffer += c
+                    }
+                }
+            }
+        }
+        res += if(symLatex.latexDiacritic.containsKey(keyBuffer))
+            (paramBuffer + symLatex.latexDiacritic[keyBuffer])
+        else if(paramBuffer.isEmpty() && keyBuffer.isEmpty())
+            ""
+        else{
+            val addStr = when (searchMode) {
+                SearchMode.RIGHT -> "{${paramBuffer}"
+                else -> ""
+            }
+            "\\$keyBuffer$addStr"
+        }
+        return res
+    }
+
     // Replace series of character after '^' with unicode superscripts
     private fun replaceSuperscript(str: String): String{
         return replaceScript(str, '^', sym.superscriptMap)
@@ -87,7 +150,7 @@ class StringConverter {
     private fun replaceStringLatex(str: String): String{
         return str.replace(
             replaceStringLatexRegex
-        ) { (symLatex.latexMath[it.value.drop(1)] ?: it).toString() }
+        ) { (symLatex.latexMath[it.value.drop(1)] ?: it.value).toString() }
     }
 
     // Return whether str is in valid format or not
@@ -123,7 +186,7 @@ class StringConverter {
         }
     }
 
-    // TODO: LaTeX Diacritic Support
+    // TODO: Optimize LaTeX Diacritic Support
     // TODO: LaTeX Fraction Support
     // Evaluate math expression string, convert it into unicode
     private val fractionCommand = "frac"
@@ -157,6 +220,7 @@ class StringConverter {
                     .let { replaceSuperscriptLatex(it) }
                     .let { replaceSubscriptLatex(it) }
                     .let { replaceStringLatex(it) }
+                    .let { if(useDiacritics) replaceDiacriticLatex(it) else it }
                 evaluatedString += "$res "
             }
         }
