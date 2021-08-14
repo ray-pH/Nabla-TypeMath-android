@@ -40,7 +40,7 @@
     </string>
     <string name="use_diacritics_desc">
         Diacritics are symbols like ddot (ö) and bar (o̅)\n
-        In simple mode, "x ddot" will become ẍ
+        In simple mode, \"x ddot\" will become ẍ
     </string>
 
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
