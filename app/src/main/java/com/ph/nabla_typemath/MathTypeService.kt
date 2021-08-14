@@ -81,7 +81,7 @@ class MathTypeService : AccessibilityService() {
                         val latexMode        : Boolean = sh.getBoolean("latexMode", false)
                         val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
                         val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
-                        val useDiacritics = false
+                        val useDiacritics    : Boolean = sh.getBoolean("useDiacritics", true)
 
                         if(initStr != null && endStr != null){
                             //do conversion only if initStr and endStr is not null

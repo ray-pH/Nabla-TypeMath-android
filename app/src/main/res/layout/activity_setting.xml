@@ -112,6 +112,18 @@
                     android:layout_height="wrap_content"
                     android:text="@string/keep_space_desc" />
 
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/useDiacritics_switch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_diacritics" />
+
+                <TextView
+                    android:id="@+id/useDiacritics_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/use_diacritics_desc" />
+
             </LinearLayout>
 
         </LinearLayout>

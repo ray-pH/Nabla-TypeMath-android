@@ -9,11 +9,12 @@ import androidx.appcompat.widget.SwitchCompat
 
 class SettingActivity : AppCompatActivity() {
     private val prefsName = "TypeMathPrefsFile"
-    private lateinit var initStringEdit  : EditText
-    private lateinit var endStringEdit   : EditText
-    private lateinit var latexModeSwitch : SwitchCompat
-    private lateinit var useSymbolSwitch : SwitchCompat
-    private lateinit var keepSpaceSwitch : SwitchCompat
+    private lateinit var initStringEdit   : EditText
+    private lateinit var endStringEdit    : EditText
+    private lateinit var latexModeSwitch  : SwitchCompat
+    private lateinit var useSymbolSwitch  : SwitchCompat
+    private lateinit var keepSpaceSwitch  : SwitchCompat
+    private lateinit var diacriticsSwitch : SwitchCompat
     private lateinit var otherSettingLinear : LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,6 +26,7 @@ class SettingActivity : AppCompatActivity() {
         latexModeSwitch    = findViewById(R.id.latexMode_switch)
         useSymbolSwitch    = findViewById(R.id.useAdditionalSymbol_switch)
         keepSpaceSwitch    = findViewById(R.id.keepSpace_switch)
+        diacriticsSwitch   = findViewById(R.id.useDiacritics_switch)
         otherSettingLinear = findViewById(R.id.other_setting_linear)
 
         val stringSaveToast = Toast.makeText(applicationContext,
@@ -53,6 +55,10 @@ class SettingActivity : AppCompatActivity() {
             editor.putBoolean("keepSpace", isChecked)
             editor.apply()
         }
+        diacriticsSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
+            editor.putBoolean("useDiacritics", isChecked)
+            editor.apply()
+        }
 
     }
 
@@ -64,13 +70,15 @@ class SettingActivity : AppCompatActivity() {
         val latexMode        : Boolean = sh.getBoolean("latexMode", false)
         val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
         val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
+        val useDiacritics    : Boolean = sh.getBoolean("useDiacritics", true)
 
 
         initStringEdit.setText(initStr)
         endStringEdit.setText(endStr)
-        latexModeSwitch.isChecked = latexMode
-        useSymbolSwitch.isChecked = useAdditionalSym
-        keepSpaceSwitch.isChecked = keepSpace
+        latexModeSwitch.isChecked  = latexMode
+        useSymbolSwitch.isChecked  = useAdditionalSym
+        keepSpaceSwitch.isChecked  = keepSpace
+        diacriticsSwitch.isChecked = useDiacritics
 
         otherSettingLinear.visibility = if (latexMode) View.GONE else View.VISIBLE
     }

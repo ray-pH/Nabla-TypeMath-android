@@ -1,21 +1,26 @@
 <resources>
     <string name="app_name">Nabla TypeMath</string>
-    <string name="allow_permission">Allow Permission</string>
-    <string name="accessibility_service_label">Nabla TypeMath Service</string>
-    <string name="accessibility_service_description">Service of Nabla TypeMath</string>
     <string name="nabla_activity_name">Nabla</string>
     <string name="symbols_activity_name">Symbols</string>
     <string name="setting_activity_name">Setting</string>
+    <string name="title_text">∇ NABLA</string>
+
+    <string name="allow_permission">Allow Permission</string>
+    <string name="accessibility_service_label">Nabla TypeMath Service</string>
+    <string name="accessibility_service_description">Service of Nabla TypeMath</string>
+
     <string name="typemath">TypeMath</string>
     <string name="setting">Setting</string>
-    <string name="initial_char">Initial Char</string>
-    <string name="last_string">Last String</string>
+    <string name="help">help</string>
+    <string name="symbols">Symbols</string>
+
     <string name="save">Save String</string>
     <string name="end_string">End String</string>
     <string name="initial_string">Initial String</string>
     <string name="latex_mode">Latex Mode</string>
     <string name="use_additional_symbol">Use Additional Symbol</string>
     <string name="keep_space">Keep Space</string>
+    <string name="use_diacritics">Use Diacritics</string>
 
     <string name="latex_mode_desc">
         When Using LaTeX mode, all setting below will ignored\n\n
@@ -33,11 +38,14 @@
         on &#160;: A ⊂ B\n
         off : A⊂B
     </string>
-    <string name="symbols">Symbols</string>
+    <string name="use_diacritics_desc">
+        Diacritics are symbols like ddot (ö) and bar (o̅)\n
+        In simple mode, "x ddot" will become ẍ
+    </string>
+
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
     <string name="command">Command</string>
     <string name="symbol">Symbol</string>
-    <string name="title_text">∇ NABLA</string>
 
     <string name="greek_symbols">Greek Symbols</string>
     <string name="setAndLogic_symbols">Set and Logic</string>
@@ -47,5 +55,4 @@
     <string name="misc_symbols">Misc</string>
     <string name="basic_symbols">Basic Symbols</string>
     <string name="additional_symbols">Additional (LatexMode)</string>
-    <string name="help">help</string>
 </resources>
