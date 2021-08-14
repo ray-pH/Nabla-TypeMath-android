@@ -693,7 +693,7 @@ class SymbolLatexMaps {
         "'c" to "ћ",
         "'g" to "ѓ",
     )
-    val latexDiacriticMath : HashMap<String, String> = linkedMapOf(
+    val latexDiacritic : HashMap<String, String> = linkedMapOf(
         "doubleunderline" to "̳",
         "strikethrough" to "̵",
         "underline" to "̲",

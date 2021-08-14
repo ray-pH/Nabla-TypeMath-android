@@ -129,13 +129,13 @@ class StringConverter {
         if(!latexMode){
             val separator = if (keepSpace) " " else ""
             for(i in keys.indices) {
-                var res = keys[i]
+                val res = keys[i]
                     .let { replaceSuperscript(it) }
                     .let { replaceSubscript(it) }
                     .let { simpleMap[it] ?: it }
-                if(!keepSpace)       res = addSpaceToOperator(res)
-                if(useDiacritics)    res = symLatex.latexDiacriticMath[res] ?: res
-                if(useAdditionalSym) res = symLatex.latexMath[res]          ?: res
+                    .let { if(!keepSpace)       addSpaceToOperator(it)            else it}
+                    .let { if(useDiacritics)    symLatex.latexDiacritic[it] ?: it else it}
+                    .let { if(useAdditionalSym) symLatex.latexMath[it]      ?: it else it}
                 evaluatedString += (res + separator)
             }
         }else{
