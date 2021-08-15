@@ -8,6 +8,10 @@ import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
 
+    // TODO: Add Help Page
+    // TODO: Complete Setting Page
+    // TODO: Custom Commands
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
