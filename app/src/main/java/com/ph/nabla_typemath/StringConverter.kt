@@ -97,11 +97,11 @@ class StringConverter {
     }
 
     // Replace word that started with '\\', LaTeX style
-    private val replaceStringLatexRegex = """\\[a-zA-Z]+""".toRegex()
+    private val replaceStringLatexRegex = "\\\\[a-zA-Z]+".toRegex()
     private fun replaceStringLatex(str: String): String{
         return str.replace(
             replaceStringLatexRegex
-        ) { (symLatex.latexMath[it.value.drop(1)] ?: it.value).toString() }
+        ) { (symLatex.latexMath[it.value.drop(1)] ?: it.value) }
     }
 
     // Return whether str is in valid format or not
@@ -137,7 +137,6 @@ class StringConverter {
         }
     }
 
-    // TODO: Optimize LaTeX Diacritic Support
     // TODO: LaTeX Fraction Support
     // Evaluate math expression string, convert it into unicode
     private val fractionCommand = "frac"
