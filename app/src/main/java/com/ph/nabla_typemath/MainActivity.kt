@@ -11,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     // TODO: Add Help Page
     // TODO: Complete Setting Page
     // TODO: Custom Commands
+    // TODO: App Blacklist and Whitelist
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
