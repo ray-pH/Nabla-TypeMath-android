@@ -10,6 +10,7 @@ class StringConverter {
             + sym.symbolEqualityMap
             + sym.symbolCalculusMap
             + sym.symbolMiscMap) as LinkedHashMap<String, String>)
+    private val fractionSlash: String = "⁄"
 
 
     // Return the index of n-th checkStr in str
@@ -62,6 +63,20 @@ class StringConverter {
         return (listOf(keys[0]) + unicodes).joinToString("")
     }
 
+    // replace latex frac "\frac{<num>}{<den>} with unicode fraction
+    private val latexFracRegex = "\\\\frac\\{.+\\}\\{.+\\}".toRegex()
+    private fun replaceFracLatex(str: String): String{
+        return str.replace(latexFracRegex){
+            val itStr = it.value
+            val subStr = itStr.substring(itStr.indexOf('{')+1, itStr.length-1) // ...}{..
+            val (num, den) = subStr.split("}{")
+            val numUnicode = num.map{ c -> sym.superscriptMap[c] ?: c}.toString()
+            val denUnicode = den.map{ c -> sym.subscriptMap[c]   ?: c}.toString()
+            numUnicode + fractionSlash + denUnicode
+        }
+    }
+
+    // evaluate latex diacritic commands "\com{<param>}"
     private val latexDiacriticReg = "\\\\[a-zA-Z]+\\{[a-zA-Z]*\\}".toRegex()
     private fun replaceDiacriticLatex(str: String): String{
         return str.replace(latexDiacriticReg) {
@@ -129,17 +144,18 @@ class StringConverter {
         }
     }
 
-    private val fractionSlash: String = "⁄"
+    // evaluate fraction expression "frac <num>/<den>"
     private fun evalFraction(str: String): String {
         return sym.vulgarFractionMap[str] ?: str.let {
             val (num, den) = it.split('/')
-            replaceSuperscript(num) + fractionSlash + replaceSubscript(den)
+            val numUnicode = num.map{ c -> sym.superscriptMap[c] ?: c}.toString()
+            val denUnicode = den.map{ c -> sym.subscriptMap[c]   ?: c}.toString()
+            numUnicode + fractionSlash + denUnicode
         }
     }
 
-    // TODO: LaTeX Fraction Support
-    // Evaluate math expression string, convert it into unicode
     private val fractionCommand = "frac"
+    // Evaluate math expression string, convert it into unicode
     private fun evalMath(str: String,
                          useAdditionalSym : Boolean,
                          useDiacritics    : Boolean,
@@ -170,7 +186,9 @@ class StringConverter {
                     .let { replaceSuperscriptLatex(it) }
                     .let { replaceSubscriptLatex(it) }
                     .let { replaceStringLatex(it) }
+                    .let { replaceStringLatex(it) }
                     .let { if(useDiacritics) replaceDiacriticLatex(it) else it }
+                    .let { replaceFracLatex(it) }
                 evaluatedString += "$res "
             }
         }
