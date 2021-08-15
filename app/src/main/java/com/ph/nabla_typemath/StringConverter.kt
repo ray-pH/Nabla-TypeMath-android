@@ -62,67 +62,18 @@ class StringConverter {
         return (listOf(keys[0]) + unicodes).joinToString("")
     }
 
-    enum class SearchMode {
-        SLASH,
-        LEFT,
-        RIGHT,
-    }
+    private val latexDiacriticReg = "\\\\[a-zA-Z]+\\{[a-zA-Z]*\\}".toRegex()
     private fun replaceDiacriticLatex(str: String): String{
-        var res = ""
-        var keyBuffer   = ""
-        var paramBuffer = ""
-        var searchMode = SearchMode.SLASH
-        for(i in str.indices){
-            val c = str[i]
-            when (searchMode) {
-                SearchMode.SLASH -> {
-                    if (c == '\\') { searchMode = SearchMode.LEFT }
-                    else res += c
-                }
-                SearchMode.LEFT  -> {
-                    when (c) {
-                        '{'  -> { searchMode = SearchMode.RIGHT }
-                        '\\' -> {
-                            res += keyBuffer
-                            keyBuffer = ""
-                        }
-                        else -> keyBuffer += c
-                    }
-                }
-                SearchMode.RIGHT -> {
-                    when (c) {
-                        '}'  -> {
-                            searchMode = SearchMode.SLASH
-                            res += if(symLatex.latexDiacritic.containsKey(keyBuffer))
-                                (paramBuffer + symLatex.latexDiacritic[keyBuffer])
-                            else
-                                "\\$keyBuffer{${paramBuffer}}"
-                            keyBuffer = ""
-                            paramBuffer = ""
-                        }
-                        '\\' -> {
-                            res += ("$keyBuffer{$paramBuffer")
-                            keyBuffer = ""
-                            paramBuffer = ""
-                            searchMode = SearchMode.LEFT
-                        }
-                        else -> paramBuffer += c
-                    }
-                }
-            }
+        return str.replace(latexDiacriticReg) {
+            val strIt : String = it.value
+            val leftId = strIt.indexOf('{')
+            val keyWord = strIt.substring(1,leftId)
+            val params  = strIt.substring(leftId+1, strIt.length-1)
+            if(symLatex.latexDiacritic.containsKey(keyWord))
+                params + symLatex.latexDiacritic[keyWord]
+            else
+                "\\${keyWord}{${params}}"
         }
-        res += if(symLatex.latexDiacritic.containsKey(keyBuffer))
-            (paramBuffer + symLatex.latexDiacritic[keyBuffer])
-        else if(paramBuffer.isEmpty() && keyBuffer.isEmpty())
-            ""
-        else{
-            val addStr = when (searchMode) {
-                SearchMode.RIGHT -> "{${paramBuffer}"
-                else -> ""
-            }
-            "\\$keyBuffer$addStr"
-        }
-        return res
     }
 
     // Replace series of character after '^' with unicode superscripts
