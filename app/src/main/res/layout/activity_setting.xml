@@ -22,6 +22,28 @@
             android:padding="48dp">
 
             <TextView
+                android:id="@+id/edit_custom_command_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/custom_commands"
+                android:layout_marginBottom="8dp"
+                android:textColor="?android:attr/textColorPrimary" />
+
+            <TextView
+                android:id="@+id/edit_custom_command_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:text="@string/edit_custom_command_desc" />
+
+            <Button
+                android:id="@+id/custom_command_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="@string/edit_custom_command" />
+
+            <TextView
                 android:id="@+id/initialString_TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -63,7 +85,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="24dp" />
+                android:layout_height="20dp" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/latexMode_switch"
@@ -112,19 +134,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/keep_space_desc" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/useDiacritics_switch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/use_diacritics" />
-
-                <TextView
-                    android:id="@+id/useDiacritics_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/use_diacritics_desc" />
-
             </LinearLayout>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/useDiacritics_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/use_diacritics" />
+
+            <TextView
+                android:id="@+id/useDiacritics_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/use_diacritics_desc" />
 
         </LinearLayout>
     </ScrollView>

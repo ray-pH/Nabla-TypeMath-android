@@ -14,6 +14,8 @@
     <string name="help">help</string>
     <string name="symbols">Symbols</string>
 
+    <string name="edit_custom_command">Edit Custom Commands</string>
+    <string name="custom_commands">Custom Commands</string>
     <string name="save">Save String</string>
     <string name="end_string">End String</string>
     <string name="initial_string">Initial String</string>
@@ -23,7 +25,6 @@
     <string name="use_diacritics">Use Diacritics</string>
 
     <string name="latex_mode_desc">
-        When Using LaTeX mode, all setting below will ignored\n\n
         Symbol names must be prefixed with backslash\n
         (\\alpha\\in \\mathbb{R})\n\n
         For superscript and subscript, use curly brackets\n
@@ -41,6 +42,10 @@
     <string name="use_diacritics_desc">
         Diacritics are symbols like ddot (ö) and bar (o̅)\n
         In simple mode, \"x ddot\" will become ẍ
+    </string>
+    <string name="edit_custom_command_desc">
+        You can add your own custom commands and symbols,
+        you can also overwrite the built-in commands with your owns
     </string>
 
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
