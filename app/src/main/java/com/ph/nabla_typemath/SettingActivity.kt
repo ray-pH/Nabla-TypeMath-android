@@ -1,5 +1,6 @@
 package com.ph.nabla_typemath
 
+import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,6 +21,12 @@ class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
+
+        val customCommandButton = findViewById<Button>(R.id.custom_command_button)
+        customCommandButton.setOnClickListener {
+            val intent = Intent(this, CustomCommand::class.java)
+            startActivity(intent)
+        }
 
         initStringEdit     = findViewById(R.id.initialString_EditText)
         endStringEdit      = findViewById(R.id.endString_EditText)

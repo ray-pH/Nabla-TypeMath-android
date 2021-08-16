@@ -3,6 +3,7 @@
     <string name="nabla_activity_name">Nabla</string>
     <string name="symbols_activity_name">Symbols</string>
     <string name="setting_activity_name">Setting</string>
+    <string name="custom_command_activity_name">Custom Command</string>
     <string name="title_text">∇ NABLA</string>
 
     <string name="allow_permission">Allow Permission</string>
@@ -62,4 +63,8 @@
     <string name="basic_symbols">Basic Symbols</string>
     <string name="additionalSymbol_symbols">Additional Symbols</string>
     <string name="diacritics_symbols">Diacritics</string>
+    <string name="command_header">Command</string>
+    <string name="symbol_header">Symbol</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
