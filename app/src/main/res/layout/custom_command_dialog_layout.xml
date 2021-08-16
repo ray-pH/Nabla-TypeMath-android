@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/edit_command_dialog_command_label"
+        android:labelFor="@id/edit_command_dialog_command"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/command_header"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_command_dialog_command"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:autofillHints="Command" />
+
+    <TextView
+        android:id="@+id/edit_command_dialog_symbol_label"
+        android:labelFor="@id/edit_command_dialog_symbol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/symbol_header"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_command_dialog_symbol"
+        android:inputType="text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:autofillHints="Symbol" />
+
+</LinearLayout>

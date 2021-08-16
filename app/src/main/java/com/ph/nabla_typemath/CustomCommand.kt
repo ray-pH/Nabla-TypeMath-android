@@ -1,8 +1,10 @@
 package com.ph.nabla_typemath
 
-import android.content.DialogInterface
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 
@@ -10,44 +12,37 @@ import androidx.appcompat.app.AppCompatActivity
 class CustomCommand : AppCompatActivity() {
 
     private lateinit var linlin : LinearLayout
+    private lateinit var commandText : TextView
+    private lateinit var symbolText  : TextView
 
-//    class FireMissilesDialogFragment : DialogFragment() {
-//        override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-//            return activity?.let {
-//                // Use the Builder class for convenient dialog construction
-//                val builder = AlertDialog.Builder(it)
-//                builder.setMessage("test popup")
-//                    .setPositiveButton("nani kore",
-//                        DialogInterface.OnClickListener { dialog, id ->
-//                            // FIRE ZE MISSILES!
-//                        })
-//                    .setNegativeButton("neg",
-//                        DialogInterface.OnClickListener { dialog, id ->
-//                            // User cancelled the dialog
-//                        })
-//                // Create the AlertDialog object and return it
-//                builder.create()
-//            } ?: throw IllegalStateException("Activity cannot be null")
-//        }
-//    }
-
-//    private val fdial = FireMissilesDialogFragment()
-
+    @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_command)
         linlin = findViewById(R.id.custom_container_1)
-        val b1 = AlertDialog.Builder(this)
-        b1.setMessage("mesej")
-        b1.setCancelable(true)
-        b1.setPositiveButton(
-            "Yes"
-        ) { dialog, id -> dialog.cancel() }
-        b1.setNegativeButton(
-            "No"
-        ) { dialog, id -> dialog.cancel() }
-        val a = b1.create()
+        commandText  = findViewById(R.id.custom_command_1)
+        symbolText   = findViewById(R.id.custom_symbol_1)
 
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+
+        // Pass null as the parent view because its going in the dialog layout
+        val dialogView = inflater.inflate(R.layout.custom_command_dialog_layout, null)
+        builder.setView(dialogView)
+            .setCancelable(true)
+            .setPositiveButton("DONE") { dialog, _ ->
+                val commandInput : EditText = dialogView.findViewById(R.id.edit_command_dialog_command)
+                commandText.text = commandInput.text
+                dialog.cancel()
+            }
+            .setNeutralButton("DELETE"){ dialog, _ ->
+                dialog.cancel()
+            }
+            .setNegativeButton("CANCEL"){ dialog, _ ->
+                dialog.cancel()
+            }
+
+        val a = builder.create()
         linlin.setOnClickListener{
             a.show()
         }
