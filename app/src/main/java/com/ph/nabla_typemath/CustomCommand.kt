@@ -2,8 +2,8 @@ package com.ph.nabla_typemath
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
 import android.util.TypedValue
+import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,13 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 
 class CustomCommand : AppCompatActivity() {
 
-    private lateinit var customCommandLayout : LinearLayout
     private var counter = 0
 
-    private fun setOnClickAlertDialog(verticalLayout: LinearLayout, n: Int){
-        val linearLayout : LinearLayout = verticalLayout.findViewWithTag("custom_container_${n}")
-        val commandText  : TextView     = linearLayout.findViewWithTag("custom_command_${n}")
-        val symbolText   : TextView     = linearLayout.findViewWithTag("custom_symbol_${n}")
+    private fun setOnClickAlertDialog(verticalLayout: LinearLayout?, n: Int){
+        val linearLayout : LinearLayout? = verticalLayout?.findViewWithTag("custom_container_${n}")
+        val commandText  : TextView?     = linearLayout?.findViewWithTag("custom_command_${n}")
+        val symbolText   : TextView?     = linearLayout?.findViewWithTag("custom_symbol_${n}")
 
         val builder  = AlertDialog.Builder(this)
         val inflater = layoutInflater
@@ -32,8 +31,8 @@ class CustomCommand : AppCompatActivity() {
                     dialogView.findViewById(R.id.edit_command_dialog_command)
                 val symbolInput  : EditText =
                     dialogView.findViewById(R.id.edit_command_dialog_symbol)
-                commandText.text = commandInput.text
-                symbolText.text  = symbolInput.text
+                commandText?.text = commandInput.text
+                symbolText?.text  = symbolInput.text
                 dialog.cancel()
             }
             .setNeutralButton("DELETE"){ dialog, _ ->
@@ -42,15 +41,14 @@ class CustomCommand : AppCompatActivity() {
             .setNegativeButton("CANCEL"){ dialog, _ -> dialog.cancel() }
             .setTitle("Edit Custom Command")
 
-        // TODO : Change text to inputted
         val alertDialog = builder.create()
-        linearLayout.setOnClickListener{
+        linearLayout?.setOnClickListener{
             val commandInput : EditText =
                 dialogView.findViewById(R.id.edit_command_dialog_command)
             val symbolInput  : EditText =
                 dialogView.findViewById(R.id.edit_command_dialog_symbol)
-            commandInput.setText(commandText.text, TextView.BufferType.EDITABLE)
-            symbolInput.setText(symbolText.text, TextView.BufferType.EDITABLE)
+            commandInput.setText(commandText?.text, TextView.BufferType.EDITABLE)
+            symbolInput.setText(symbolText?.text, TextView.BufferType.EDITABLE)
             alertDialog.show()
         }
     }
@@ -60,7 +58,7 @@ class CustomCommand : AppCompatActivity() {
         LinearLayout.LayoutParams.WRAP_CONTENT,
         1.0f,
     )
-    private fun addNewCommand(verticalLayout: LinearLayout, n: Int){
+    private fun addNewCommand(verticalLayout: LinearLayout?, n: Int){
         val textCommand  = TextView(this)
         val textCommandStr = "command$n"
         textCommand.text = textCommandStr
@@ -92,21 +90,26 @@ class CustomCommand : AppCompatActivity() {
             TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics
         ).toInt()
         horizontalLayoutParam.setMargins(0,0,0,pxOf16dp)
-        verticalLayout.addView(horizontalLayout, horizontalLayoutParam)
+        verticalLayout?.addView(horizontalLayout, horizontalLayoutParam)
 
-        setOnClickAlertDialog(customCommandLayout, n)
+        setOnClickAlertDialog(verticalLayout, n)
     }
 
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_command)
-        customCommandLayout = findViewById(R.id.custom_command_layout)
+        val customCommandLayout : LinearLayout? = findViewById(R.id.custom_command_layout)
+        val addButton : Button = findViewById(R.id.add_custom_command_button)
 
-        setOnClickAlertDialog(customCommandLayout, 1)
-        counter = 2
+        addButton.setOnClickListener {
+            addNewCommand(customCommandLayout, this.counter++)
+        }
+
+        counter = 1
+        setOnClickAlertDialog(customCommandLayout, counter++)
         addNewCommand(customCommandLayout, counter++)
-        addNewCommand(customCommandLayout, counter++)
-        addNewCommand(customCommandLayout, counter++)
+
+
     }
 }
