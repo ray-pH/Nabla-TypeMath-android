@@ -9,22 +9,33 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isNotEmpty
 
 
 class CustomCommand : AppCompatActivity() {
 
     private var counter = 0
+    private lateinit var verticalLayout: LinearLayout
 
-    val customSymbolMap : LinkedHashMap<String, String> = linkedMapOf(
+    private val customSymbolMap : LinkedHashMap<String, String> = linkedMapOf(
         "aa" to "11",
         "bb" to "22",
         "cc" to "33",
     )
 
+    // prepare counter until reached available value
+    private fun prepareCounter(){
+        var available = false
+        do{
+            val linearLayout : LinearLayout? = verticalLayout.findViewWithTag(
+                "custom_container_${this.counter}")
+            if(linearLayout == null) available = true
+            else this.counter++
+        } while(!available)
+    }
+
     // set when a linearLayout(horizontal) is Clicker, an editor dialog pop up
-    private fun setOnClickAlertDialog(verticalLayout: LinearLayout?, n: Int){
-        val linearLayout : LinearLayout? = verticalLayout?.findViewWithTag("custom_container_${n}")
+    private fun setOnClickAlertDialog(n: Int){
+        val linearLayout : LinearLayout? = verticalLayout.findViewWithTag("custom_container_${n}")
         val commandText  : TextView?     = linearLayout?.findViewWithTag("custom_command_${n}")
         val symbolText   : TextView?     = linearLayout?.findViewWithTag("custom_symbol_${n}")
 
@@ -67,19 +78,24 @@ class CustomCommand : AppCompatActivity() {
         1.0f,
     )
     // add new row to customCommand layout
-    private fun addNewCommand(verticalLayout: LinearLayout?, n: Int){
+    @Suppress("SameParameterValue")
+    private fun addNewCommand(verticalLayout: LinearLayout?,
+                              textCommandStr: String,
+                              textSymbolStr : String,
+                              doPrepareCounter : Boolean = true,
+    ){
+        if(doPrepareCounter) prepareCounter()
+
         val textCommand  = TextView(this)
-        val textCommandStr = "command$n"
         textCommand.text = textCommandStr
         textCommand.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
-        textCommand.tag  = "custom_command_${n}"
+        textCommand.tag  = "custom_command_${this.counter}"
         textCommand.layoutParams = textLayoutParams
 
         val textSymbol   = TextView(this)
-        val textSymbolStr = "symbol$n"
         textSymbol.text = textSymbolStr
         textSymbol.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
-        textSymbol.tag  = "custom_symbol_${n}"
+        textSymbol.tag  = "custom_symbol_${this.counter}"
         textSymbol.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END
         textSymbol.layoutParams  = textLayoutParams
 
@@ -87,7 +103,7 @@ class CustomCommand : AppCompatActivity() {
         horizontalLayout.orientation = LinearLayout.HORIZONTAL
         horizontalLayout.isClickable = true
         horizontalLayout.isFocusable = true
-        horizontalLayout.tag = "custom_container_${n}"
+        horizontalLayout.tag = "custom_container_${this.counter}"
         horizontalLayout.addView(textCommand)
         horizontalLayout.addView(textSymbol)
 
@@ -101,36 +117,40 @@ class CustomCommand : AppCompatActivity() {
         horizontalLayoutParam.setMargins(0,0,0,pxOf16dp)
         verticalLayout?.addView(horizontalLayout, horizontalLayoutParam)
 
-        setOnClickAlertDialog(verticalLayout, n)
+        setOnClickAlertDialog(this.counter)
+        this.counter++
     }
 
-    // prepare counter until reached available value
-    private fun prepareCounter(verticalLayout: LinearLayout?){
-        var available = false
-        do{
-            val linearLayout : LinearLayout? = verticalLayout?.findViewWithTag(
-                "custom_container_${this.counter}")
-            if(linearLayout == null) available = true
-            else this.counter++
-        } while(!available)
+    // Add new empty custom command
+    private fun addNewEmptyCommand() {
+        prepareCounter()
+        val n = this.counter
+        addNewCommand(verticalLayout, "command$n","command$n"
+            , false)
     }
+
+    // Populate layout with custom commands from map
+    private fun populateWithMap(customMap: LinkedHashMap<String, String>){
+        prepareCounter()
+        customMap.forEach{ (key,value) ->
+            addNewCommand(verticalLayout, key, value, false)
+        }
+    }
+
 
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_custom_command)
-        val customCommandLayout : LinearLayout? = findViewById(R.id.custom_command_layout)
+        verticalLayout = findViewById(R.id.custom_command_layout)
         val addButton : Button = findViewById(R.id.add_custom_command_button)
 
         addButton.setOnClickListener {
-            addNewCommand(customCommandLayout, this.counter++)
+            addNewEmptyCommand()
         }
 
         counter = 1
-        setOnClickAlertDialog(customCommandLayout, counter)
-        prepareCounter(customCommandLayout)
-        addNewCommand(customCommandLayout, counter++)
-
-
+        setOnClickAlertDialog(counter)
+        populateWithMap(customSymbolMap)
     }
 }
