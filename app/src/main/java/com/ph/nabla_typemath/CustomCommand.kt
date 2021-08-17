@@ -22,6 +22,7 @@ class CustomCommand : AppCompatActivity() {
         "cc" to "33",
     )
 
+    // set when a linearLayout(horizontal) is Clicker, an editor dialog pop up
     private fun setOnClickAlertDialog(verticalLayout: LinearLayout?, n: Int){
         val linearLayout : LinearLayout? = verticalLayout?.findViewWithTag("custom_container_${n}")
         val commandText  : TextView?     = linearLayout?.findViewWithTag("custom_command_${n}")
@@ -65,6 +66,7 @@ class CustomCommand : AppCompatActivity() {
         LinearLayout.LayoutParams.WRAP_CONTENT,
         1.0f,
     )
+    // add new row to customCommand layout
     private fun addNewCommand(verticalLayout: LinearLayout?, n: Int){
         val textCommand  = TextView(this)
         val textCommandStr = "command$n"
@@ -102,6 +104,7 @@ class CustomCommand : AppCompatActivity() {
         setOnClickAlertDialog(verticalLayout, n)
     }
 
+    // prepare counter until reached available value
     private fun prepareCounter(verticalLayout: LinearLayout?){
         var available = false
         do{
