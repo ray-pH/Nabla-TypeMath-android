@@ -2,6 +2,8 @@ package com.ph.nabla_typemath
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.util.TypedValue
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -11,40 +13,100 @@ import androidx.appcompat.app.AppCompatActivity
 
 class CustomCommand : AppCompatActivity() {
 
-    private lateinit var linlin : LinearLayout
-    private lateinit var commandText : TextView
-    private lateinit var symbolText  : TextView
+    private lateinit var customCommandLayout : LinearLayout
+    private var counter = 0
 
-    @SuppressLint("InflateParams")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_custom_command)
-        linlin = findViewById(R.id.custom_container_1)
-        commandText  = findViewById(R.id.custom_command_1)
-        symbolText   = findViewById(R.id.custom_symbol_1)
+    private fun setOnClickAlertDialog(verticalLayout: LinearLayout, n: Int){
+        val linearLayout : LinearLayout = verticalLayout.findViewWithTag("custom_container_${n}")
+        val commandText  : TextView     = linearLayout.findViewWithTag("custom_command_${n}")
+        val symbolText   : TextView     = linearLayout.findViewWithTag("custom_symbol_${n}")
 
-        val builder = AlertDialog.Builder(this)
+        val builder  = AlertDialog.Builder(this)
         val inflater = layoutInflater
 
-        // Pass null as the parent view because its going in the dialog layout
         val dialogView = inflater.inflate(R.layout.custom_command_dialog_layout, null)
         builder.setView(dialogView)
             .setCancelable(true)
             .setPositiveButton("DONE") { dialog, _ ->
-                val commandInput : EditText = dialogView.findViewById(R.id.edit_command_dialog_command)
+                val commandInput : EditText =
+                    dialogView.findViewById(R.id.edit_command_dialog_command)
+                val symbolInput  : EditText =
+                    dialogView.findViewById(R.id.edit_command_dialog_symbol)
                 commandText.text = commandInput.text
+                symbolText.text  = symbolInput.text
                 dialog.cancel()
             }
             .setNeutralButton("DELETE"){ dialog, _ ->
                 dialog.cancel()
             }
-            .setNegativeButton("CANCEL"){ dialog, _ ->
-                dialog.cancel()
-            }
+            .setNegativeButton("CANCEL"){ dialog, _ -> dialog.cancel() }
+            .setTitle("Edit Custom Command")
 
-        val a = builder.create()
-        linlin.setOnClickListener{
-            a.show()
+        // TODO : Change text to inputted
+        val alertDialog = builder.create()
+        linearLayout.setOnClickListener{
+            val commandInput : EditText =
+                dialogView.findViewById(R.id.edit_command_dialog_command)
+            val symbolInput  : EditText =
+                dialogView.findViewById(R.id.edit_command_dialog_symbol)
+            commandInput.setText(commandText.text, TextView.BufferType.EDITABLE)
+            symbolInput.setText(symbolText.text, TextView.BufferType.EDITABLE)
+            alertDialog.show()
         }
+    }
+
+    private val textLayoutParams : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT,
+        1.0f,
+    )
+    private fun addNewCommand(verticalLayout: LinearLayout, n: Int){
+        val textCommand  = TextView(this)
+        val textCommandStr = "command$n"
+        textCommand.text = textCommandStr
+        textCommand.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
+        textCommand.tag  = "custom_command_${n}"
+        textCommand.layoutParams = textLayoutParams
+
+        val textSymbol   = TextView(this)
+        val textSymbolStr = "symbol$n"
+        textSymbol.text = textSymbolStr
+        textSymbol.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
+        textSymbol.tag  = "custom_symbol_${n}"
+        textSymbol.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END
+        textSymbol.layoutParams  = textLayoutParams
+
+        val horizontalLayout = LinearLayout(this)
+        horizontalLayout.orientation = LinearLayout.HORIZONTAL
+        horizontalLayout.isClickable = true
+        horizontalLayout.isFocusable = true
+        horizontalLayout.tag = "custom_container_${n}"
+        horizontalLayout.addView(textCommand)
+        horizontalLayout.addView(textSymbol)
+
+        val horizontalLayoutParam = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
+        )
+        val pxOf16dp  = TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP, 16f, resources.displayMetrics
+        ).toInt()
+        horizontalLayoutParam.setMargins(0,0,0,pxOf16dp)
+        verticalLayout.addView(horizontalLayout, horizontalLayoutParam)
+
+        setOnClickAlertDialog(customCommandLayout, n)
+    }
+
+    @SuppressLint("InflateParams")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_custom_command)
+        customCommandLayout = findViewById(R.id.custom_command_layout)
+
+        setOnClickAlertDialog(customCommandLayout, 1)
+        counter = 2
+        addNewCommand(customCommandLayout, counter++)
+        addNewCommand(customCommandLayout, counter++)
+        addNewCommand(customCommandLayout, counter++)
     }
 }
