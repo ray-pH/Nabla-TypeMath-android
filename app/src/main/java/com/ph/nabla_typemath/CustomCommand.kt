@@ -1,7 +1,9 @@
 package com.ph.nabla_typemath
 
 import android.annotation.SuppressLint
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.widget.Button
 import android.widget.EditText
@@ -13,7 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 
 class CustomCommand : AppCompatActivity() {
 
+    private val tag = "NablaMathTypeService"
+    private val gsonHandler = CustomCommandGSONHandler()
     private var counter = 0
+    private var maxIndex = 0
+    private val prefsName = "TypeMathPrefsFile"
     private lateinit var verticalLayout: LinearLayout
 
     private val customSymbolMap : LinkedHashMap<String, String> = linkedMapOf(
@@ -21,6 +27,23 @@ class CustomCommand : AppCompatActivity() {
         "bb" to "22",
         "cc" to "33",
     )
+
+    // Generate LinkedHashMap from editor
+    private fun genLinkedHashMap(): LinkedHashMap<String,String>{
+        val linkedMap = LinkedHashMap<String,String>()
+        for (genCounter in 0..this.maxIndex){
+            val linearLayout : LinearLayout = verticalLayout.findViewWithTag(
+                "custom_container_${genCounter}") ?: continue
+            val commandText: TextView = linearLayout.findViewWithTag(
+                "custom_command_${genCounter}")   ?: continue
+            val symbolText : TextView = linearLayout.findViewWithTag(
+                "custom_symbol_${genCounter}")    ?: continue
+            val commandStr = commandText.text.toString()
+            val symbolStr  = symbolText.text.toString()
+            linkedMap[commandStr] = symbolStr
+        }
+        return linkedMap
+    }
 
     // prepare counter until reached available value
     private fun prepareCounter(){
@@ -118,6 +141,7 @@ class CustomCommand : AppCompatActivity() {
         verticalLayout?.addView(horizontalLayout, horizontalLayoutParam)
 
         setOnClickAlertDialog(this.counter)
+        if (this.counter > this.maxIndex) this.maxIndex = this.counter
         this.counter++
     }
 
@@ -135,6 +159,7 @@ class CustomCommand : AppCompatActivity() {
         customMap.forEach{ (key,value) ->
             addNewCommand(verticalLayout, key, value, false)
         }
+        this.maxIndex = this.counter-1
     }
 
 
@@ -145,12 +170,33 @@ class CustomCommand : AppCompatActivity() {
         verticalLayout = findViewById(R.id.custom_command_layout)
         val addButton : Button = findViewById(R.id.add_custom_command_button)
 
+        // DEBUG
+        val saveButton : Button = findViewById(R.id.save_button)
+        saveButton.setOnClickListener {
+            val linkedMap = genLinkedHashMap()
+            val gSONStr = gsonHandler.linkedMapToGSONStr(linkedMap)
+            Log.i(tag, gSONStr)
+            val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
+            val editor = sh.edit()
+            editor.putString("customMap", gSONStr)
+            editor.apply()
+        }
+        // DEBUG
+
         addButton.setOnClickListener {
             addNewEmptyCommand()
         }
 
         counter = 1
         setOnClickAlertDialog(counter)
-        populateWithMap(customSymbolMap)
+
+        val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
+        val gSONStr = sh.getString("customMap", "") ?: ""
+        if(gSONStr.isNotEmpty()){
+            val customMap : LinkedHashMap<String,String> =
+                gsonHandler.gSONStrToLinkedMap(gSONStr)
+            populateWithMap(customMap)
+        }
+//        populateWithMap(customSymbolMap)
     }
 }

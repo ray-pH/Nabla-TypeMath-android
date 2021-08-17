@@ -88,6 +88,18 @@
                 android:layout_height="wrap_content"
                 android:text="+" />
 
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/load_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Load" />
+
         </LinearLayout>
     </ScrollView>
 
