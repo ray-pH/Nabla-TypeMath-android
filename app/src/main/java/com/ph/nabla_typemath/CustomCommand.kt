@@ -9,11 +9,18 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isNotEmpty
 
 
 class CustomCommand : AppCompatActivity() {
 
     private var counter = 0
+
+    val customSymbolMap : LinkedHashMap<String, String> = linkedMapOf(
+        "aa" to "11",
+        "bb" to "22",
+        "cc" to "33",
+    )
 
     private fun setOnClickAlertDialog(verticalLayout: LinearLayout?, n: Int){
         val linearLayout : LinearLayout? = verticalLayout?.findViewWithTag("custom_container_${n}")
@@ -95,6 +102,16 @@ class CustomCommand : AppCompatActivity() {
         setOnClickAlertDialog(verticalLayout, n)
     }
 
+    private fun prepareCounter(verticalLayout: LinearLayout?){
+        var available = false
+        do{
+            val linearLayout : LinearLayout? = verticalLayout?.findViewWithTag(
+                "custom_container_${this.counter}")
+            if(linearLayout == null) available = true
+            else this.counter++
+        } while(!available)
+    }
+
     @SuppressLint("InflateParams")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +124,8 @@ class CustomCommand : AppCompatActivity() {
         }
 
         counter = 1
-        setOnClickAlertDialog(customCommandLayout, counter++)
+        setOnClickAlertDialog(customCommandLayout, counter)
+        prepareCounter(customCommandLayout)
         addNewCommand(customCommandLayout, counter++)
 
 
