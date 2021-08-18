@@ -39,6 +39,9 @@ class MathTypeService : AccessibilityService() {
         Log.e(tag, "onInterrupt: something went wrong")
     }
 
+
+    // TODO : Use TYPE_VIEW_TEXT_CHANGED properties rather than private variables from
+    //  https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){
             try {
