@@ -50,7 +50,7 @@ class CustomCommand : AppCompatActivity() {
     private fun saveToPref(){
         val linkedMap = genLinkedHashMap()
         val gSONStr = gsonHandler.linkedMapToGSONStr(linkedMap)
-        Log.i(tag, gSONStr)
+        // Log.i(tag, gSONStr)
         val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
         val editor = sh.edit()
         editor.putString("customMap", gSONStr)
@@ -182,19 +182,9 @@ class CustomCommand : AppCompatActivity() {
         verticalLayout = findViewById(R.id.custom_command_layout)
         val addButton : Button = findViewById(R.id.add_custom_command_button)
 
-        // DEBUG
-        val saveButton : Button = findViewById(R.id.save_button)
-        saveButton.setOnClickListener {
-            saveToPref()
-        }
-        // DEBUG
-
         addButton.setOnClickListener {
             addNewEmptyCommand()
         }
-
-        counter = 1
-        setOnClickAlertDialog(counter)
 
         val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
         val gSONStr = sh.getString("customMap", "") ?: ""

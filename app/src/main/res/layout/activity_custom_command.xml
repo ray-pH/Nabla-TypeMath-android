@@ -25,7 +25,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
 
                     <TextView
                         android:id="@+id/command_table_head"
@@ -50,35 +51,6 @@
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/custom_container_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="16dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="horizontal"
-                    android:tag="custom_container_1">
-
-                    <TextView
-                        android:id="@+id/custom_command_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:tag="custom_command_1"
-                        android:text="TextView"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/custom_symbol_1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:tag="custom_symbol_1"
-                        android:text="TextView"
-                        android:textAlignment="viewEnd"
-                        android:textSize="16sp" />
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -86,19 +58,7 @@
                 android:id="@+id/add_custom_command_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+" />
-
-            <Button
-                android:id="@+id/save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Save" />
-
-            <Button
-                android:id="@+id/load_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Load" />
+                android:text="@string/custom_command_add_button" />
 
         </LinearLayout>
     </ScrollView>

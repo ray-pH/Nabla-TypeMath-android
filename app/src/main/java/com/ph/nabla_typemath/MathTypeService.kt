@@ -13,13 +13,17 @@ import android.widget.EditText
 
 class MathTypeService : AccessibilityService() {
     private val tag = "NablaMathTypeService"
-    private val converter = StringConverter()
+
+    private val converter   = StringConverter()
+    private val gsonHandler = CustomCommandGSONHandler()
+
     private var prevStringLen = -99
     private var beforeChangeString    = ""
     private var afterChangeStringLen  = -1
     private var beforeChangeCursorPos = -1
     private var afterChangeCursorPos  = -1
     private var justEdit = false
+
     private val prefsName = "TypeMathPrefsFile"
     private var listener: OnSharedPreferenceChangeListener? = null
 
@@ -120,6 +124,17 @@ class MathTypeService : AccessibilityService() {
         }
     }
 
+    private fun onPreferenceChanges(prefs: SharedPreferences, key: String){
+        if(key == "customMap"){
+            val gSONStr = prefs.getString("customMap", "") ?: ""
+            if(gSONStr.isNotEmpty()){
+                val customMap : LinkedHashMap<String,String> = gsonHandler.gSONStrToLinkedMap(gSONStr)
+                converter.loadCustomMap(customMap)
+            }
+        }
+        // Log.i(tag, "$key was changed")
+    }
+
     override fun onServiceConnected() {
         super.onServiceConnected()
         val info = AccessibilityServiceInfo()
@@ -135,9 +150,9 @@ class MathTypeService : AccessibilityService() {
         try{
             val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
             sh.registerOnSharedPreferenceChangeListener(
-                OnSharedPreferenceChangeListener { _, key ->
-                    Log.i(tag, "$key was changed")
-                }.also { listener = it })
+                OnSharedPreferenceChangeListener { prefs, key -> onPreferenceChanges(prefs,key)
+                }.also { this.listener = it }
+            )
         }catch(e: Exception){
             Log.e(tag, "Something went wrong  when trying to register sharedPreferences listener")
         }

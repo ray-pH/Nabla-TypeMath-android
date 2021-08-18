@@ -11,7 +11,12 @@ class StringConverter {
             + sym.symbolCalculusMap
             + sym.symbolMiscMap) as LinkedHashMap<String, String>)
     private val fractionSlash: String = "⁄"
+    private var customMap : LinkedHashMap<String, String>? = null
 
+    // Load custom command map to customMap
+    fun loadCustomMap(cMap: LinkedHashMap<String, String>?){
+        this.customMap = cMap
+    }
 
     // Return the index of n-th checkStr in str
     // If n-th checkStr does not exist in str, return -1
@@ -172,6 +177,7 @@ class StringConverter {
                 val res =
                     if(isFrac){ isFrac = false; evalFraction(key) }
                     else key
+                        .let { this.customMap?.get(it) ?: it }
                         .let { replaceSuperscript(it) }
                         .let { replaceSubscript(it) }
                         .let { simpleMap[it] ?: it }
@@ -185,7 +191,6 @@ class StringConverter {
                 val res = key
                     .let { replaceSuperscriptLatex(it) }
                     .let { replaceSubscriptLatex(it) }
-                    .let { replaceStringLatex(it) }
                     .let { replaceStringLatex(it) }
                     .let { if(useDiacritics) replaceDiacriticLatex(it) else it }
                     .let { replaceFracLatex(it) }
