@@ -3,6 +3,7 @@ package com.ph.nabla_typemath
 import android.accessibilityservice.AccessibilityService
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.SharedPreferences
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
@@ -19,8 +20,8 @@ class MathTypeService : AccessibilityService() {
     private var beforeChangeCursorPos = -1
     private var afterChangeCursorPos  = -1
     private var justEdit = false
-
     private val prefsName = "TypeMathPrefsFile"
+    private var listener: OnSharedPreferenceChangeListener? = null
 
     private fun textViewNodePutString(node: AccessibilityNodeInfo?, str: String){
         val strBundle = Bundle()
@@ -130,5 +131,15 @@ class MathTypeService : AccessibilityService() {
 
         this.serviceInfo = info
         Log.i(tag, "onServiceConnected")
+
+        try{
+            val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
+            sh.registerOnSharedPreferenceChangeListener(
+                OnSharedPreferenceChangeListener { _, key ->
+                    Log.i(tag, "$key was changed")
+                }.also { listener = it })
+        }catch(e: Exception){
+            Log.e(tag, "Something went wrong  when trying to register sharedPreferences listener")
+        }
     }
 }
