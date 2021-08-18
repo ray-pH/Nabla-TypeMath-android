@@ -124,13 +124,17 @@ class MathTypeService : AccessibilityService() {
         }
     }
 
+    private fun updateConverterCustomMap(prefs: SharedPreferences) {
+        val gSONStr = prefs.getString("customMap", "") ?: ""
+        if (gSONStr.isNotEmpty()) {
+            val customMap: LinkedHashMap<String, String> = gsonHandler.gSONStrToLinkedMap(gSONStr)
+            converter.loadCustomMap(customMap)
+        }
+
+    }
     private fun onPreferenceChanges(prefs: SharedPreferences, key: String){
         if(key == "customMap"){
-            val gSONStr = prefs.getString("customMap", "") ?: ""
-            if(gSONStr.isNotEmpty()){
-                val customMap : LinkedHashMap<String,String> = gsonHandler.gSONStrToLinkedMap(gSONStr)
-                converter.loadCustomMap(customMap)
-            }
+            updateConverterCustomMap(prefs)
         }
         // Log.i(tag, "$key was changed")
     }
@@ -153,6 +157,7 @@ class MathTypeService : AccessibilityService() {
                 OnSharedPreferenceChangeListener { prefs, key -> onPreferenceChanges(prefs,key)
                 }.also { this.listener = it }
             )
+            updateConverterCustomMap(sh)
         }catch(e: Exception){
             Log.e(tag, "Something went wrong  when trying to register sharedPreferences listener")
         }
