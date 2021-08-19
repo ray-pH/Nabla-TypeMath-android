@@ -17,6 +17,13 @@ class MathTypeService : AccessibilityService() {
     private val converter   = StringConverter()
     private val gsonHandler = CustomCommandGSONHandler()
 
+    private var initStr          : String? = "."
+    private var endStr           : String? = "."
+    private var latexMode        : Boolean = false
+    private var useAdditionalSym : Boolean = false
+    private var keepSpace        : Boolean = false
+    private var useDiacritics    : Boolean = true
+
     private var prevStringLen = -99
     private var beforeChangeString    = ""
     private var afterChangeStringLen  = -1
@@ -43,7 +50,6 @@ class MathTypeService : AccessibilityService() {
     override fun onInterrupt() {
         Log.e(tag, "onInterrupt: something went wrong")
     }
-
 
     // TODO : Use TYPE_VIEW_TEXT_CHANGED properties rather than private variables from
     //  https://developer.android.com/reference/android/view/accessibility/AccessibilityEvent
@@ -83,21 +89,15 @@ class MathTypeService : AccessibilityService() {
                         // Press space
 
                         // get values from sharedPreferences
-                        val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
-                        val initStr          : String? = sh.getString("initString", ".")
-                        val endStr           : String? = sh.getString("endString", ".")
-                        val latexMode        : Boolean = sh.getBoolean("latexMode", false)
-                        val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
-                        val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
-                        val useDiacritics    : Boolean = sh.getBoolean("useDiacritics", true)
-
-                        if(initStr != null && endStr != null){
+                        val curInitStr = initStr
+                        val curEndStr  = endStr
+                        if(curInitStr != null && curEndStr != null){
                             //do conversion only if initStr and endStr is not null
                             val toConvertStr = headStr.substring(0, headStr.length-1)
-                            if(converter.isValidFormat(toConvertStr, initStr, endStr)){
+                            if(converter.isValidFormat(toConvertStr, curInitStr, curEndStr)){
                                 //if string is valid
                                 val converted = converter.evalString(
-                                    toConvertStr, initStr, endStr,
+                                    toConvertStr, curInitStr, curEndStr,
                                     useAdditionalSym, useDiacritics, latexMode, keepSpace
                                 )
                                 val newCursorPos = cursorPos - 1 +
@@ -124,6 +124,15 @@ class MathTypeService : AccessibilityService() {
         }
     }
 
+    private fun updatePrefsParameters(prefs: SharedPreferences){
+        initStr          = prefs.getString("initString", ".")
+        endStr           = prefs.getString("endString", ".")
+        latexMode        = prefs.getBoolean("latexMode", false)
+        useAdditionalSym = prefs.getBoolean("useAdditionalSymbols", false)
+        keepSpace        = prefs.getBoolean("keepSpace", false)
+        useDiacritics    = prefs.getBoolean("useDiacritics", true)
+    }
+
     private fun updateConverterCustomMap(prefs: SharedPreferences) {
         val gSONStr = prefs.getString("customMap", "") ?: ""
         if (gSONStr.isNotEmpty()) {
@@ -132,11 +141,13 @@ class MathTypeService : AccessibilityService() {
         }
 
     }
+
     private fun onPreferenceChanges(prefs: SharedPreferences, key: String){
         if(key == "customMap"){
             updateConverterCustomMap(prefs)
+        }else{
+            updatePrefsParameters(prefs)
         }
-        // Log.i(tag, "$key was changed")
     }
 
     override fun onServiceConnected() {
@@ -158,6 +169,7 @@ class MathTypeService : AccessibilityService() {
                 }.also { this.listener = it }
             )
             updateConverterCustomMap(sh)
+            updatePrefsParameters(sh)
         }catch(e: Exception){
             Log.e(tag, "Something went wrong  when trying to register sharedPreferences listener")
         }
