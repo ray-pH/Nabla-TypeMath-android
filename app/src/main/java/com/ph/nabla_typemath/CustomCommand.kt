@@ -3,7 +3,6 @@ package com.ph.nabla_typemath
 import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
@@ -11,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 
 class CustomCommand : AppCompatActivity() {
 
-    private val tag = "NablaMathTypeService"
     private val gsonHandler = CustomCommandGSONHandler()
     private var counter = 0
     private var maxIndex = 0

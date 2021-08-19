@@ -82,14 +82,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/greekSymbol_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/greekSymbol_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -167,14 +164,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/setAndLogic_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/setAndLogic_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -252,14 +246,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/domains_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/domains_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -337,14 +328,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/equality_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/equality_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -422,14 +410,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/calculus_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/calculus_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -507,14 +492,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/misc_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/misc_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -592,14 +574,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/diacritics_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/diacritics_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"
@@ -689,14 +668,11 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/additionalSymbol_label">
 
-                        <Space
-                            android:layout_width="wrap_content"
-                            android:layout_height="8dp" />
-
                         <TableLayout
                             android:id="@+id/additionalSymbol_table"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            tools:ignore="UselessParent">
 
                             <TableRow
                                 android:layout_width="match_parent"

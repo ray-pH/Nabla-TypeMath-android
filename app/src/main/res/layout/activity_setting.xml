@@ -81,11 +81,8 @@
                 android:id="@+id/buttonSaveString"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
                 android:text="@string/save" />
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/latexMode_switch"
@@ -97,6 +94,7 @@
                 android:id="@+id/latexMode_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
                 android:text="@string/latex_mode_desc" />
 
             <LinearLayout
@@ -105,10 +103,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp" />
 
                 <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/useAdditionalSymbol_switch"
