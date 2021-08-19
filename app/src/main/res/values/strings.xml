@@ -48,6 +48,12 @@
         you can also overwrite the built-in commands with your owns
     </string>
 
+    <string name="service_allow_permission_desc">
+        Nabla MathType service is not turned on yet.
+        In order for Nabla TypeMath to function properly,
+        the service must be turned on by allowing permission.
+    </string>
+
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
     <string name="command">Command</string>
     <string name="symbol">Symbol</string>
@@ -65,4 +71,7 @@
     <string name="command_header">Command</string>
     <string name="symbol_header">Symbol</string>
     <string name="custom_command_add_button">+</string>
+    <string name="service_info_label">SERVICE :&#160;</string>
+    <string name="service_info_label_on">ON</string>
+    <string name="service_info_label_off">OFF</string>
 </resources>
