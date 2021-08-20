@@ -29,32 +29,31 @@
     <string name="keep_space">Keep Space</string>
     <string name="use_diacritics">Use Diacritics</string>
 
-    <string name="latex_mode_desc">
-        In latex mode, commands must be prefixed with backslash\n
-        For example: (\\alpha\\in \\mathbb{R})\n\n
-        For superscript and subscript, use curly brackets\n
-        (a^{n+1})
+    <string name="latex_mode_desc"
+        >In LaTeX mode, commands must be prefixed with backslash
+        \nFor example: (<b>\\alpha\\in \\mathbb{R}</b>)\n
+        \nFor superscript and subscript, use curly brackets (<b>a^{n+1}</b>)
     </string>
     <string name="use_additional_symbol_desc">
         Use additional symbols
     </string>
-    <string name="keep_space_desc">
-        Converted text will keep its space\n
-        "A subset B" will become\n
-        on &#160;: A ⊂ B\n
-        off : A⊂B
+    <string name="keep_space_desc"
+        >Converted text will keep its space
+        \n\"<b>A subset B</b>\" will become
+        \non &#160;: <b>A ⊂ B</b>
+        \noff : <b>A⊂B</b>
     </string>
-    <string name="use_diacritics_desc">
-        Diacritics are symbols like ddot (ö) and bar (o̅)\n
-        In simple mode, \"x ddot\" will become ẍ
+    <string name="use_diacritics_desc"
+        >Diacritics are symbols like <b>ddot (ö)</b> and <b>bar (o̅)</b>
+        \nIn simple mode, \"<b>x ddot</b>\" will become <b>ẍ</b>
     </string>
-    <string name="edit_custom_command_desc">
-        You can add your own custom commands and symbols,
-        you can also overwrite the built-in commands with your owns
+    <string name="edit_custom_command_desc"
+        >You can add your own custom commands and symbols,
+        you can also overwrite the built-in commands with your own
     </string>
 
     <string name="service_allow_permission_desc">
-        Nabla MathType service is not turned on yet.
+        Nabla MathType service is off.
         In order for Nabla TypeMath to function properly,
         the service must be turned on by allowing permission.
     </string>
@@ -98,18 +97,15 @@
         and <b>end String</b> is also \".\", you can type \"<b>.alpha ^2 + beta ^2.</b>\", press space,
         and it will be converted into \"<b>α² + β²</b>\".
     </string>
-
     <string name="undo_desc"
         >If you accidentally converted a text, or simply just want to undo the conversion,
         just press <b>backspace</b> immediately after the conversion is done,
         and the text will be converted back.
     </string>
-
     <string name="command_and_symbols_desc"
         >Symbols and its corresponding command is available in Symbols menu that can be accessed from main menu.
         By default, <b>Additional Symbols</b> is not being used, but can be changed in the setting menu.
     </string>
-
     <string name="super_sub_desc"
         >Subscript and superscript is invoked using caret (^) and underscore (_).\n
         \nIn default mode, all character will be converted until space, for example
@@ -118,11 +114,10 @@
         \nNot all character is available as subscript or superscript in unicode, in that case
         the character will not be converted.
     </string>
-
     <string name="diacritics_desc"
         >In default mode, diacritic is written after the symbol, for example
-        "<b>x dot</b>" for "<b>ẍ</b>", or "<b>o bar</b>" for "<b>o̅</b>".
-        \nIn LaTeX mode, use "<b>\\ddot{x}</b>" and "<b>\\bar{o}</b>".
+        \"<b>x dot</b>\" for \"<b>ẍ</b>\", or \"<b>o bar</b>\" for \"<b>o̅</b>\".
+        \nIn LaTeX mode, use \"<b>\\ddot{x}</b>\" and \"<b>\\bar{o}</b>\".
     </string>
 
 </resources>
