@@ -124,6 +124,13 @@ class StringConverter {
         ) { (symLatex.latexMath[it.value.drop(1)] ?: it.value) }
     }
 
+    // Replace custom commands latex
+    private fun replaceCustomStringLatex(str: String): String{
+        return str.replace(
+            replaceStringLatexRegex
+        ) { (this.customMap?.get(it.value.drop(1)) ?: it.value) }
+    }
+
     // Return whether str is in valid format or not
     // Valid format for str is ".....<initChar>.....<endChar>(cursor)..."
     fun isValidFormat(str: String, initStr: String, endStr: String): Boolean {
@@ -191,11 +198,13 @@ class StringConverter {
                 val res = key
                     .let { replaceSuperscriptLatex(it) }
                     .let { replaceSubscriptLatex(it) }
+                    .let { replaceCustomStringLatex(it) }
                     .let { replaceStringLatex(it) }
                     .let { if(useDiacritics) replaceDiacriticLatex(it) else it }
                     .let { replaceFracLatex(it) }
-                evaluatedString += res
+                evaluatedString += "$res "
             }
+            evaluatedString.dropLast(1)
         }
         return evaluatedString
     }
