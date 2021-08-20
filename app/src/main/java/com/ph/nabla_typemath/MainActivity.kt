@@ -11,7 +11,6 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
-    // TODO: Complete Setting Page
     // TODO: App Blacklist and Whitelist
 
     override fun onCreate(savedInstanceState: Bundle?) {
