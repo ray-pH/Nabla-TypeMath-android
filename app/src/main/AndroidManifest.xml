@@ -31,6 +31,10 @@
             android:name=".SettingActivity"
             android:label="@string/setting_activity_name"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".HelpActivity"
+            android:label="@string/help_activity_name"
+            android:parentActivityName=".MainActivity" />
 
         <service
             android:name=".MathTypeService"

@@ -11,7 +11,6 @@ import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
-    // TODO: Add Help Page
     // TODO: Complete Setting Page
     // TODO: App Blacklist and Whitelist
 
@@ -28,6 +27,12 @@ class MainActivity : AppCompatActivity() {
         val gotoSettingButton = findViewById<Button>(R.id.gotoSettingButton)
         gotoSettingButton.setOnClickListener {
             val intent = Intent(this, SettingActivity::class.java)
+            startActivity(intent)
+        }
+
+        val helpButton = findViewById<Button>(R.id.helpButton)
+        helpButton.setOnClickListener {
+            val intent = Intent(this, HelpActivity::class.java)
             startActivity(intent)
         }
 

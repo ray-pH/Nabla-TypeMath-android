@@ -3,8 +3,13 @@
     <string name="nabla_activity_name">Nabla</string>
     <string name="symbols_activity_name">Symbols</string>
     <string name="setting_activity_name">Setting</string>
+    <string name="help_activity_name">Help</string>
     <string name="custom_command_activity_name">Custom Command</string>
     <string name="title_text">∇ NABLA</string>
+
+    <string name="service_info_label">SERVICE :&#160;</string>
+    <string name="service_info_label_on">ON</string>
+    <string name="service_info_label_off">OFF</string>
 
     <string name="allow_permission">Allow Permission</string>
     <string name="accessibility_service_label">Nabla TypeMath Service</string>
@@ -25,8 +30,8 @@
     <string name="use_diacritics">Use Diacritics</string>
 
     <string name="latex_mode_desc">
-        Symbol names must be prefixed with backslash\n
-        (\\alpha\\in \\mathbb{R})\n\n
+        In latex mode, commands must be prefixed with backslash\n
+        For example: (\\alpha\\in \\mathbb{R})\n\n
         For superscript and subscript, use curly brackets\n
         (a^{n+1})
     </string>
@@ -68,10 +73,56 @@
     <string name="basic_symbols">Basic Symbols</string>
     <string name="additionalSymbol_symbols">Additional Symbols</string>
     <string name="diacritics_symbols">Diacritics</string>
+
     <string name="command_header">Command</string>
     <string name="symbol_header">Symbol</string>
     <string name="custom_command_add_button">+</string>
-    <string name="service_info_label">SERVICE :&#160;</string>
-    <string name="service_info_label_on">ON</string>
-    <string name="service_info_label_off">OFF</string>
+
+    <string name="version_info_label">version:</string>
+    <string name="nabla_logo_desc">Nabla TypeMath Logo</string>
+    <string name="author_label">Author</string>
+    <string name="author_name">Rayhan A. Azizi</string>
+    <string name="github_button_label">GitHub</string>
+
+    <string name="how_to_use_header">How To Use</string>
+    <string name="undo_header">Undo Conversion</string>
+    <string name="command_and_symbols_header">Commands And Symbols</string>
+    <string name="latex_mode_header">LaTeX Mode</string>
+    <string name="super_sub_header">Superscript and Subscript</string>
+    <string name="diacritics_header">Diacritics</string>
+
+    <string name="how_to_use_desc"
+        >Type your commands in between <b>init String</b> and <b>end String</b>.
+        And then press space to convert it into symbols.\n
+        \nFor example, in the default config, <b>init String</b> is \".\",
+        and <b>end String</b> is also \".\", you can type \"<b>.alpha ^2 + beta ^2.</b>\", press space,
+        and it will be converted into \"<b>α² + β²</b>\".
+    </string>
+
+    <string name="undo_desc"
+        >If you accidentally converted a text, or simply just want to undo the conversion,
+        just press <b>backspace</b> immediately after the conversion is done,
+        and the text will be converted back.
+    </string>
+
+    <string name="command_and_symbols_desc"
+        >Symbols and its corresponding command is available in Symbols menu that can be accessed from main menu.
+        By default, <b>Additional Symbols</b> is not being used, but can be changed in the setting menu.
+    </string>
+
+    <string name="super_sub_desc"
+        >Subscript and superscript is invoked using caret (^) and underscore (_).\n
+        \nIn default mode, all character will be converted until space, for example
+        \"<b>x^2+n y^n</b>\" will be converted into \"<b>x²⁺ⁿyⁿ</b>\" while
+        \"<b>x^2 +n y^n</b>\" will be converted into \"<b>x²+nyⁿ</b>\".\n
+        \nNot all character is available as subscript or superscript in unicode, in that case
+        the character will not be converted.
+    </string>
+
+    <string name="diacritics_desc"
+        >In default mode, diacritic is written after the symbol, for example
+        "<b>x dot</b>" for "<b>ẍ</b>", or "<b>o bar</b>" for "<b>o̅</b>".
+        \nIn LaTeX mode, use "<b>\\ddot{x}</b>" and "<b>\\bar{o}</b>".
+    </string>
+
 </resources>
