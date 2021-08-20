@@ -25,9 +25,11 @@
                 android:id="@+id/edit_custom_command_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/custom_commands"
                 android:layout_marginBottom="8dp"
-                android:textColor="?android:attr/textColorPrimary" />
+                android:text="@string/custom_commands"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/edit_custom_command_desc"
@@ -49,7 +51,9 @@
                 android:layout_height="wrap_content"
                 android:labelFor="@+id/initialString_EditText"
                 android:text="@string/initial_string"
-                android:textColor="?android:attr/textColorPrimary" />
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/initialString_EditText"
@@ -66,7 +70,9 @@
                 android:layout_height="wrap_content"
                 android:labelFor="@+id/endString_EditText"
                 android:text="@string/end_string"
-                android:textColor="?android:attr/textColorPrimary" />
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/endString_EditText"
@@ -88,7 +94,9 @@
                 android:id="@+id/latexMode_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/latex_mode" />
+                android:text="@string/latex_mode"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/latexMode_label"
@@ -108,7 +116,9 @@
                     android:id="@+id/useAdditionalSymbol_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/use_additional_symbol" />
+                    android:text="@string/use_additional_symbol"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/useAdditionalSymbol_label"
@@ -120,7 +130,9 @@
                     android:id="@+id/keepSpace_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/keep_space" />
+                    android:text="@string/keep_space"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/keepSpace_label"
@@ -134,7 +146,9 @@
                 android:id="@+id/useDiacritics_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/use_diacritics" />
+                android:text="@string/use_diacritics"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/useDiacritics_label"

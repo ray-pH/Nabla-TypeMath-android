@@ -35,7 +35,7 @@
                         android:layout_weight="1"
                         android:text="@string/command_header"
                         android:textColor="?android:attr/textColorPrimary"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -46,7 +46,7 @@
                         android:text="@string/symbol_header"
                         android:textAlignment="viewEnd"
                         android:textColor="?android:attr/textColorPrimary"
-                        android:textSize="20sp"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
