@@ -194,7 +194,7 @@ class StringConverter {
                     .let { replaceStringLatex(it) }
                     .let { if(useDiacritics) replaceDiacriticLatex(it) else it }
                     .let { replaceFracLatex(it) }
-                evaluatedString += "$res "
+                evaluatedString += res
             }
         }
         return evaluatedString
