@@ -150,14 +150,14 @@ class MathTypeService : AccessibilityService() {
 
     override fun onServiceConnected() {
         super.onServiceConnected()
-        val info = AccessibilityServiceInfo()
-        info.apply {
-            eventTypes = AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED
-            feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
-            notificationTimeout = 100
-        }
-
-        this.serviceInfo = info
+//        val info = AccessibilityServiceInfo()
+//        info.apply {
+//            eventTypes = AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED
+//            feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
+//            notificationTimeout = 100
+//        }
+//
+//        this.serviceInfo = info
         Log.i(tag, "onServiceConnected")
 
         try{
