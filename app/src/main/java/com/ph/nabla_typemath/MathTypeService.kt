@@ -1,18 +1,16 @@
 package com.ph.nabla_typemath
 
 import android.accessibilityservice.AccessibilityService
-import android.accessibilityservice.AccessibilityServiceInfo
 import android.content.SharedPreferences
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
 import android.os.Bundle
-import android.util.Log
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.EditText
 
 
 class MathTypeService : AccessibilityService() {
-    private val tag = "NablaMathTypeService"
+//    private val tag = "NablaMathTypeService"
 
     private val converter   = StringConverter()
     private val gsonHandler = CustomCommandGSONHandler()
@@ -48,7 +46,7 @@ class MathTypeService : AccessibilityService() {
     }
 
     override fun onInterrupt() {
-        Log.e(tag, "onInterrupt: something went wrong")
+//        Log.e(tag, "onInterrupt: something went wrong")
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
@@ -158,7 +156,7 @@ class MathTypeService : AccessibilityService() {
 //        }
 //
 //        this.serviceInfo = info
-        Log.i(tag, "onServiceConnected")
+//        Log.i(tag, "onServiceConnected")
 
         try{
             val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
@@ -169,7 +167,7 @@ class MathTypeService : AccessibilityService() {
             updateConverterCustomMap(sh)
             updatePrefsParameters(sh)
         }catch(e: Exception){
-            Log.e(tag, "Something went wrong  when trying to register sharedPreferences listener")
+//            Log.e(tag, "Something went wrong  when trying to register sharedPreferences listener")
         }
     }
 }
