@@ -13,7 +13,9 @@
 
     <string name="allow_permission">Allow Permission</string>
     <string name="accessibility_service_label">Nabla TypeMath Service</string>
-    <string name="accessibility_service_description">Service of Nabla TypeMath</string>
+    <string name="accessibility_service_description"
+        >This service will allow Nabla TypeMath to do its functionality.
+    </string>
 
     <string name="setting">Setting</string>
     <string name="help">help</string>
