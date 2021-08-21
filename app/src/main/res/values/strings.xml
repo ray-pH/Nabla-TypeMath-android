@@ -79,8 +79,6 @@
 
     <string name="version_info_label">version:</string>
     <string name="nabla_logo_desc">Nabla TypeMath Logo</string>
-    <string name="author_label">Author</string>
-    <string name="author_name">Rayhan A. Azizi</string>
     <string name="github_button_label">GitHub</string>
 
     <string name="how_to_use_header">How To Use</string>
