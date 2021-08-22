@@ -56,6 +56,20 @@
                         android:layout_height="wrap_content"
                         android:text="@string/version_info_label" />
 
+                    <TextView
+                        android:id="@+id/author_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/author_label"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/author_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/author_name" />
                     <Button
                         android:id="@+id/github_button"
                         android:layout_width="wrap_content"

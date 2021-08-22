@@ -112,12 +112,17 @@
         \"<b>x^2+n y^n</b>\" will be converted into \"<b>x²⁺ⁿyⁿ</b>\" while
         \"<b>x^2 +n y^n</b>\" will be converted into \"<b>x²+nyⁿ</b>\".\n
         \nNot all character is available as subscript or superscript in unicode, in that case
-        the character will not be converted.
+        the character will not be converted. In the case of \"<b>q</b>\", since both its subscript
+        and superscript is not available, it will be converted into subscript and superscript
+        version of \"<b>θ</b>\" (this is intentional).
     </string>
     <string name="diacritics_desc"
         >In default mode, diacritic is written after the symbol, for example
         \"<b>x dot</b>\" for \"<b>ẍ</b>\", or \"<b>o bar</b>\" for \"<b>o̅</b>\".
         \nIn LaTeX mode, use \"<b>\\ddot{x}</b>\" and \"<b>\\bar{o}</b>\".
     </string>
+
+    <string name="author_label">Author</string>
+    <string name="author_name">Rayhan A. Azizi</string>
 
 </resources>
