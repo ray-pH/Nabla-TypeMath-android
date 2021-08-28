@@ -18,27 +18,6 @@ class StringConverter {
         this.customMap = cMap
     }
 
-    // Return the index of n-th checkStr in str
-    // If n-th checkStr does not exist in str, return -1
-    // TODO: IndexOfFromBack ignoring n, but fix using substing and remove endStr
-    private fun indexOfFromBack(checkStr: String, str: String, n: Int): Int{
-        var count = 0
-        for(i in str.length-1 downTo 0){
-            if(str[i] == checkStr[0]){
-                var found = true
-                for(j in checkStr.indices){
-                    if(str[i+j] != checkStr[j]){
-                        found = false
-                        break
-                    }
-                }
-                if(found) count++
-                if(count == n) return i
-            }
-        }
-        return -1
-    }
-
     // Replace series of character after c using map
     private fun replaceScript(str: String, c: Char, scriptMap: LinkedHashMap<Char,Char>): String{
         if (!str.contains(c)) return str
@@ -135,6 +114,10 @@ class StringConverter {
     // Return whether str is in valid format or not
     // Valid format for str is ".....<initChar>.....<endChar>(cursor)..."
     fun isValidFormat(str: String, initStr: String, endStr: String): Boolean {
+        // check if string is long enough
+        if(str.length <= endStr.length) return false
+        if(str.length <= endStr.length + initStr.length) return false
+
         // check if last part of string is endStr
         for(i in endStr.indices){
             val j = str.length - endStr.length + i
@@ -142,8 +125,9 @@ class StringConverter {
         }
 
         // check if initStr exist
-        val n = 1 + endStr.count{ initStr.contains(it) }
-        if(indexOfFromBack(initStr, str, n) == -1) return false
+        val headStr = str.substring(0, str.length - endStr.length)
+        if(headStr.lastIndexOf(initStr) == -1) return false
+
         return true
     }
 
@@ -216,8 +200,9 @@ class StringConverter {
                    latexMode        : Boolean,
                    keepSpace        : Boolean
     ): String {
-        val n = 1 + endStr.count{ initStr.contains(it) }
-        val id = indexOfFromBack(initStr, str, n)
+        val id = str
+            .substring(0, str.length - endStr.length)
+            .lastIndexOf(initStr)
         return if (id < 0) str
         else {
             val headString  = str.substring(0, id)
