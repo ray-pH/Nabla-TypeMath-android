@@ -20,6 +20,7 @@ class StringConverter {
 
     // Return the index of n-th checkStr in str
     // If n-th checkStr does not exist in str, return -1
+    // TODO: IndexOfFromBack ignoring n, but fix using substing and remove endStr
     private fun indexOfFromBack(checkStr: String, str: String, n: Int): Int{
         var count = 0
         for(i in str.length-1 downTo 0){
