@@ -44,9 +44,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun isAccessServiceEnabled(context: Context): Boolean {
         val serviceName = "MathTypeService"
-        val prefString =
+        val prefString : String? =
             Settings.Secure.getString(context.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
-        return prefString.contains("${context.packageName}/${context.packageName}.${serviceName}")
+        val serviceStr = "${context.packageName}/${context.packageName}.${serviceName}"
+        return prefString?.contains(serviceStr) ?: false
     }
 
     override fun onResume(){
