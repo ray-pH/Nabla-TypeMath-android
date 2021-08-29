@@ -115,9 +115,8 @@ class MathTypeService : AccessibilityService() {
                     }
                     prevStringLen = nodeString.length
                 }
-            } catch (e: ClassNotFoundException) {
-                e.printStackTrace()
             }
+            catch (e: Exception) { e.printStackTrace() }
         }
     }
 
@@ -136,15 +135,17 @@ class MathTypeService : AccessibilityService() {
             val customMap: LinkedHashMap<String, String> = gsonHandler.gSONStrToLinkedMap(gSONStr)
             converter.loadCustomMap(customMap)
         }
-
     }
 
     private fun onPreferenceChanges(prefs: SharedPreferences, key: String){
-        if(key == "customMap"){
-            updateConverterCustomMap(prefs)
-        }else{
-            updatePrefsParameters(prefs)
+        try{
+            if(key == "customMap"){
+                updateConverterCustomMap(prefs)
+            }else{
+                updatePrefsParameters(prefs)
+            }
         }
+        catch(e : Exception){ e.printStackTrace() }
     }
 
     override fun onServiceConnected() {
@@ -160,7 +161,9 @@ class MathTypeService : AccessibilityService() {
             )
             updateConverterCustomMap(sh)
             updatePrefsParameters(sh)
-        }catch(e: Exception){
+        }
+        catch(e: Exception){
+            e.printStackTrace()
 //            Log.e(tag, "Something went wrong  when trying to register sharedPreferences listener")
         }
     }
