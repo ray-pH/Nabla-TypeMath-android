@@ -153,16 +153,11 @@ class StringConverter {
 
     private val fractionCommand = "frac"
     // Evaluate math expression string, convert it into unicode
-    private fun evalMath(str: String,
-                         useAdditionalSym : Boolean,
-                         useDiacritics    : Boolean,
-                         latexMode        : Boolean,
-                         keepSpace        : Boolean
-    ): String {
+    private fun evalMath(str: String, param: MathTypeService.Parameters): String {
         var evaluatedString = ""
         val keys : List<String> = str.split(' ')
-        if(!latexMode){
-            val separator = if (keepSpace) " " else ""
+        if(!param.latexMode){
+            val separator = if (param.keepSpace) " " else ""
             var isFrac = false
             for(key in keys) {
                 if( key == fractionCommand ) { isFrac = true; continue }
@@ -173,9 +168,9 @@ class StringConverter {
                         .let { replaceSuperscript(it) }
                         .let { replaceSubscript(it) }
                         .let { simpleMap[it] ?: it }
-                        .let { if(!keepSpace)       addSpaceToOperator(it)            else it}
-                        .let { if(useDiacritics)    symLatex.latexDiacritic[it] ?: it else it}
-                        .let { if(useAdditionalSym) symLatex.latexMath[it]      ?: it else it}
+                        .let { if(!param.keepSpace)       addSpaceToOperator(it)           else it}
+                        .let { if(param.useDiacritics)    symLatex.latexDiacritic[it]?: it else it}
+                        .let { if(param.useAdditionalSym) symLatex.latexMath[it]     ?: it else it}
                 evaluatedString += (res + separator)
             }
         }else{
@@ -185,7 +180,7 @@ class StringConverter {
                     .let { replaceSubscriptLatex(it) }
                     .let { replaceCustomStringLatex(it) }
                     .let { replaceStringLatex(it) }
-                    .let { if(useDiacritics) replaceDiacriticLatex(it) else it }
+                    .let { if(param.useDiacritics) replaceDiacriticLatex(it) else it }
                     .let { replaceFracLatex(it) }
                 evaluatedString += "$res "
             }
@@ -195,10 +190,7 @@ class StringConverter {
     }
 
     fun evalString(str: String, initStr: String, endStr: String,
-                   useAdditionalSym : Boolean,
-                   useDiacritics    : Boolean,
-                   latexMode        : Boolean,
-                   keepSpace        : Boolean
+                   param: MathTypeService.Parameters
     ): String {
         val id = str
             .substring(0, str.length - endStr.length)
@@ -208,8 +200,7 @@ class StringConverter {
             val headString  = str.substring(0, id)
             val validString = str.substring(id + initStr.length,
                                             str.length - endStr.length)
-            headString + evalMath(validString, useAdditionalSym,
-                                  useDiacritics, latexMode, keepSpace)
+            headString + evalMath(validString, param)
         }
     }
 }

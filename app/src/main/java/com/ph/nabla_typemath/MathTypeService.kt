@@ -15,12 +15,15 @@ class MathTypeService : AccessibilityService() {
     private val converter   = StringConverter()
     private val gsonHandler = CustomCommandGSONHandler()
 
-    private var initStr          : String? = "."
-    private var endStr           : String? = "."
-    private var latexMode        : Boolean = false
-    private var useAdditionalSym : Boolean = false
-    private var keepSpace        : Boolean = false
-    private var useDiacritics    : Boolean = true
+    data class Parameters(val name: String) {
+        var initStr          : String? = "."
+        var endStr           : String? = "."
+        var latexMode        : Boolean = false
+        var useAdditionalSym : Boolean = false
+        var keepSpace        : Boolean = false
+        var useDiacritics    : Boolean = true
+    }
+    private val param : Parameters = Parameters("main")
 
     private var prevStringLen = -99
     private var beforeChangeString    = ""
@@ -84,17 +87,15 @@ class MathTypeService : AccessibilityService() {
                     ){
                         // Press space
 
-                        // get values from sharedPreferences
-                        val curInitStr = initStr
-                        val curEndStr  = endStr
+                        val curInitStr = param.initStr
+                        val curEndStr  = param.endStr
                         if(curInitStr != null && curEndStr != null){
                             //do conversion only if initStr and endStr is not null
                             val toConvertStr = headStr.substring(0, headStr.length-1)
                             if(converter.isValidFormat(toConvertStr, curInitStr, curEndStr)){
                                 //if string is valid
                                 val converted = converter.evalString(
-                                    toConvertStr, curInitStr, curEndStr,
-                                    useAdditionalSym, useDiacritics, latexMode, keepSpace
+                                    toConvertStr, curInitStr, curEndStr, param
                                 )
                                 val newCursorPos = cursorPos - 1 +
                                         (converted.length - toConvertStr.length)
@@ -121,12 +122,12 @@ class MathTypeService : AccessibilityService() {
     }
 
     private fun updatePrefsParameters(prefs: SharedPreferences){
-        initStr          = prefs.getString("initString", ".")
-        endStr           = prefs.getString("endString", ".")
-        latexMode        = prefs.getBoolean("latexMode", false)
-        useAdditionalSym = prefs.getBoolean("useAdditionalSymbols", false)
-        keepSpace        = prefs.getBoolean("keepSpace", false)
-        useDiacritics    = prefs.getBoolean("useDiacritics", true)
+        param.initStr          = prefs.getString("initString", ".")
+        param.endStr           = prefs.getString("endString", ".")
+        param.latexMode        = prefs.getBoolean("latexMode", false)
+        param.useAdditionalSym = prefs.getBoolean("useAdditionalSymbols", false)
+        param.keepSpace        = prefs.getBoolean("keepSpace", false)
+        param.useDiacritics    = prefs.getBoolean("useDiacritics", true)
     }
 
     private fun updateConverterCustomMap(prefs: SharedPreferences) {
@@ -148,13 +149,6 @@ class MathTypeService : AccessibilityService() {
 
     override fun onServiceConnected() {
         super.onServiceConnected()
-//        val info = AccessibilityServiceInfo()
-//        info.apply {
-//            eventTypes = AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED
-//            feedbackType = AccessibilityServiceInfo.FEEDBACK_GENERIC
-//            notificationTimeout = 100
-//        }
-//
 //        this.serviceInfo = info
 //        Log.i(tag, "onServiceConnected")
 
