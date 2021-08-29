@@ -156,6 +156,28 @@
                 android:layout_height="wrap_content"
                 android:text="@string/use_diacritics_desc" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
+                android:id="@+id/UI_Theme_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:labelFor="@+id/initialString_EditText"
+                android:text="@string/interface_theme"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/theme_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
     </ScrollView>
 

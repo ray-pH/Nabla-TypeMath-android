@@ -2,18 +2,36 @@ package com.ph.nabla_typemath
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 
 class MainActivity : AppCompatActivity() {
 
+
     // TODO: App Blacklist and Whitelist
+    private fun setTheme(){
+        val prefsName = "TypeMathPrefsFile"
+        val sh: SharedPreferences? = getSharedPreferences(prefsName, MODE_PRIVATE)
+        AppCompatDelegate.setDefaultNightMode(
+            if(sh != null){
+                when(sh.getInt("intTheme", 0)){
+                    0 -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                    1 -> AppCompatDelegate.MODE_NIGHT_YES
+                    2 -> AppCompatDelegate.MODE_NIGHT_NO
+                    else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                }
+            }else AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

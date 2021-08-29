@@ -2,11 +2,12 @@ package com.ph.nabla_typemath
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
+
 
 class SettingActivity : AppCompatActivity() {
     private val prefsName = "TypeMathPrefsFile"
@@ -17,6 +18,7 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var keepSpaceSwitch  : SwitchCompat
     private lateinit var diacriticsSwitch : SwitchCompat
     private lateinit var otherSettingLinear : LinearLayout
+    private lateinit var themeSpinner     : Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,7 @@ class SettingActivity : AppCompatActivity() {
         keepSpaceSwitch    = findViewById(R.id.keepSpace_switch)
         diacriticsSwitch   = findViewById(R.id.useDiacritics_switch)
         otherSettingLinear = findViewById(R.id.other_setting_linear)
+        themeSpinner       = findViewById(R.id.theme_spinner)
 
         val stringSaveToast = Toast.makeText(applicationContext,
             "String Saved", Toast.LENGTH_SHORT)
@@ -67,6 +70,28 @@ class SettingActivity : AppCompatActivity() {
             editor.apply()
         }
 
+        ArrayAdapter.createFromResource(
+            this, R.array.theme_array, android.R.layout.simple_spinner_item
+        ).also{ adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            themeSpinner.adapter = adapter
+        }
+
+        val themeToast = Toast.makeText(applicationContext,
+            "Restart the app for theme changes to take effect", Toast.LENGTH_SHORT)
+        themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            private var initialized : Boolean = false
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
+                if(!initialized) initialized = true
+                else {
+                    editor.putInt("intTheme", pos)
+                    editor.apply()
+                    themeToast.show()
+                }
+            }
+            override fun onNothingSelected(arg0: AdapterView<*>?) {
+            }
+        }
     }
 
     override fun onResume(){
@@ -78,6 +103,7 @@ class SettingActivity : AppCompatActivity() {
         val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
         val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
         val useDiacritics    : Boolean = sh.getBoolean("useDiacritics", true)
+        val intTheme         : Int     = sh.getInt("intTheme", 0)
 
 
         initStringEdit.setText(initStr)
@@ -86,6 +112,7 @@ class SettingActivity : AppCompatActivity() {
         useSymbolSwitch.isChecked  = useAdditionalSym
         keepSpaceSwitch.isChecked  = keepSpace
         diacriticsSwitch.isChecked = useDiacritics
+        themeSpinner.setSelection(intTheme)
 
         otherSettingLinear.visibility = if (latexMode) View.GONE else View.VISIBLE
     }

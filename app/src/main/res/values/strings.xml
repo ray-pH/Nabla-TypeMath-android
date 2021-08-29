@@ -124,5 +124,6 @@
 
     <string name="author_label">Author</string>
     <string name="author_name">Rayhan A. Azizi</string>
+    <string name="interface_theme">Interface Theme</string>
 
 </resources>
