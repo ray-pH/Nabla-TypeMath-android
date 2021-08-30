@@ -42,8 +42,14 @@
                 android:id="@+id/custom_command_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:text="@string/edit_custom_command" />
+
+            <Button
+                android:id="@+id/custom_command_port_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="@string/import_export_custom_command" />
 
             <TextView
                 android:id="@+id/initialString_TextView"

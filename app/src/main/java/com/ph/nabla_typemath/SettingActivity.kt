@@ -30,6 +30,12 @@ class SettingActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val portCommandButton   = findViewById<Button>(R.id.custom_command_port_button)
+        portCommandButton.setOnClickListener {
+            val intent = Intent(this, CustomCommandPort::class.java)
+            startActivity(intent)
+        }
+
         initStringEdit     = findViewById(R.id.initialString_EditText)
         endStringEdit      = findViewById(R.id.endString_EditText)
         latexModeSwitch    = findViewById(R.id.latexMode_switch)

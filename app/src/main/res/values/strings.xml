@@ -13,8 +13,7 @@
 
     <string name="allow_permission">Allow Permission</string>
     <string name="accessibility_service_label">Nabla TypeMath Service</string>
-    <string name="accessibility_service_description"
-        >This service will allow Nabla TypeMath to do its functionality.
+    <string name="accessibility_service_description">This service will allow Nabla TypeMath to do its functionality.
     </string>
 
     <string name="setting">Setting</string>
@@ -31,26 +30,22 @@
     <string name="keep_space">Keep Space</string>
     <string name="use_diacritics">Use Diacritics</string>
 
-    <string name="latex_mode_desc"
-        >In LaTeX mode, commands must be prefixed with backslash
+    <string name="latex_mode_desc">In LaTeX mode, commands must be prefixed with backslash
         \nFor example: (<b>\\alpha\\in \\mathbb{R}</b>)\n
         \nFor superscript and subscript, use curly brackets (<b>a^{n+1}</b>)
     </string>
     <string name="use_additional_symbol_desc">
         Use additional symbols
     </string>
-    <string name="keep_space_desc"
-        >Converted text will keep its space
+    <string name="keep_space_desc">Converted text will keep its space
         \n\"<b>A subset B</b>\" will become
         \non &#160;: <b>A ⊂ B</b>
         \noff : <b>A⊂B</b>
     </string>
-    <string name="use_diacritics_desc"
-        >Diacritics are symbols like <b>ddot (ö)</b> and <b>bar (o̅)</b>
+    <string name="use_diacritics_desc">Diacritics are symbols like <b>ddot (ö)</b> and <b>bar (o̅)</b>
         \nIn simple mode, \"<b>x ddot</b>\" will become <b>ẍ</b>
     </string>
-    <string name="edit_custom_command_desc"
-        >You can add your own custom commands and symbols,
+    <string name="edit_custom_command_desc">You can add your own custom commands and symbols,
         you can also overwrite the built-in commands with your own
     </string>
 
@@ -90,29 +85,24 @@
     <string name="super_sub_header">Superscript and Subscript</string>
     <string name="diacritics_header">Diacritics</string>
 
-    <string name="support_desc"
-        >This project is free and open source. If you like this project,
+    <string name="support_desc">This project is free and open source. If you like this project,
         you can support the developer by clicking the button below.
         Your support is highly appreciated.
     </string>
-    <string name="how_to_use_desc"
-        >Type your commands in between <b>init String</b> and <b>end String</b>.
+    <string name="how_to_use_desc">Type your commands in between <b>init String</b> and <b>end String</b>.
         And then press space to convert it into symbols.\n
         \nFor example, in the default config, <b>init String</b> is \".\",
         and <b>end String</b> is also \".\", you can type \"<b>.alpha ^2 + beta ^2.</b>\", press space,
         and it will be converted into \"<b>α² + β²</b>\".
     </string>
-    <string name="undo_desc"
-        >If you accidentally converted a text, or simply just want to undo the conversion,
+    <string name="undo_desc">If you accidentally converted a text, or simply just want to undo the conversion,
         just press <b>backspace</b> immediately after the conversion is done,
         and the text will be converted back.
     </string>
-    <string name="command_and_symbols_desc"
-        >Symbols and its corresponding command is available in Symbols menu that can be accessed from main menu.
+    <string name="command_and_symbols_desc">Symbols and its corresponding command is available in Symbols menu that can be accessed from main menu.
         By default, <b>Additional Symbols</b> is not being used, but can be changed in the setting menu.
     </string>
-    <string name="super_sub_desc"
-        >Subscript and superscript is invoked using caret (^) and underscore (_).\n
+    <string name="super_sub_desc">Subscript and superscript is invoked using caret (^) and underscore (_).\n
         \nIn default mode, all character will be converted until space, for example
         \"<b>x^2+n y^n</b>\" will be converted into \"<b>x²⁺ⁿyⁿ</b>\" while
         \"<b>x^2 +n y^n</b>\" will be converted into \"<b>x²+nyⁿ</b>\".\n
@@ -121,8 +111,7 @@
         and superscript is not available, it will be converted into subscript and superscript
         version of \"<b>θ</b>\" (this is intentional).
     </string>
-    <string name="diacritics_desc"
-        >In default mode, diacritic is written after the symbol, for example
+    <string name="diacritics_desc">In default mode, diacritic is written after the symbol, for example
         \"<b>x dot</b>\" for \"<b>ẍ</b>\", or \"<b>o bar</b>\" for \"<b>o̅</b>\".
         \nIn LaTeX mode, use \"<b>\\ddot{x}</b>\" and \"<b>\\bar{o}</b>\".
     </string>
@@ -132,5 +121,25 @@
     <string name="interface_theme">Interface Theme</string>
     <string name="rate_on_google_play">Rate on GOOGLE PLAY</string>
     <string name="donate">DONATE</string>
+    <string name="import_export_custom_command">IMPORT / EXPORT</string>
+    <string name="long_text">asdfjkhsadkfhksaf asdjflkasfjlk jsalfklksdjf lskfj lskfjlskfj lskfj slkfj lsjfklsjlf
+        klsdfj lskfdj lksfjlksjflksjfklsjf lksjflksj flksjfkl jsklfj sklfj klsjf klsj fklj sklfjklsfj klsjfklsj klfj sklf
+        klsdfj lskfdj lksfjlksjflksjfklsjf lksjflksj flksjfkl jsklfj sklfj klsjf klsj fklj sklfjklsfj klsjfklsj klfj sklf
+        klsdjflsk f jlksfj lksjf klsj fk sflkjs flkjsfkl jsklfjklsfj klsjfkljsklf jklsfj klsj flk jsklfjkslf jklsf
+        lsdfj lsfkj lsdfj lsjflsdk jflsj fsjkf slkf js lsjklfj sklfjkl sfjklsj kflj sklfj klsf jklsj fklsj fklj skldfj klsjfkljs klf jsklfj ls
+        skdfjl skfjlskjf lskjf lksj flksjflksj fkljs kldfjskldf jklsjf klsjklfj sklfj lksfj klsj fklj sklfj klsdjf klsd
+        klsdfj lskdjflks jfsifjosijfoishfiosjfojs klfjlksj fkl sjklfj sklj fklsj fkl jsklfjslfjklsjfkljsflk sd
+        klsdjf lskjflksjflksjfklslkfj  jsdklfjklsdjfkl sklf klsjflksj fdkl jsklfj klsfkls lsdf
+        klsdjflsk f jlksfj lksjf klsj fk sflkjs flkjsfkl jsklfjklsfj klsjfkljsklf jklsfj klsj flk jsklfjkslf jklsf
+        lsdfj lsfkj lsdfj lsjflsdk jflsj fsjkf slkf js lsjklfj sklfjkl sfjklsj kflj sklfj klsf jklsj fklsj fklj skldfj klsjfkljs klf jsklfj ls
+        skdfjl skfjlskjf lskjf lksj flksjflksj fkljs kldfjskldf jklsjf klsjklfj sklfj lksfj klsj fklj sklfj klsdjf klsd
+        klsdfj lskdjflks jfsifjosijfoishfiosjfojs klfjlksj fkl sjklfj sklj fklsj fkl jsklfjslfjklsjfkljsflk sd
+        klsdjf lskjflksjflksjfklslkfj  jsdklfjklsdjfkl sklf klsjflksj fdkl jsklfj klsfkls lsdf
+        jlksjf lkasjflksajfl ksjafl ksajfl ksajflksajf lksaj flkasjf lksajfljflh kjashfd kjsah
+        fkjashfjksfhj hasjkhfsjakfh jkah kjfhkjfh</string>
+    <string name="copy">COPY</string>
+    <string name="paste">PASTE</string>
+    <string name="done">DONE</string>
+    <string name="gson_file">GSON File</string>
 
 </resources>
