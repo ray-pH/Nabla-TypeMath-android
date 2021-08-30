@@ -85,6 +85,44 @@
                 android:background="@android:color/darker_gray"/>
 
             <TextView
+                android:id="@+id/support_desc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/support_desc" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="fill_vertical"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/rate_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="10"
+                    android:text="@string/rate_on_google_play"
+                    tools:ignore="ButtonStyle" />
+
+                <Button
+                    android:id="@+id/donate_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0"
+                    android:text="@string/donate"
+                    tools:ignore="ButtonStyle" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
                 android:id="@+id/how_to_use_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

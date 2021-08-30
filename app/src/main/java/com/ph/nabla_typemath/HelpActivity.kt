@@ -24,5 +24,19 @@ class HelpActivity : AppCompatActivity() {
             val i = Intent(Intent.ACTION_VIEW, Uri.parse(githubURL))
             startActivity(i)
         }
+
+        val rateButton   = findViewById<Button>(R.id.rate_button)
+        val rateURL      = "https://play.google.com/store/apps/details?id=com.ph.nabla_typemath"
+        rateButton.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse(rateURL))
+            startActivity(i)
+        }
+
+        val donateButton = findViewById<Button>(R.id.donate_button)
+        val donateURL    = "https://donorbox.org/support-nabla-typemath-development"
+        donateButton.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse(donateURL))
+            startActivity(i)
+        }
     }
 }

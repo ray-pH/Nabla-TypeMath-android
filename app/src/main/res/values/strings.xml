@@ -90,6 +90,11 @@
     <string name="super_sub_header">Superscript and Subscript</string>
     <string name="diacritics_header">Diacritics</string>
 
+    <string name="support_desc"
+        >This project is free and open source. If you like this project,
+        you can support the developer by clicking the button below.
+        Your support is highly appreciated.
+    </string>
     <string name="how_to_use_desc"
         >Type your commands in between <b>init String</b> and <b>end String</b>.
         And then press space to convert it into symbols.\n
@@ -125,5 +130,7 @@
     <string name="author_label">Author</string>
     <string name="author_name">Rayhan A. Azizi</string>
     <string name="interface_theme">Interface Theme</string>
+    <string name="rate_on_google_play">Rate on GOOGLE PLAY</string>
+    <string name="donate">DONATE</string>
 
 </resources>
