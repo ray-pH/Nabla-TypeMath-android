@@ -29,7 +29,6 @@
                     android:ems="10"
                     android:gravity="start|top"
                     android:inputType="textMultiLine"
-                    android:text="@string/long_text"
                     android:hint="@string/gson_file"
                     android:autofillHints="GSON File" />
             </LinearLayout>
@@ -67,7 +66,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/port_done_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/done" />

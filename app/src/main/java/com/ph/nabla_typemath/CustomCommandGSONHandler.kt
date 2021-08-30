@@ -17,4 +17,14 @@ class CustomCommandGSONHandler {
         val type: Type = object : TypeToken<LinkedHashMap<String?, String?>?>() {}.type
         return gson.fromJson(GSONStr, type)
     }
+
+    fun gSONValidMap(GSONStr: String): Boolean {
+        return try {
+            val type: Type = object : TypeToken<LinkedHashMap<String?, String?>?>() {}.type
+            val map : LinkedHashMap<String,String>? = gson.fromJson(GSONStr, type)
+            map != null
+        } catch(e : Exception) {
+            false
+        }
+    }
 }
