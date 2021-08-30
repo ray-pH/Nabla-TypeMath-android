@@ -105,10 +105,20 @@ class CustomCommand : AppCompatActivity() {
         }
     }
 
-    private val textLayoutParams : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+//    private val textLayoutParams : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+//        LinearLayout.LayoutParams.WRAP_CONTENT,
+//        LinearLayout.LayoutParams.WRAP_CONTENT,
+//        1.0f,
+//    )
+    private val commandLayoutParams : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+        0,
         LinearLayout.LayoutParams.WRAP_CONTENT,
+        3.0f,
+    )
+    private val symbolLayoutParams  : LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+        0,
         LinearLayout.LayoutParams.WRAP_CONTENT,
-        1.0f,
+        5.0f,
     )
     // add new row to customCommand layout
     @Suppress("SameParameterValue")
@@ -123,14 +133,14 @@ class CustomCommand : AppCompatActivity() {
         textCommand.text = textCommandStr
         textCommand.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
         textCommand.tag  = "custom_command_${this.counter}"
-        textCommand.layoutParams = textLayoutParams
+        textCommand.layoutParams = commandLayoutParams
 
         val textSymbol   = TextView(this)
         textSymbol.text = textSymbolStr
         textSymbol.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 16f)
         textSymbol.tag  = "custom_symbol_${this.counter}"
         textSymbol.textAlignment = TextView.TEXT_ALIGNMENT_VIEW_END
-        textSymbol.layoutParams  = textLayoutParams
+        textSymbol.layoutParams  = symbolLayoutParams
 
         val horizontalLayout = LinearLayout(this)
         horizontalLayout.orientation = LinearLayout.HORIZONTAL
