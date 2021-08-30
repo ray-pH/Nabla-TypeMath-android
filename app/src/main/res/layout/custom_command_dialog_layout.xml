@@ -16,11 +16,11 @@
 
     <EditText
         android:id="@+id/edit_command_dialog_command"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:autofillHints="Command" />
+        android:autofillHints="Command"
+        android:inputType="textMultiLine|text" />
 
     <TextView
         android:id="@+id/edit_command_dialog_symbol_label"
@@ -33,10 +33,10 @@
 
     <EditText
         android:id="@+id/edit_command_dialog_symbol"
-        android:inputType="text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        android:autofillHints="Symbol" />
+        android:autofillHints="Symbol"
+        android:inputType="textMultiLine|text" />
 
 </LinearLayout>
