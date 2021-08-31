@@ -100,8 +100,11 @@ class MathTypeService : AccessibilityService() {
                                 val newCursorPos = cursorPos - 1 +
                                         (converted.length - toConvertStr.length)
 
-                                textViewNodePutString(nodeInfo, (converted+tailStr))
-                                textViewNodePutCursor(nodeInfo, newCursorPos)
+                                try {
+                                    textViewNodePutString(nodeInfo, (converted+tailStr))
+                                    textViewNodePutCursor(nodeInfo, newCursorPos)
+                                }
+                                catch (e : Exception) { e.printStackTrace() }
 
                                 afterChangeStringLen  = converted.length + tailStr.length
                                 afterChangeCursorPos  = newCursorPos
