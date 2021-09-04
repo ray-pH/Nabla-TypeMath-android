@@ -185,7 +185,8 @@ class StringConverter {
                 val res =
                     if(isFrac){ isFrac = false; evalFraction(key) }
                     else evalSingle(key, param)
-                evaluatedString += (res + separator)
+                val sepCheck = if (res == key) " " else separator
+                evaluatedString += (res + sepCheck)
             }
         }else{
             for(key in keys) {
@@ -198,8 +199,8 @@ class StringConverter {
                     .let { replaceFracLatex(it) }
                 evaluatedString += "$res "
             }
-            evaluatedString.dropLast(1)
         }
+        if (evaluatedString.last() == ' ') evaluatedString.dropLast(1)
         return evaluatedString
     }
 
