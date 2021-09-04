@@ -126,7 +126,11 @@ class StringConverter {
 
         // check if initStr exist
         val headStr = str.substring(0, str.length - endStr.length)
-        if(headStr.lastIndexOf(initStr) == -1) return false
+        val initStrId = headStr.lastIndexOf(initStr)
+        if(initStrId == -1) return false
+
+        // check if first char after initStr is not space
+        if (headStr[initStrId + initStr.length] == ' ') return false
 
         return true
     }
