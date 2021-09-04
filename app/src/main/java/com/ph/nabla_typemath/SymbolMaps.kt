@@ -218,6 +218,8 @@ class SymbolMaps {
     )
     val symbolMiscMap : LinkedHashMap<String, String> = linkedMapOf(
         "degree" to "°",
+        "deg" to "°",
+        "infty" to "∞",
         "->" to "→",
         "<-" to "←",
         "sqrt" to "√",
