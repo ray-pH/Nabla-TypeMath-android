@@ -93,7 +93,9 @@ class MathTypeService : AccessibilityService() {
                         if(curInitStr != null && curEndStr != null){
                             //do conversion only if initStr and endStr is not null
                             val toConvertStr = headStr.substring(0, headStr.length-1)
-                            if(converter.isValidFormat(toConvertStr, curInitStr, curEndStr)){
+                            if(converter.isValidFormat(toConvertStr,
+                                    curInitStr, curEndStr, param.quickMode)
+                            ){
                                 //if string is valid
                                 val converted = converter.evalString(toConvertStr, param)
                                 val newCursorPos = cursorPos - 1 +
@@ -125,7 +127,7 @@ class MathTypeService : AccessibilityService() {
     private fun updatePrefsParameters(prefs: SharedPreferences){
         param.initStr          = prefs.getString("initString", ".")
         param.endStr           = prefs.getString("endString", ".")
-        param.latexMode        = prefs.getBoolean("quickMode", false)
+        param.quickMode        = prefs.getBoolean("quickMode", false)
         param.latexMode        = prefs.getBoolean("latexMode", false)
         param.useAdditionalSym = prefs.getBoolean("useAdditionalSymbols", false)
         param.keepSpace        = prefs.getBoolean("keepSpace", false)
