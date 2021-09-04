@@ -86,6 +86,7 @@
     <string name="github_button_label">GitHub</string>
 
     <string name="how_to_use_header">How To Use</string>
+    <string name="keep_on_header">Service keep turning off</string>
     <string name="undo_header">Undo Conversion</string>
     <string name="command_and_symbols_header">Commands And Symbols</string>
     <string name="latex_mode_header">LaTeX Mode</string>
@@ -101,6 +102,12 @@
         \nFor example, in the default config, <b>init String</b> is \".\",
         and <b>end String</b> is also \".\", you can type \"<b>.alpha ^2 + beta ^2.</b>\", press space,
         and it will be converted into \"<b>α² + β²</b>\".
+    </string>
+    <string name="keep_on_desc"
+        >If the app services keeps turning off on its own, it\'s because your system is force
+        stopping it because it\'s been idle for too long. To keep the service on, turn off battery
+        optimization for this app. You can find that in your system setting, usually on
+        \n<b>Settings > Battery. Tap MORE (upper-right) > Optimize battery usage</b>.
     </string>
     <string name="undo_desc">If you accidentally converted a text, or simply just want to undo the conversion,
         just press <b>backspace</b> immediately after the conversion is done,
