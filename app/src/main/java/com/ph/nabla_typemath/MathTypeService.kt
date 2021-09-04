@@ -54,50 +54,49 @@ class MathTypeService : AccessibilityService() {
     }
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
-        if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){
-            try {
-                val className = Class.forName(event.className.toString())
-                if (EditText::class.java.isAssignableFrom(className)) {
-                    // EditText is detected
-                    val nodeInfo: AccessibilityNodeInfo? = event.source
-                    nodeInfo?.refresh()
-                    val nodeString = nodeInfo?.text.toString()
+        if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){ try {
+            val className = Class.forName(event.className.toString())
+            if (EditText::class.java.isAssignableFrom(className)) {
+                // EditText is detected
+                val nodeInfo: AccessibilityNodeInfo? = event.source
+                nodeInfo?.refresh()
+                val nodeString = nodeInfo?.text.toString()
 
-                    // Split string by cursor
-                    val tryCursorPos = nodeInfo?.textSelectionEnd
-                    val cursorPos    = (
-                            if (tryCursorPos != -1) tryCursorPos else nodeString.length) ?: 0
-                    val headStr      = nodeString.substring(0, cursorPos)
-                    val tailStr      = nodeString.substring(cursorPos)
-                    // Log.i(tag, "headStr: \"$headStr\" ; tailStr: \"$tailStr\"")
+                // Split string by cursor
+                val tryCursorPos = nodeInfo?.textSelectionEnd
+                val cursorPos    = (
+                        if (tryCursorPos != -1) tryCursorPos else nodeString.length) ?: 0
+                val headStr      = nodeString.substring(0, cursorPos)
+                val tailStr      = nodeString.substring(cursorPos)
+                // Log.i(tag, "headStr: \"$headStr\" ; tailStr: \"$tailStr\"")
 
-                    if(
-                        justEdit          &&
-                        cursorPos         == afterChangeCursorPos - 1 &&
-                        nodeString.length == afterChangeStringLen - 1
-                    ){
-                        // User delete last char right after edit
-                        textViewNodePutString(nodeInfo, beforeChangeString)
-                        textViewNodePutCursor(nodeInfo, beforeChangeCursorPos)
-                        justEdit = false
-                    }
-                    else if(
-                        headStr.isNotEmpty()  &&
-                        headStr.last() == ' ' &&
-                        nodeString.length == prevStringLen + 1
-                    ){
-                        // Press space
-
-                        val curInitStr = param.initStr
-                        val curEndStr  = param.endStr
-                        if(curInitStr != null && curEndStr != null){
-                            //do conversion only if initStr and endStr is not null
-                            val toConvertStr = headStr.substring(0, headStr.length-1)
-                            if(converter.isValidFormat(toConvertStr,
-                                    curInitStr, curEndStr, param.quickMode)
-                            ){
-                                //if string is valid
-                                val converted = converter.evalString(toConvertStr, param)
+                if(
+                    justEdit          &&
+                    cursorPos         == afterChangeCursorPos - 1 &&
+                    nodeString.length == afterChangeStringLen - 1
+                ){
+                    // User delete last char right after edit
+                    textViewNodePutString(nodeInfo, beforeChangeString)
+                    textViewNodePutCursor(nodeInfo, beforeChangeCursorPos)
+                    justEdit = false
+                }
+                else if(
+                    headStr.isNotEmpty()  &&
+                    headStr.last() == ' ' &&
+                    nodeString.length == prevStringLen + 1
+                ){
+                    // Press space
+                    val curInitStr = param.initStr
+                    val curEndStr  = param.endStr
+                    if(curInitStr != null && curEndStr != null){
+                        //do conversion only if initStr and endStr is not null
+                        val toConvertStr = headStr.substring(0, headStr.length-1)
+                        if(converter.isValidFormat(toConvertStr,
+                                curInitStr, curEndStr, param.quickMode)
+                        ){
+                            //if string is valid
+                            val converted = converter.evalString(toConvertStr, param)
+                            if(converted != toConvertStr){
                                 val newCursorPos = cursorPos - 1 +
                                         (converted.length - toConvertStr.length)
 
@@ -114,14 +113,13 @@ class MathTypeService : AccessibilityService() {
                                 justEdit = true
                             }
                         }
-                    } else {
-                        justEdit = false
                     }
-                    prevStringLen = nodeString.length
+                } else {
+                    justEdit = false
                 }
+                prevStringLen = nodeString.length
             }
-            catch (e: Exception) { e.printStackTrace() }
-        }
+        } catch (e: Exception) { e.printStackTrace() } }
     }
 
     private fun updatePrefsParameters(prefs: SharedPreferences){
