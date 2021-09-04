@@ -13,6 +13,7 @@ class SettingActivity : AppCompatActivity() {
     private val prefsName = "TypeMathPrefsFile"
     private lateinit var initStringEdit   : EditText
     private lateinit var endStringEdit    : EditText
+    private lateinit var quickModeSwitch  : SwitchCompat
     private lateinit var latexModeSwitch  : SwitchCompat
     private lateinit var useSymbolSwitch  : SwitchCompat
     private lateinit var keepSpaceSwitch  : SwitchCompat
@@ -39,6 +40,7 @@ class SettingActivity : AppCompatActivity() {
         initStringEdit     = findViewById(R.id.initialString_EditText)
         endStringEdit      = findViewById(R.id.endString_EditText)
         latexModeSwitch    = findViewById(R.id.latexMode_switch)
+        quickModeSwitch    = findViewById(R.id.quickMode_switch)
         useSymbolSwitch    = findViewById(R.id.useAdditionalSymbol_switch)
         keepSpaceSwitch    = findViewById(R.id.keepSpace_switch)
         diacriticsSwitch   = findViewById(R.id.useDiacritics_switch)
@@ -58,9 +60,15 @@ class SettingActivity : AppCompatActivity() {
             stringSaveToast.show()
         }
 
+        quickModeSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
+            editor.putBoolean("quickMode", isChecked)
+            editor.apply()
+            if(isChecked) latexModeSwitch.isChecked = false
+        }
         latexModeSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
             editor.putBoolean("latexMode", isChecked)
             editor.apply()
+            if(isChecked) quickModeSwitch.isChecked = false
             otherSettingLinear.visibility = if(isChecked) View.GONE else View.VISIBLE
         }
         useSymbolSwitch.setOnCheckedChangeListener{ _: CompoundButton, isChecked: Boolean ->
@@ -106,6 +114,7 @@ class SettingActivity : AppCompatActivity() {
         val initStr          : String? = sh.getString("initString", ".")
         val endStr           : String? = sh.getString("endString", ".")
         val latexMode        : Boolean = sh.getBoolean("latexMode", false)
+        val quickMode        : Boolean = sh.getBoolean("quickMode", false)
         val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
         val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
         val useDiacritics    : Boolean = sh.getBoolean("useDiacritics", true)
@@ -114,6 +123,7 @@ class SettingActivity : AppCompatActivity() {
 
         initStringEdit.setText(initStr)
         endStringEdit.setText(endStr)
+        quickModeSwitch.isChecked  = quickMode
         latexModeSwitch.isChecked  = latexMode
         useSymbolSwitch.isChecked  = useAdditionalSym
         keepSpaceSwitch.isChecked  = keepSpace

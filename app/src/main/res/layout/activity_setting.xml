@@ -71,7 +71,7 @@
                 android:text="" />
 
             <TextView
-                android:id="@+id/lastString_TextView"
+                android:id="@+id/endString_TextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:labelFor="@+id/endString_EditText"
@@ -95,6 +95,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:text="@string/save" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/quickMode_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/quick_mode"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/quickMode_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:text="@string/quick_mode_desc" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/latexMode_switch"

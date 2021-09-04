@@ -26,11 +26,18 @@
     <string name="end_string">End String</string>
     <string name="initial_string">Initial String</string>
     <string name="latex_mode">Latex Mode</string>
+    <string name="quick_mode">Quick Mode</string>
     <string name="use_additional_symbol">Use Additional Symbol</string>
     <string name="keep_space">Keep Space</string>
     <string name="use_diacritics">Use Diacritics</string>
 
-    <string name="latex_mode_desc">In LaTeX mode, commands must be prefixed with backslash
+    <string name="quick_mode_desc"
+        >In Quick mode, <b>End String</b> is not used. You only have to type <b>Init String</b>
+        followed by a single command, and press <b>spacebar</b>. For example, using <b>.</b> as
+        <b>Init String</b>, you type \".int\" and then press <b>spacebar</b>.
+    </string>
+    <string name="latex_mode_desc"
+        >In LaTeX mode, commands must be prefixed with backslash
         \nFor example: (<b>\\alpha\\in \\mathbb{R}</b>)\n
         \nFor superscript and subscript, use curly brackets (<b>a^{n+1}</b>)
     </string>
