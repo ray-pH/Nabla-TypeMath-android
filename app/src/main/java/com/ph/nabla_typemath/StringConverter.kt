@@ -155,6 +155,18 @@ class StringConverter {
         }
     }
 
+    // Evaluate only a single command key
+    private fun evalSingle(key: String, param: MathTypeService.Parameters): String{
+        return key
+            .let { this.customMap?.get(it) ?: it }
+            .let { replaceSuperscript(it)        }
+            .let { replaceSubscript(it)          }
+            .let { simpleMap[it] ?: it           }
+            .let { if(!param.keepSpace)       addSpaceToOperator(it)           else it}
+            .let { if(param.useDiacritics)    symLatex.latexDiacritic[it]?: it else it}
+            .let { if(param.useAdditionalSym) symLatex.latexMath[it]     ?: it else it}
+    }
+
     private val fractionCommand = "frac"
     // Evaluate math expression string, convert it into unicode
     private fun evalMath(str: String, param: MathTypeService.Parameters): String {
@@ -167,14 +179,7 @@ class StringConverter {
                 if( key == fractionCommand ) { isFrac = true; continue }
                 val res =
                     if(isFrac){ isFrac = false; evalFraction(key) }
-                    else key
-                        .let { this.customMap?.get(it) ?: it }
-                        .let { replaceSuperscript(it) }
-                        .let { replaceSubscript(it) }
-                        .let { simpleMap[it] ?: it }
-                        .let { if(!param.keepSpace)       addSpaceToOperator(it)           else it}
-                        .let { if(param.useDiacritics)    symLatex.latexDiacritic[it]?: it else it}
-                        .let { if(param.useAdditionalSym) symLatex.latexMath[it]     ?: it else it}
+                    else evalSingle(key, param)
                 evaluatedString += (res + separator)
             }
         }else{
@@ -204,7 +209,8 @@ class StringConverter {
             val headString  = str.substring(0, id)
             val validString = str.substring(id + initStr.length,
                                             str.length - endStr.length)
-            headString + evalMath(validString, param)
+            if (param.quickMode) headString + evalSingle(validString, param)
+            else headString + evalMath(validString, param)
         }
     }
 }

@@ -18,6 +18,7 @@ class MathTypeService : AccessibilityService() {
     data class Parameters(val name: String) {
         var initStr          : String? = "."
         var endStr           : String? = "."
+        var quickMode        : Boolean = false
         var latexMode        : Boolean = false
         var useAdditionalSym : Boolean = false
         var keepSpace        : Boolean = false
@@ -126,6 +127,7 @@ class MathTypeService : AccessibilityService() {
     private fun updatePrefsParameters(prefs: SharedPreferences){
         param.initStr          = prefs.getString("initString", ".")
         param.endStr           = prefs.getString("endString", ".")
+        param.latexMode        = prefs.getBoolean("quickMode", false)
         param.latexMode        = prefs.getBoolean("latexMode", false)
         param.useAdditionalSym = prefs.getBoolean("useAdditionalSymbols", false)
         param.keepSpace        = prefs.getBoolean("keepSpace", false)
