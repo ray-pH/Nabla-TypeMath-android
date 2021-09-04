@@ -138,7 +138,6 @@
     <string name="import_export_custom_command">IMPORT / EXPORT</string>
     <string name="copy">COPY</string>
     <string name="paste">PASTE</string>
-    <string name="done">DONE</string>
     <string name="gson_file">GSON File</string>
 
     <string name="port_desc"
