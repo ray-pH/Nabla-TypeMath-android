@@ -95,9 +95,7 @@ class MathTypeService : AccessibilityService() {
                             val toConvertStr = headStr.substring(0, headStr.length-1)
                             if(converter.isValidFormat(toConvertStr, curInitStr, curEndStr)){
                                 //if string is valid
-                                val converted = converter.evalString(
-                                    toConvertStr, curInitStr, curEndStr, param
-                                )
+                                val converted = converter.evalString(toConvertStr, param)
                                 val newCursorPos = cursorPos - 1 +
                                         (converted.length - toConvertStr.length)
 

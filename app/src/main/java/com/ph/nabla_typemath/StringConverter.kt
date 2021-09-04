@@ -198,19 +198,22 @@ class StringConverter {
         return evaluatedString
     }
 
-    fun evalString(str: String, initStr: String, endStr: String,
-                   param: MathTypeService.Parameters
-    ): String {
+    fun evalString(str: String, param: MathTypeService.Parameters): String {
+        val endStr = param.endStr
+        val initStr = param.initStr
+        if(endStr.isNullOrBlank() || initStr.isNullOrBlank()) return str
         val id = str
             .substring(0, str.length - endStr.length)
             .lastIndexOf(initStr)
         return if (id < 0) str
         else {
             val headString  = str.substring(0, id)
-            val validString = str.substring(id + initStr.length,
-                                            str.length - endStr.length)
-            if (param.quickMode) headString + evalSingle(validString, param)
-            else headString + evalMath(validString, param)
+            val validString = str.substring(id + initStr.length, str.length - endStr.length)
+            val evaluated   =
+                if (param.quickMode) evalSingle(validString, param)
+                else                 evalMath(validString, param)
+            if (evaluated == validString) str
+            else headString + evaluated
         }
     }
 }
