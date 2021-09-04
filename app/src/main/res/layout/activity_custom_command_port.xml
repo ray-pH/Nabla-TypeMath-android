@@ -31,6 +31,12 @@
                     android:inputType="textMultiLine"
                     android:hint="@string/gson_file"
                     android:autofillHints="GSON File" />
+
+                <TextView
+                    android:id="@+id/port_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/port_desc" />
             </LinearLayout>
         </ScrollView>
 
@@ -69,7 +75,7 @@
                 android:id="@+id/port_done_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/done" />
+                android:text="@string/import_label" />
 
         </LinearLayout>
 

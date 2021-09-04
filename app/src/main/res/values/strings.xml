@@ -141,4 +141,11 @@
     <string name="done">DONE</string>
     <string name="gson_file">GSON File</string>
 
+    <string name="port_desc"
+        >To save/export your custom commands, copy the text above, then save it into a text file
+        or share it somewhere.
+        \nTo import a custom commands, copy the text that you want to import, paste it here,
+        and then press IMPORT.
+    </string>
+    <string name="import_label">import</string>
 </resources>

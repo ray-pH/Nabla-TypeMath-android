@@ -27,11 +27,14 @@ class CustomCommandPort : AppCompatActivity() {
         val gSONStr = sh?.getString("customMap", "") ?: ""
         textBox.setText(gSONStr)
 
+        val copiedToClipboard = Toast.makeText(applicationContext,
+            "Copied to Clipboard", Toast.LENGTH_SHORT)
         val copyButton   = findViewById<Button>(R.id.port_copy_button)
         copyButton.setOnClickListener {
             val text = textBox.text
             val clip : ClipData = ClipData.newPlainText("simple text", text)
             clipboard.setPrimaryClip(clip)
+            copiedToClipboard.show()
         }
 
         val pasteButton  = findViewById<Button>(R.id.port_paste_button)
