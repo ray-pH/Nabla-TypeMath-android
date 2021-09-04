@@ -113,19 +113,24 @@ class StringConverter {
 
     // Return whether str is in valid format or not
     // Valid format for str is ".....<initChar>.....<endChar>(cursor)..."
-    fun isValidFormat(str: String, initStr: String, endStr: String): Boolean {
-        // check if string is long enough
-        if(str.length <= endStr.length) return false
-        if(str.length <= endStr.length + initStr.length) return false
+    fun isValidFormat(str: String, initStr: String, endStr: String, quickMode: Boolean): Boolean {
+        if(!quickMode) {
+            // check if string is long enough
+            if(str.length <= endStr.length) return false
+            if(str.length <= endStr.length + initStr.length) return false
 
-        // check if last part of string is endStr
-        for(i in endStr.indices){
-            val j = str.length - endStr.length + i
-            if(str[j] != endStr[i]) return false
+            // check if last part of string is endStr
+            for(i in endStr.indices){
+                val j = str.length - endStr.length + i
+                if(str[j] != endStr[i]) return false
+            }
+        }else{
+            if(str.length <= initStr.length) return false
         }
 
         // check if initStr exist
-        val headStr = str.substring(0, str.length - endStr.length)
+        val headStr = if (quickMode) str
+                    else str.substring(0, str.length - endStr.length)
         val initStrId = headStr.lastIndexOf(initStr)
         if(initStrId == -1) return false
 
@@ -199,21 +204,21 @@ class StringConverter {
     }
 
     fun evalString(str: String, param: MathTypeService.Parameters): String {
-        val endStr = param.endStr
+        val endStr  = param.endStr
         val initStr = param.initStr
         if(endStr.isNullOrBlank() || initStr.isNullOrBlank()) return str
+
+        val endLen = if(param.quickMode) 0 else endStr.length
         val id = str
-            .substring(0, str.length - endStr.length)
+            .substring(0, str.length - endLen)
             .lastIndexOf(initStr)
-        return if (id < 0) str
-        else {
-            val headString  = str.substring(0, id)
-            val validString = str.substring(id + initStr.length, str.length - endStr.length)
-            val evaluated   =
-                if (param.quickMode) evalSingle(validString, param)
-                else                 evalMath(validString, param)
-            if (evaluated == validString) str
-            else headString + evaluated
-        }
+        if (id < 0) return str
+        val headString  = str.substring(0, id)
+        val validString = str.substring(id + initStr.length, str.length - endLen)
+        val evaluated   =
+            if (param.quickMode) evalSingle(validString, param)
+            else evalMath(validString, param)
+        return if (evaluated == validString) str
+        else headString + evaluated
     }
 }
