@@ -99,7 +99,9 @@
     </string>
     <string name="how_to_use_desc">Type your commands in between <b>init String</b> and <b>end String</b>.
         And then press space to convert it into symbols.\n
-        \nFor example, in the default config, <b>init String</b> is \".\",
+        \nSince version 1.3, the default behaviour is using quickMode with \".\" as <b>init String</b>.
+        You can write \"<b>.alpha</b>\", press space, and it will be converted into \"<b>α</b>\"\n.
+        \n[If not using quickMode] For example, in the default config, <b>init String</b> is \".\",
         and <b>end String</b> is also \".\", you can type \"<b>.alpha ^2 + beta ^2.</b>\", press space,
         and it will be converted into \"<b>α² + β²</b>\".
     </string>
@@ -117,7 +119,8 @@
         By default, <b>Additional Symbols</b> is not being used, but can be changed in the setting menu.
     </string>
     <string name="super_sub_desc">Subscript and superscript is invoked using caret (^) and underscore (_).\n
-        \nIn default mode, all character will be converted until space, for example
+        \nIn quick mode (default), write ^ and _ after <b>init String</b>, for example \"<b>.^2+i</b>\"\n
+        \nIn normal mode, all character will be converted until space, for example
         \"<b>x^2+n y^n</b>\" will be converted into \"<b>x²⁺ⁿyⁿ</b>\" while
         \"<b>x^2 +n y^n</b>\" will be converted into \"<b>x²+nyⁿ</b>\".\n
         \nNot all character is available as subscript or superscript in unicode, in that case
@@ -125,7 +128,9 @@
         and superscript is not available, it will be converted into subscript and superscript
         version of \"<b>θ</b>\" (this is intentional).
     </string>
-    <string name="diacritics_desc">In default mode, diacritic is written after the symbol, for example
+    <string name="diacritics_desc">In quick mode (default), diacritic can be written after the symbol,
+        for example\"<b>x.dot</b>\" for \"<b>ẍ</b>\", or \"<b>o.bar</b>\" for \"<b>o̅</b>\".
+        \nIn normal mode, diacritic is written after the symbol, for example
         \"<b>x dot</b>\" for \"<b>ẍ</b>\", or \"<b>o bar</b>\" for \"<b>o̅</b>\".
         \nIn LaTeX mode, use \"<b>\\ddot{x}</b>\" and \"<b>\\bar{o}</b>\".
     </string>
