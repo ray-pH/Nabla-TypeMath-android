@@ -137,6 +137,14 @@ class StringConverter {
         // check if first char after initStr is not space
         if (headStr[initStrId + initStr.length] == ' ') return false
 
+        val contentStr = headStr.substring(initStrId + initStr.length)
+        // check if str contains newline and whitespaces
+        if (contentStr.contains('\n')) return false
+        if (quickMode){
+            if (contentStr.contains(' ')) return false
+            if (contentStr.contains('\t')) return false
+        }
+
         return true
     }
 

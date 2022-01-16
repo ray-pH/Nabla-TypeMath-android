@@ -18,7 +18,7 @@ class MathTypeService : AccessibilityService() {
     data class Parameters(val name: String) {
         var initStr          : String? = "."
         var endStr           : String? = "."
-        var quickMode        : Boolean = false
+        var quickMode        : Boolean = true
         var latexMode        : Boolean = false
         var useAdditionalSym : Boolean = false
         var keepSpace        : Boolean = false

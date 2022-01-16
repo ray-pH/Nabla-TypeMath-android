@@ -114,7 +114,7 @@ class SettingActivity : AppCompatActivity() {
         val initStr          : String? = sh.getString("initString", ".")
         val endStr           : String? = sh.getString("endString", ".")
         val latexMode        : Boolean = sh.getBoolean("latexMode", false)
-        val quickMode        : Boolean = sh.getBoolean("quickMode", false)
+        val quickMode        : Boolean = sh.getBoolean("quickMode", true)
         val useAdditionalSym : Boolean = sh.getBoolean("useAdditionalSymbols", false)
         val keepSpace        : Boolean = sh.getBoolean("keepSpace", false)
         val useDiacritics    : Boolean = sh.getBoolean("useDiacritics", true)
