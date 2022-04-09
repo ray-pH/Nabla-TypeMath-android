@@ -61,18 +61,23 @@ class StringConverter {
         }
     }
 
-    // evaluate latex diacritic commands "\com{<param>}"
-    private val latexDiacriticReg = "\\\\[a-zA-Z]+\\{[a-zA-Z]*\\}".toRegex()
-    private fun replaceDiacriticLatex(str: String): String{
-        return str.replace(latexDiacriticReg) {
+    // evaluate latex commands with param "\com{<param>}"
+    private val latexParamRegex = "\\\\[a-zA-Z]+\\{[a-zA-Z]*\\}".toRegex()
+    private fun replaceParamRegex(str: String): String{
+        return str.replace(latexParamRegex) {
             val strIt : String = it.value
-            val leftId = strIt.indexOf('{')
-            val keyWord = strIt.substring(1,leftId)
-            val params  = strIt.substring(leftId+1, strIt.length-1)
-            if(symLatex.latexDiacritic.containsKey(keyWord))
-                params + symLatex.latexDiacritic[keyWord]
-            else
-                "\\${keyWord}{${params}}"
+            val strRaw : String = strIt.drop(1)
+            if(symLatex.latexMath.containsKey(strRaw))
+                symLatex.latexMath[strRaw] ?: strIt
+            else {
+                val leftId = strIt.indexOf('{')
+                val keyWord = strIt.substring(1, leftId)
+                val params = strIt.substring(leftId + 1, strIt.length - 1)
+                if (symLatex.latexDiacritic.containsKey(keyWord))
+                    params + symLatex.latexDiacritic[keyWord]
+                else
+                    "\\${keyWord}{${params}}"
+            }
         }
     }
 
@@ -203,7 +208,7 @@ class StringConverter {
                     .let { replaceSubscriptLatex(it) }
                     .let { replaceCustomStringLatex(it) }
                     .let { replaceStringLatex(it) }
-                    .let { if(param.useDiacritics) replaceDiacriticLatex(it) else it }
+                    .let { if(param.useDiacritics) replaceParamRegex(it) else it }
                     .let { replaceFracLatex(it) }
                 evaluatedString += "$res "
             }
