@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.provider.Settings
 import android.view.View
 import android.widget.Button
+import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
 
@@ -74,15 +75,18 @@ class MainActivity : AppCompatActivity() {
         val serviceInfoOn   = findViewById<TextView>(R.id.service_info_label_on)
         val serviceInfoOff  = findViewById<TextView>(R.id.service_info_label_off)
         val serviceInfoDesc = findViewById<TextView>(R.id.service_allow_permission_desc)
+        val serviceInfoFrame = findViewById<ScrollView>(R.id.service_info_frame)
 
         if(serviceEnabled){
             serviceInfoOn.visibility   = View.VISIBLE
             serviceInfoOff.visibility  = View.GONE
             serviceInfoDesc.visibility = View.GONE
+            serviceInfoFrame.visibility = View.GONE
         }else{
             serviceInfoOn.visibility   = View.GONE
             serviceInfoOff.visibility  = View.VISIBLE
             serviceInfoDesc.visibility = View.VISIBLE
+            serviceInfoFrame.visibility = View.VISIBLE
         }
     }
 }

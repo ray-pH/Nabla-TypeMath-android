@@ -59,7 +59,11 @@
     <string name="service_allow_permission_desc">
         Nabla MathType service is off.
         In order for Nabla TypeMath to function properly,
-        the service must be turned on by allowing permission.
+        the service must be turned on by allowing permission.\n\n
+        The AccessibilityServices API allows Nabla to interact with user\'s
+        text input on another apps. This is necessary for Nabla Typemath to be able to detect
+        when the user is typing the commands, so that it can then convert them
+        into mathematical symbols.
     </string>
 
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
@@ -141,7 +145,7 @@
     <string name="rate_on_google_play">Rate on GOOGLE PLAY</string>
     <string name="donate">DONATE</string>
     <string name="import_export_custom_command">IMPORT / EXPORT</string>
-    <string name="copy">COPY</string>
+    <string name="copy_str">COPY</string>
     <string name="paste">PASTE</string>
     <string name="gson_file">GSON File</string>
 
