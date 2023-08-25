@@ -140,11 +140,12 @@ class MathTypeService : AccessibilityService() {
         }
     }
 
-    private fun onPreferenceChanges(prefs: SharedPreferences, key: String){
+    private fun onPreferenceChanges(prefs: SharedPreferences, key: String?){
         try{
             if(key == "customMap"){
                 updateConverterCustomMap(prefs)
             }else{
+                // if key == null (prefs is cleared), also go here
                 updatePrefsParameters(prefs)
             }
         }
