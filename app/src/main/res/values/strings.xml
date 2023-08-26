@@ -11,7 +11,7 @@
     <string name="service_info_label_on">ON</string>
     <string name="service_info_label_off">OFF</string>
 
-    <string name="allow_permission">Allow Permission</string>
+    <string name="allow_permission">Accessibility Permission</string>
     <string name="accessibility_service_label">Nabla TypeMath Service</string>
     <string name="accessibility_service_description">This service will allow Nabla TypeMath to do its functionality.
     </string>
@@ -65,6 +65,9 @@
         when the user is typing the commands, so that it can then convert them
         into mathematical symbols.
     </string>
+    <string name="accessalert_title">Go To Accessibility Setting?</string>
+    <string name="accessalert_pos">Go To Accessibility Setting</string>
+    <string name="accessalert_neg">Not Now</string>
 
     <string name="expand_greek_symbols_card">expand greek symbols card</string>
     <string name="command">Command</string>

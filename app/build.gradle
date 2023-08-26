@@ -10,7 +10,7 @@ android {
         applicationId "com.ph.nabla_typemath"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 8
+        versionCode 10
         versionName "1.3.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
