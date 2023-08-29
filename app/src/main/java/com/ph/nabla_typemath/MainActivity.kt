@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.bundleOf
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,7 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         val allowPermissionButton = findViewById<Button>(R.id.allowPermissionButton)
         allowPermissionButton.setOnClickListener {
-            this.acessServiceDialogAlert()
+            this.acessServiceDialogAlert(applicationContext)
         }
 
         val gotoSettingButton = findViewById<Button>(R.id.gotoSettingButton)
@@ -70,13 +71,23 @@ class MainActivity : AppCompatActivity() {
         return prefString?.contains(serviceStr) ?: false
     }
 
-    private fun acessServiceDialogAlert(){
+    private fun acessServiceDialogAlert(context: Context){
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.accessalert_title)
         builder.setMessage(R.string.service_allow_permission_desc)
         builder.setPositiveButton(R.string.accessalert_pos
         ) { _: DialogInterface?, _: Int ->
+            val serviceName = "MathTypeService"
+            val argKey   = ":settings:fragment_args_key"
+            val serviceStr = "${context.packageName}/${context.packageName}.${serviceName}"
+            val showArgs = serviceStr
+            // val showArgs = packageName + "/" + T::class.java.name
+
             val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+
+            intent.putExtra(":settings:fragment_args_key", showArgs)
+            intent.putExtra(":settings:show_fragment_args", bundleOf(argKey to showArgs))
             startActivity(intent)
         }
         builder.setNegativeButton(R.string.accessalert_neg
@@ -104,7 +115,7 @@ class MainActivity : AppCompatActivity() {
             serviceInfoOff.visibility  = View.VISIBLE
             serviceInfoDesc.visibility = View.VISIBLE
             serviceInfoFrame.visibility = View.VISIBLE
-            this.acessServiceDialogAlert()
+            this.acessServiceDialogAlert(applicationContext)
         }
     }
 }
