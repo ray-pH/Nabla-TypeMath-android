@@ -13,7 +13,9 @@
 
     <string name="allow_permission">Accessibility Permission</string>
     <string name="accessibility_service_label">Nabla TypeMath Service</string>
-    <string name="accessibility_service_description">This service will allow Nabla TypeMath to do its functionality.
+    <string name="accessibility_service_description">This service will allow Nabla TypeMath to
+        observe when user is typing command keywords, so that it can then convert them into
+        mathematical symbols. Don\'t worry, whatever you type will never leave the device.
     </string>
 
     <string name="setting">Setting</string>
@@ -57,13 +59,13 @@
     </string>
 
     <string name="service_allow_permission_desc">
-        Nabla MathType service is off.
+        Nabla TypeMath service is off.
         In order for Nabla TypeMath to function properly,
-        the service must be turned on by allowing permission.\n\n
-        The AccessibilityServices API allows Nabla to interact with user\'s
-        text input on another apps. This is necessary for Nabla Typemath to be able to detect
-        when the user is typing the commands, so that it can then convert them
-        into mathematical symbols.
+        the service must be turned on by allowing permission.\n
+        \nThe permission allows Nabla to observe when user
+        is typing the command keywords, so that it can then
+        convert them into mathematical symbols.
+        \n\nDon\'t worry, whatever you type will never leave the device.
     </string>
     <string name="accessalert_title">Go To Accessibility Setting?</string>
     <string name="accessalert_pos">Go To Accessibility Setting</string>
