@@ -162,8 +162,9 @@ class StringConverter {
         }
     }
 
-    // evaluate fraction expression "frac <num>/<den>"
+    // evaluate fraction expression "<num>/<den>"
     private fun evalFraction(str: String): String {
+        if (!str.contains('/')) return str
         return sym.vulgarFractionMap[str] ?: str.let {
             val (num, den) = it.split('/')
             val numUnicode = num.map{ c -> sym.superscriptMap[c] ?: c}.joinToString("")
@@ -178,6 +179,7 @@ class StringConverter {
             .let { this.customMap?.get(it) ?: it }
             .let { replaceSuperscript(it)        }
             .let { replaceSubscript(it)          }
+            .let { evalFraction(it)              }
             .let { simpleMap[it] ?: it           }
             .let { if(!param.keepSpace)       addSpaceToOperator(it)           else it}
             .let { if(param.useDiacritics)    symLatex.latexDiacritic[it]?: it else it}
