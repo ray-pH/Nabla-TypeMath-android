@@ -55,9 +55,8 @@ class StringConverter {
             val itStr = it.value
             val subStr = itStr.substring(itStr.indexOf('{')+1, itStr.length-1) // ...}{..
             val (num, den) = subStr.split("}{")
-            val numUnicode = num.map{ c -> sym.superscriptMap[c] ?: c}.toString()
-            val denUnicode = den.map{ c -> sym.subscriptMap[c]   ?: c}.toString()
-            numUnicode + fractionSlash + denUnicode
+            evalFraction("$num/$den")
+//            numUnicode + fractionSlash + denUnicode
         }
     }
 
@@ -167,8 +166,8 @@ class StringConverter {
     private fun evalFraction(str: String): String {
         return sym.vulgarFractionMap[str] ?: str.let {
             val (num, den) = it.split('/')
-            val numUnicode = num.map{ c -> sym.superscriptMap[c] ?: c}.toString()
-            val denUnicode = den.map{ c -> sym.subscriptMap[c]   ?: c}.toString()
+            val numUnicode = num.map{ c -> sym.superscriptMap[c] ?: c}.joinToString("")
+            val denUnicode = den.map{ c -> sym.subscriptMap[c]   ?: c}.joinToString("")
             numUnicode + fractionSlash + denUnicode
         }
     }
