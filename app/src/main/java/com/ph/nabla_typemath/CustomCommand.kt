@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class CustomCommand : AppCompatActivity() {
 
+//    private val tag = "NablaMathTypeService"
     private val gsonHandler = CustomCommandGSONHandler()
     private var counter = 0
     private var maxIndex = 0
@@ -48,11 +49,13 @@ class CustomCommand : AppCompatActivity() {
     private fun saveToPref(){
         val linkedMap = genLinkedHashMap()
         val gSONStr = gsonHandler.linkedMapToGSONStr(linkedMap)
-        // Log.i(tag, gSONStr)
+//        Log.i(tag, gSONStr)
         val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
         val editor = sh.edit()
         editor.putString("customMap", gSONStr)
         editor.apply()
+//        val status = editor.commit()
+//        Log.i(tag, "saved status : $status")
     }
 
 
