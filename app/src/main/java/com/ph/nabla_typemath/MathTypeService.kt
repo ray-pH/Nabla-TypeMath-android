@@ -55,6 +55,24 @@ class MathTypeService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event?.eventType == AccessibilityEvent.TYPE_VIEW_TEXT_CHANGED){ try {
+            // make sure listener is still exist
+            // for some reason, (maybe because of optimization),
+            // even if the listener is stored in `this.listener`
+            // if there's no other code referencing it, the listener is yeeted by the GC
+            if (this.listener == null){
+                // maybe what we need to do is just to reference `this.listener` somewhere
+                // in the code so that the optimizer and GC didn't remove the object
+                //
+                // but this will do, recreate the listener again if for some reason the listener
+                // is gone
+                val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
+                this.listener = OnSharedPreferenceChangeListener { prefs, key -> onPreferenceChanges(prefs,key) }
+                sh.registerOnSharedPreferenceChangeListener(this.listener)
+                updateConverterCustomMap(sh)
+                updatePrefsParameters(sh)
+            }
+            //Log.i(tag, "listener still exist? ${this.listener != null}")
+            //Log.i(tag, "$this.listener")
             val className = Class.forName(event.className.toString())
             if (EditText::class.java.isAssignableFrom(className)) {
                 // EditText is detected
@@ -134,6 +152,7 @@ class MathTypeService : AccessibilityService() {
 
     private fun updateConverterCustomMap(prefs: SharedPreferences) {
         val gSONStr = prefs.getString("customMap", "") ?: ""
+        //Log.i(tag, gSONStr)
         if (gSONStr.isNotEmpty()) {
             val customMap: LinkedHashMap<String, String> = gsonHandler.gSONStrToLinkedMap(gSONStr)
             converter.loadCustomMap(customMap)
@@ -141,6 +160,7 @@ class MathTypeService : AccessibilityService() {
     }
 
     private fun onPreferenceChanges(prefs: SharedPreferences, key: String?){
+        //Log.i(tag, "$key is changed")
         try{
             if(key == "customMap"){
                 updateConverterCustomMap(prefs)
@@ -159,10 +179,8 @@ class MathTypeService : AccessibilityService() {
 
         try{
             val sh : SharedPreferences = getSharedPreferences(prefsName, MODE_PRIVATE)
-            sh.registerOnSharedPreferenceChangeListener(
-                OnSharedPreferenceChangeListener { prefs, key -> onPreferenceChanges(prefs,key)
-                }.also { this.listener = it }
-            )
+            this.listener = OnSharedPreferenceChangeListener { prefs, key -> onPreferenceChanges(prefs,key) }
+            sh.registerOnSharedPreferenceChangeListener(this.listener)
             updateConverterCustomMap(sh)
             updatePrefsParameters(sh)
         }
